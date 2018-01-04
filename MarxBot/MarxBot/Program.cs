@@ -68,12 +68,12 @@ namespace DelBot {
         private async Task HandleCommandAsync(SocketMessage arg) {
             var message = arg as SocketUserMessage;
 
-            if (message is null || message.Author.IsBot)
+            if (message is null)// || message.Author.IsBot)
                 return;
 
             int argPos = 0;
 
-            if (message.HasStringPrefix(">>", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
+            if (message.HasStringPrefix("$$", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
                 var context = new SocketCommandContext(_client, message);
 
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
