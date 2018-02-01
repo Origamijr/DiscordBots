@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 namespace MarxBot.Modules {
     public class Math : ModuleBase<SocketCommandContext> {
 
-        private static bool looping = false;
 
+        // Static variables for looped commands, but I don't like using them
+        private static bool looping = false;
         private static int tempInt = 0;
+
 
         [Command("triangle")]
         public async Task TriangleAsync(int n) {
@@ -38,9 +40,14 @@ namespace MarxBot.Modules {
             }
         }
 
+
         [Command("factorial")]
         public async Task FactorialAsync(int n) {
-            if (n <= 1) {
+            if (n == 0) {
+
+                await ReplyAsync("Result: 1");
+
+            } else if (n <= 1) {
 
                 if (looping) {
                     looping = false;
