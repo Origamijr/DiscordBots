@@ -19,13 +19,26 @@ namespace DelBot.Modules {
             string user = Context.User.Mention;
 
             if (hour < 8) {
-                await ReplyAsync("Good Morning, " + user + "-sama.");
+                await ReplyAsync("Good Morning, " + user + "-dono.");
             } else if (hour < 14) {
-                await ReplyAsync("Good Afternoon, " + user + "-sama.");
+                await ReplyAsync("Good Afternoon, " + user + "-dono.");
             } else {
-                await ReplyAsync("Good Evening, " + user + "-sama.");
+                await ReplyAsync("Good Evening, " + user + "-dono.");
             }
         }
 
+        [Command("say")]
+        public async Task SayAsync([Remainder]string s) {
+            await ReplyAsync(s);
+        }
+
+        [Command("split")]
+        public async Task SplitAsync([Remainder]string s) {
+            List<string> words = Utilities.ParamSplit(s);
+
+            foreach (string w in words) {
+                await ReplyAsync("`" + w + "`");
+            }
+        }
     }
 }

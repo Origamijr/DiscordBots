@@ -70,5 +70,15 @@ namespace MarxBot.Modules {
                 await ReplyAsync("$$factorial " + (n - 1));
             }
         }
+
+        [Command("invSqrt")]
+        public async Task InvSqrt(float x) {
+            float xhalf = 0.5f * x;
+            int i = BitConverter.ToInt32(BitConverter.GetBytes(x), 0);
+            i = 0x5f3759df - (i >> 1);
+            x = BitConverter.ToSingle(BitConverter.GetBytes(i), 0);
+            x = x * (1.5f - xhalf * x * x);
+            await ReplyAsync("Estimate: " + x);
+        }
     }
 }

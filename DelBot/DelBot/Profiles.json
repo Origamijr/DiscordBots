@@ -1,0 +1,40 @@
+{
+  "236746009688932354": {
+    "remember": "this multiworded phrases",
+    "rpg": {
+      "name": "Alumina",
+      "str": "6",
+      "vit": "0",
+      "int": "7",
+      "dex": "7"
+    }
+  },
+  "388256006833963011": {
+    "remember": "something complicated",
+    "rpg": {
+      "name": "Del",
+      "str": "4",
+      "vit": "1",
+      "int": "6",
+      "dex": "2"
+    }
+  },
+  "394043169291108372": {
+    "rpg": {
+      "name": "MarxBot",
+      "str": "10",
+      "vit": "10",
+      "int": "10",
+      "dex": "10"
+    }
+  },
+  "328340236079988736": {
+    "rpg": {
+      "name": "Xuan",
+      "str": "8",
+      "vit": "4",
+      "int": "6",
+      "dex": "2"
+    }
+  }
+}

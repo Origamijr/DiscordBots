@@ -15,5 +15,10 @@ namespace MarxBot.Modules {
         public async Task PongAsync() {
             await ReplyAsync("ping pong");
         }
+
+        [Command("say")]
+        public async Task SayAsync([Remainder]string s) {
+            await ReplyAsync(s);
+        }
     }
 }
