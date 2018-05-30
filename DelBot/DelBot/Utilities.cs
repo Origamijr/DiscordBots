@@ -36,6 +36,7 @@ namespace DelBot {
             return 0;
         }
 
+        // Splits a param string into arguments. Arguments enclosed in quotes are considered a single argument.
         public static List<string> ParamSplit(string arg) {
             List<string> args = new List<string>();
             

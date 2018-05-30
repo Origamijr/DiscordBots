@@ -12,26 +12,7 @@ namespace DelBot.Databases {
 
         private JObject profiles = null;
         private string filename;
-
-        // Basic constructor
-        public UserDatabase(string filename) {
-            if (!(openFiles.Contains(filename))) {
-
-                openFiles.Add(filename);
-                this.filename = filename;
-
-                try {
-                    using (StreamReader sr = File.OpenText(filename)) {
-                        profiles = (JObject)JToken.ReadFrom(new JsonTextReader(sr));
-                    }
-                } catch (IOException) {
-                    profiles = new JObject();
-                }
-
-                Console.WriteLine("Successfully opened " + filename);
-            }
-        }
-
+        
         // Open database
         public static UserDatabase Open(string filename) {
             return new UserDatabase(filename);
@@ -112,7 +93,35 @@ namespace DelBot.Databases {
 
             return false;
         }
-        
+
+        public static bool WriteString(string filename, List<string> keys, string s) {
+            UserDatabase db = Open(filename);
+            if (db.IsOpen() && db.WriteString(keys, s) && db.Close()) return true;
+            return false;
+        }
+
+
+        // -----[ Instance constructor and methods ]-------------------------------------
+
+        // Basic constructor
+        public UserDatabase(string filename) {
+            if (!(openFiles.Contains(filename))) {
+
+                openFiles.Add(filename);
+                this.filename = filename;
+
+                try {
+                    using (StreamReader sr = File.OpenText(filename)) {
+                        profiles = (JObject)JToken.ReadFrom(new JsonTextReader(sr));
+                    }
+                } catch (IOException) {
+                    profiles = new JObject();
+                }
+
+                Console.WriteLine("Successfully opened " + filename);
+            }
+        }
+
         // Check if a database is open
         public bool IsOpen() {
             return profiles != null;
@@ -155,8 +164,11 @@ namespace DelBot.Databases {
                     return null;
                 }
             }
-
-            return (string)step[keys[keys.Count - 1]];
+            if (step[keys[keys.Count - 1]] as JObject == null) {
+                return (string)step[keys[keys.Count - 1]];
+            } else {
+                return null;
+            }
         }
 
         // Write a string to the JObject

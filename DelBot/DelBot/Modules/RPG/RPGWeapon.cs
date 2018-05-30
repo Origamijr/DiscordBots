@@ -11,6 +11,10 @@ namespace DelBot.Modules.RPG {
         string nameTag = "name";
         string dbName = "Weapons.json";
 
+        public RPGWeapon() {
+
+        }
+
         public int RawDmg(int baseDmg) {
             return baseDmg * scaleDmg + augDmg; 
         }
