@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace DelBot.Databases {
@@ -171,6 +172,28 @@ namespace DelBot.Databases {
             }
         }
 
+        // Access an array in the JObject
+        public List<string> AccessArray(List<string> keys) {
+            if (keys == null || profiles == null) {
+                return null;
+            }
+
+            JObject step = profiles;
+            for (int i = 0; i < keys.Count - 1; i++) {
+                step = step[keys[i]] as JObject;
+
+                if (step == null) {
+                    return null;
+                }
+            }
+            if (step[keys[keys.Count - 1]] as JArray == null) {
+                JArray arr = step[keys[keys.Count - 1]] as JArray;
+                return arr.ToObject<List<string>>();
+            } else {
+                return null;
+            }
+        }
+
         // Write a string to the JObject
         public bool WriteString(List<string> keys, string s) {
             if (keys == null || profiles == null) {
@@ -188,6 +211,26 @@ namespace DelBot.Databases {
             }
 
             step[keys[keys.Count - 1]] = s;
+            return true;
+        }
+
+        // Write a string to the JObject
+        public bool WriteArray(List<string> keys, List<string> arr) {
+            if (keys == null || profiles == null) {
+                return false;
+            }
+
+            JObject step = profiles;
+            for (int i = 0; i < keys.Count - 1; i++) {
+
+                if (step[keys[i]] == null) {
+                    step[keys[i]] = new JObject();
+                }
+
+                step = step[keys[i]] as JObject;
+            }
+
+            step[keys[keys.Count - 1]] = new JArray(arr);
             return true;
         }
     }
