@@ -1,0 +1,19 @@
+{
+  "ShortTermCFGMemory": {
+    "V": [
+      "LIVING",
+      "EGG"
+    ],
+    "T": [
+      "dead",
+      "."
+    ],
+    "R": [
+      "LIVING 0.95-> LIVING EGG",
+      "LIVING 0.05-> dead",
+      "EGG 0.1-> LIVING",
+      "EGG 0.9-> ."
+    ],
+    "S": "LIVING"
+  }
+}

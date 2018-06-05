@@ -101,6 +101,25 @@ namespace DelBot.Databases {
             return false;
         }
 
+        public static bool WriteArray(string filename, List<string> keys, string[] arr) {
+            UserDatabase db = Open(filename);
+            if (db.IsOpen() && db.WriteArray(keys, arr) && db.Close()) return true;
+            return false;
+        }
+
+        public static string ReadString(string filename, List<string> keys) {
+            UserDatabase db = Open(filename);
+            string ret = null;
+            if (db.IsOpen() && (ret = db.AccessString(keys)) != null && db.Close()) return ret;
+            return null;
+        }
+
+        public static string[] ReadArray(string filename, List<string> keys) {
+            UserDatabase db = Open(filename);
+            string[] ret = null;
+            if (db.IsOpen() && (ret = db.AccessArray(keys)) != null && db.Close()) return ret;
+            return null;
+        }
 
         // -----[ Instance constructor and methods ]-------------------------------------
 
@@ -173,7 +192,7 @@ namespace DelBot.Databases {
         }
 
         // Access an array in the JObject
-        public List<string> AccessArray(List<string> keys) {
+        public string[] AccessArray(List<string> keys) {
             if (keys == null || profiles == null) {
                 return null;
             }
@@ -186,9 +205,9 @@ namespace DelBot.Databases {
                     return null;
                 }
             }
-            if (step[keys[keys.Count - 1]] as JArray == null) {
+            if (step[keys[keys.Count - 1]] as JArray != null) {
                 JArray arr = step[keys[keys.Count - 1]] as JArray;
-                return arr.ToObject<List<string>>();
+                return arr.ToObject<List<string>>().ToArray();
             } else {
                 return null;
             }
@@ -215,7 +234,7 @@ namespace DelBot.Databases {
         }
 
         // Write a string to the JObject
-        public bool WriteArray(List<string> keys, List<string> arr) {
+        public bool WriteArray(List<string> keys, string[] arr) {
             if (keys == null || profiles == null) {
                 return false;
             }

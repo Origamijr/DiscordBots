@@ -236,9 +236,16 @@ namespace DelBot.CFGUtils {
         public void ToCNF() {
             if (tRules != null) return;
 
+            // Verify start variable
+            foreach (var rule in vRules) {
+                foreach (var beta in rule.Value) {
+                    foreach (var production in beta.Split(" ")) {
+
+                    }
+                }
+            }
+
             // Eliminate empty productions
-            List<string> partiallyGone = new List<string>();
-            List<string> actuallyGone = new List<string>();
 
             // Elliminate Variable unit production
 
@@ -248,7 +255,56 @@ namespace DelBot.CFGUtils {
         }
 
 
-        
+
+        public string[] GetVariables() {
+            return variables.ToArray();
+        }
+
+
+
+        public string[] GetTerminals() {
+            return terminals.ToArray();
+        }
+
+
+
+        public string[] GetRules() {
+            List<string> rules = new List<string>();
+            foreach (var ruleSet in vRules) {
+                for (int i = 0; i < ruleSet.Value.Count; i++) {
+                    string s = ruleSet.Key + " ";
+                    if (ruleSet.Value[i] == "") {
+                        s += pMap[ruleSet.Key][ruleSet.Value[i]] + "->";
+                    } else {
+                        s += pMap[ruleSet.Key][ruleSet.Value[i]] + "-> " + ruleSet.Value[i];
+                    }
+                    rules.Add(s);
+                }
+            }
+            if (tRules != null) {
+                foreach (var ruleSet in tRules) {
+                    for (int i = 0; i < ruleSet.Value.Count; i++) {
+                        string s = ruleSet.Key + " ";
+                        if (ruleSet.Value[i] == "") {
+                            s += pMap[ruleSet.Key][ruleSet.Value[i]] + "-> ε";
+                        } else {
+                            s += pMap[ruleSet.Key][ruleSet.Value[i]] + "-> " + ruleSet.Value[i];
+                        }
+                        rules.Add(s);
+                    }
+                }
+            }
+            return rules.ToArray();
+        }
+
+
+
+        public string GetStart() {
+            return start;
+        }
+
+
+
         public override string ToString() {
             string s = "";
             

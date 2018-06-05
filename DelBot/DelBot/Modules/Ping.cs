@@ -13,6 +13,12 @@ namespace DelBot.Modules {
             await ReplyAsync("pong");
         }
 
+        [Command("stahp")]
+        public async Task StahpAsync() {
+            Program.MessageQueue.Clear();
+            await ReplyAsync("ok");
+        }
+
         [Command("hello")]
         public async Task HelloAsync() {
             int hour = (DateTime.Now.Hour + 20) % 24;
