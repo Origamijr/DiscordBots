@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-**/Program.cs
+Tokens.txt
 
 # User-specific files
 *.suo
@@ -299,4 +299,3 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-DelBot/DelBot/Program.cs

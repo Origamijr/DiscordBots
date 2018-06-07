@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Timers;
+using DelBot.Modules.RPG;
 
-namespace DelBot.Modules.RPG {
+namespace DelBot.Modules {
 
     public class RPGCommands : ModuleBase<SocketCommandContext> {
 

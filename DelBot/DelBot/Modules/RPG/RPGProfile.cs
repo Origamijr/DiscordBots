@@ -13,7 +13,7 @@ namespace DelBot.Modules.RPG {
         string vitalityTag = "vit";
         string intelligenceTag = "int";
         string dexterityTag = "dex";
-        string dbName = "./Modules/RPG/RPGProfiles.json";
+        string dbName = "Databases/RPGProfiles.json";
         
         public string id, name = null;
         public int strength, vitality, intelligence, dexterity;

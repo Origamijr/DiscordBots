@@ -8,16 +8,16 @@ using Discord.Commands;
 
 namespace DelBot.Modules {
     public class NLPCommands : ModuleBase<SocketCommandContext> {
-        
-        string dbName = "Databases/Grammars.json";
-        string lastTag = "ShortTermCFGMemory";
-        string variableTag = "V";
-        string terminalTag = "T";
-        string ruleTag = "R";
-        string startTag = "S";
+
+        const string dbName = "Databases/Grammars.json";
+        const string lastTag = "ShortTermCFGMemory";
+        const string variableTag = "V";
+        const string terminalTag = "T";
+        const string ruleTag = "R";
+        const string startTag = "S";
 
         [Command("cfg")]
-        public async Task CreateCFGAsync(string varStr, string termStr, string ruleStr, string sttStr, int steps = 0) {
+        public async Task CreateCFGAsync(string varStr, string termStr, string ruleStr, string sttStr) {
 
             var variables = new List<string>(varStr.Split(" "));
             var terminals = new List<string>(termStr.Split(" "));
@@ -35,13 +35,46 @@ namespace DelBot.Modules {
             } else {
                 await ReplyAsync("Not a valid CFG");
             }
+        }
 
-            if (steps != 0) {
+        [Command("cfg.sim")]
+        public async Task SimulateCFG(int steps, string cfgTag = lastTag) {
+
+            // get grammar
+            string[] variables = UserDatabase.ReadArray(dbName, new List<string> { cfgTag, variableTag });
+            string[] terminals = UserDatabase.ReadArray(dbName, new List<string> { cfgTag, terminalTag });
+            string[] rules = UserDatabase.ReadArray(dbName, new List<string> { cfgTag, ruleTag });
+            string start = UserDatabase.ReadString(dbName, new List<string> { cfgTag, startTag });
+
+            if (variables != null && terminals != null && rules != null && start != null) {
+                CFG g = CFG.MakeCFG(new List<string>(variables), new List<string>(terminals), rules, start);
                 await ReplyAsync("Here's a sample expansion: ");
                 var stepList = g.Simulate(steps);
                 foreach (var step in stepList) {
                     Program.MessageQueue.Enqueue(Tuple.Create(step, Context.Channel));
                 }
+            } else {
+                await ReplyAsync("404 Grammar not found.");
+            }
+        }
+
+        [Command("cfg.set")]
+        public async Task SetCFG(string cfgTag) {
+
+            // get grammar
+            string[] variables = UserDatabase.ReadArray(dbName, new List<string> { lastTag, variableTag });
+            string[] terminals = UserDatabase.ReadArray(dbName, new List<string> { lastTag, terminalTag });
+            string[] rules = UserDatabase.ReadArray(dbName, new List<string> { lastTag, ruleTag });
+            string start = UserDatabase.ReadString(dbName, new List<string> { lastTag, startTag });
+
+            if (variables != null && terminals != null && rules != null && start != null) {
+                UserDatabase.WriteArray(dbName, new List<string> { cfgTag, variableTag }, variables);
+                UserDatabase.WriteArray(dbName, new List<string> { cfgTag, terminalTag }, terminals);
+                UserDatabase.WriteArray(dbName, new List<string> { cfgTag, ruleTag }, rules);
+                UserDatabase.WriteString(dbName, new List<string> { cfgTag, startTag }, start);
+                await ReplyAsync("New grammar stored as \"" + cfgTag + "\"");
+            } else {
+                await ReplyAsync("Please enter a cfg to begin with.");
             }
         }
     }

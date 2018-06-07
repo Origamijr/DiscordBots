@@ -15,6 +15,7 @@ namespace DelBot.Modules {
         string rememberArrTag = "rememberArr";
         string dbName = "Databases/BasicDB.json";
 
+        // Hidden command
         [Command("purge")]
         public async Task PurgeAsync(string s = null) {
 
@@ -41,6 +42,7 @@ namespace DelBot.Modules {
             }
         }
 
+        // hidden command
         [Command("all")]
         public async Task AllAsync() {
 

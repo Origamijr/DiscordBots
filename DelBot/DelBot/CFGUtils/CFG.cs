@@ -68,6 +68,7 @@ namespace DelBot.CFGUtils {
                 int split = rule.IndexOf("->");
 
                 if (split == -1) {
+                    Console.WriteLine("No transition found: " + rule);
                     validRules = false;
                     break;
                 }
@@ -85,6 +86,7 @@ namespace DelBot.CFGUtils {
                         } else if (probability == -1 && float.TryParse(a, out float p)) {
                             probability = p;
                         } else {
+                            Console.WriteLine("Invalid left side: ");
                             validAlpha = false;
                             break;
                         }
@@ -98,6 +100,7 @@ namespace DelBot.CFGUtils {
                         if (variables.Contains(b) || terminals.Contains(b)) {
                             rewrite.Add(b);
                         } else {
+                            Console.WriteLine("Invalid right side: " + rule.Substring(split + 2));
                             validBeta = false;
                             break;
                         }
@@ -123,6 +126,7 @@ namespace DelBot.CFGUtils {
 
             foreach (var ruleSet in vRules) {
                 if (ruleSet.Value.Count == 0) {
+                    Console.WriteLine("Function not well defined");
                     validRules = false;
                     break;
                 }
@@ -130,18 +134,6 @@ namespace DelBot.CFGUtils {
 
             if (!validRules) {
                 return null;
-            } else {
-                bool wellDefined = true;
-                foreach (var ruleSet in vRules) {
-                    if (ruleSet.Value.Count == 0) {
-                        wellDefined = false;
-                        break;
-                    }
-                }
-
-                if (!wellDefined) {
-                    return null;
-                }
             }
             CFG grammar = new CFG(variables, terminals, vRules, null, start, pMap);
             grammar.FillPMap();
@@ -237,15 +229,32 @@ namespace DelBot.CFGUtils {
             if (tRules != null) return;
 
             // Verify start variable
+            // We want to check if the start variable is a production of a rule
+            // If so, then we create a new variable that goes to the start variable and set that as the new start variable
             foreach (var rule in vRules) {
                 foreach (var beta in rule.Value) {
                     foreach (var production in beta.Split(" ")) {
-
+                        if (production == start) {
+                            int id = 1;
+                            while (variables.Contains(start + id) || terminals.Contains(start + id)) id++;
+                            variables.Add(start + id);
+                            vRules.Add(start + id, new List<string> { start });
+                            this.start = start + id;
+                            break;
+                        }
                     }
                 }
             }
 
             // Eliminate empty productions
+            List<string> nullable = new List<string>();
+            foreach (var variable in variables) {
+                for (int i = 0; i < vRules[variable].Count; i++) {
+                    if (vRules[variable][i] == "") {
+                        nullable.Add(variable);
+                    }
+                }
+            }
 
             // Elliminate Variable unit production
 
