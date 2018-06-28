@@ -40,7 +40,7 @@ namespace DelBot {
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string botToken = File.ReadAllLines("../../Tokens.txt")[1];
+            string botToken = File.ReadAllLines("../../../../../Tokens.txt")[1];
 
             // event subscriptions
             _client.Log += Log;

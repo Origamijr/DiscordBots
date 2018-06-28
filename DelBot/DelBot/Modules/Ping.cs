@@ -85,5 +85,65 @@ namespace DelBot.Modules {
                 ">>cfg.set <name>                                - remember the last created grammar\n" +
                 ">>cfg.sim <steps> {name=last}                   - simulate a grammar for a number of steps\n```");
         }
+
+        [Command("r")]
+        public async Task SourceAsync(string prompt = "1d20+0") {
+            //if (Context.Channel.Name == "dice-rolls") {
+
+            string user = Context.User.Mention;
+            try {
+                int dIndex = prompt.IndexOf('d');
+                int plusIndex = prompt.IndexOf('+');
+                int mult = 1;
+                int dice = 20;
+                int plus = 0;
+
+                if (dIndex != 0) {
+                    mult = int.Parse(prompt.Substring(0, dIndex));
+                }
+
+                if (plusIndex != -1) {
+                    dice = int.Parse(prompt.Substring(dIndex, plusIndex - dIndex));
+                    plus = int.Parse(prompt.Substring(plusIndex));
+                } else {
+                    dice = int.Parse(prompt.Substring(1));
+                }
+
+                if (dice != 4 && dice != 6 && dice != 10 && dice != 8 && dice != 12 && dice != 20) {
+                    await ReplyAsync("That's not a dice silly");
+                    return;
+                }
+
+                string ret = "";
+                Random random = new Random();
+                int sum = 0;
+
+                if (mult == 1) {
+                    int r = random.Next() % dice + 1;
+                    sum += r;
+                    ret += "" + r;
+                } else {
+                    for (int i = 0; i < mult; i++) {
+                        int r = random.Next() % dice + 1;
+                        sum += r;
+                        if (i == 0) {
+                            ret += "[" + r;
+                        } else if (i == mult - 1) {
+                            ret += " + " + r + "]";
+                        } else {
+                            ret += " + " + r;
+                        }
+                    }
+                }
+
+                if (plusIndex != -1) {
+                    ret += " + " + plus;
+                }
+                await ReplyAsync(user + ": " + ret);
+            } catch (Exception e) {
+                await ReplyAsync("Learn to type noob.");
+            }
+            //}
+        }
     }
 }

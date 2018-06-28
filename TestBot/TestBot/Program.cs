@@ -104,9 +104,9 @@ namespace DelBot {
 
                 if (!specialInput && message.Channel.Name == "general") {
                     Random random = new Random();
-                    float r = (float)(float.MaxValue * 2.0 * (random.NextDouble() - 0.5)); ;
+                    double r = random.NextDouble();
 
-                    if (r < .000001f) {
+                    if (r < 0.000001) {
                         await message.Channel.SendMessageAsync("You have gotten the rare message. Have a cookie :cookie:");
                     } else if (r < 0.02) {
                         await message.Channel.SendMessageAsync("Hello. I exist to say I exist.");
@@ -115,7 +115,7 @@ namespace DelBot {
             }
 
 
-            if (message.HasStringPrefix("##", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
+            if (message.HasStringPrefix("//", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
                 var context = new SocketCommandContext(_client, message);
 
                 var result = await _commands.ExecuteAsync(context, argPos, _services);

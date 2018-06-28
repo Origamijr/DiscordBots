@@ -248,13 +248,32 @@ namespace DelBot.CFGUtils {
 
             // Eliminate empty productions
             List<string> nullable = new List<string>();
-            foreach (var variable in variables) {
-                for (int i = 0; i < vRules[variable].Count; i++) {
-                    if (vRules[variable][i] == "") {
-                        nullable.Add(variable);
+            do {
+                List<string> nulled = new List<string>();
+                nullable.Clear();
+
+                // find nullable variables
+                foreach (var variable in variables) {
+                    for (int i = 0; i < vRules[variable].Count; i++) {
+                        if (vRules[variable][i] == "") {
+                            if (vRules[variable].Count == 1) nulled.Add(variable);
+                            else nullable.Add(variable);
+                        }
                     }
                 }
-            }
+                if (nullable.Count == 0 || (nullable.Count == 1 && nullable.Contains(start))) break;
+                
+                // remove nullable variables from right sides of rules
+                foreach (var variable in variables) {
+                    List<string> newBeta = new List<string>(vRules[variable]);
+                    foreach (var nil in nullable) {
+                        for (int i = 0; i < vRules[variable].Count; i++) {
+                            string[] beta = vRules[variable][i].Split(" ");
+                            
+                        }
+                    }
+                }
+            } while (!(nullable.Count == 0 || (nullable.Count == 1 && nullable.Contains(start))));
 
             // Elliminate Variable unit production
 
