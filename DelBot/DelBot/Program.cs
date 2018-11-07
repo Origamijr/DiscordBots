@@ -23,6 +23,9 @@ namespace DelBot {
         
         public static Queue<Tuple<string, ISocketMessageChannel>> MessageQueue = new Queue<Tuple<string, ISocketMessageChannel>>();
         static Timer timer;
+        static Timer pingKevin;
+
+        private SocketCommandContext context = null;
 
         /**
          * Main method
@@ -42,6 +45,11 @@ namespace DelBot {
             timer.Start();
             timer.Interval = 3000;
             timer.Elapsed += new ElapsedEventHandler(TimerTick);
+
+            pingKevin = new Timer();
+            pingKevin.Start();
+            pingKevin.Interval = 1000 * 60 * 60 * 24;
+            pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
             _commands = new CommandService();
@@ -66,6 +74,12 @@ namespace DelBot {
             await Task.Delay(-1);
         }
 
+        private void PingKevin(object sender, ElapsedEventArgs e) {
+            if (context != null) {
+                context.Channel.SendMessageAsync("<@!236746009688932354> don't be a trash human");
+            }
+        }
+
         private Task Log(LogMessage arg) {
             Console.WriteLine(arg);
 
@@ -88,7 +102,7 @@ namespace DelBot {
 
             if (message.HasStringPrefix(">>", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
 
-                var context = new SocketCommandContext(_client, message);
+                context = new SocketCommandContext(_client, message);
 
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 
