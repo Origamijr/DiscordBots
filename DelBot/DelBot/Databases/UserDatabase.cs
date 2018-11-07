@@ -150,7 +150,11 @@ namespace DelBot.Databases {
         // Close database. Required to open database again
         public bool Close() {
             if (profiles != null) {
-                System.IO.File.WriteAllText(filename, profiles.ToString());
+                try {
+                    System.IO.File.WriteAllText(filename, profiles.ToString());
+                } catch (IOException) {
+                    Console.WriteLine("Error writing to " + filename);
+                }
                 profiles = null;
                 openFiles.Remove(filename);
                 return true;

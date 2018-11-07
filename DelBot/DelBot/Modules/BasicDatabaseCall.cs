@@ -13,7 +13,7 @@ namespace DelBot.Modules {
 
         string rememberTag = "remember";
         string rememberArrTag = "rememberArr";
-        string dbName = "Databases/BasicDB.json";
+        string dbName = "./Databases/BasicDB.json";
 
         // Hidden command
         [Command("purge")]

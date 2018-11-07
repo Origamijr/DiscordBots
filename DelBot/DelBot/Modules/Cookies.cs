@@ -18,7 +18,7 @@ namespace DelBot.Modules {
             string cookieTag = "cookie";
             //string countTag = "count";
             //string remainingTag = "remaining";
-            string dbName = "Databases/BasicDB.json";
+            string dbName = "./Databases/BasicDB.json";
 
             string user = Context.User.Mention;
             string userId = "" + Utilities.GetId(user);
