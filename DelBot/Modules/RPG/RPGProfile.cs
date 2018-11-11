@@ -19,7 +19,7 @@ namespace DelBot.Modules.RPG {
         public int strength, vitality, intelligence, dexterity;
 
         public int hp, atk, def, agi, basehp = 20, basedmg = 1, basespd = 10;
-        public float acc, eva, crt, cdm, evaCap = 0.75f;
+        public double acc, eva, crt, cdm, evaCap = 0.75f;
         
         public RPGProfile(string user) {
             
@@ -90,9 +90,9 @@ namespace DelBot.Modules.RPG {
             atk = 2 * strength + basedmg;
             def = strength / 2 + vitality / 2;
             agi = vitality / 2 + 2 * dexterity + basespd;
-            acc = 0.33f + 0.66f / (1.0f + MathF.Pow(1.5f, -5.0f - (3 * intelligence + dexterity - 3 * strength)));
-            eva = evaCap / (1.0f + MathF.Pow(1.2f, 15.0f - (2 * dexterity + intelligence)));
-            crt = 1.0f / (1.0f + MathF.Pow(1.2f, 15.0f - (2 * intelligence + dexterity)));
+            acc = 0.33 + 0.66 / (1.0 + Math.Pow(1.5, -5.0f - (3 * intelligence + dexterity - 3 * strength)));
+            eva = evaCap / (1.0 + Math.Pow(1.2, 15.0 - (2 * dexterity + intelligence)));
+            crt = 1.0 / (1.0 + Math.Pow(1.2, 15.0 - (2 * intelligence + dexterity)));
             cdm = 1.5f + (2 * strength + dexterity) / 10.0f;
         }
 

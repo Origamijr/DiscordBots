@@ -19,9 +19,9 @@ namespace DelBot.Modules {
         [Command("cfg")]
         public async Task CreateCFGAsync(string varStr, string termStr, string ruleStr, string sttStr) {
 
-            var variables = new List<string>(varStr.Split(" "));
-            var terminals = new List<string>(termStr.Split(" "));
-            var rules = ruleStr.Split(";");
+            var variables = new List<string>(varStr.Split(' '));
+            var terminals = new List<string>(termStr.Split(' '));
+            var rules = ruleStr.Split(';');
 
             CFG g = CFG.MakeCFG(variables, terminals, rules, sttStr);
             if (g != null) {

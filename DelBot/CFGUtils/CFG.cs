@@ -73,8 +73,8 @@ namespace DelBot.CFGUtils {
                     break;
                 }
                 
-                string[] alpha = rule.Substring(0, split).Split(" ");
-                string[] beta = rule.Substring(split + 2).Split(" ");
+                string[] alpha = rule.Substring(0, split).Split(' ');
+                string[] beta = rule.Substring(split + 2).Split(' ');
                 
                 bool validAlpha = true;
                 string alphaRule = "";
@@ -189,7 +189,7 @@ namespace DelBot.CFGUtils {
 
             Random rand = new Random();
             for (int i = 0; i < steps; i++) {
-                var letters = lastStep.Split(" ");
+                var letters = lastStep.Split(' ');
                 bool variableFound = false;
                 bool added = true;
                 for (int j = 0; j < letters.Length; j++) {
@@ -233,7 +233,7 @@ namespace DelBot.CFGUtils {
             // If so, then we create a new variable that goes to the start variable and set that as the new start variable
             foreach (var rule in vRules) {
                 foreach (var beta in rule.Value) {
-                    foreach (var production in beta.Split(" ")) {
+                    foreach (var production in beta.Split(' ')) {
                         if (production == start) {
                             int id = 1;
                             while (variables.Contains(start + id) || terminals.Contains(start + id)) id++;
@@ -268,7 +268,7 @@ namespace DelBot.CFGUtils {
                     List<string> newBeta = new List<string>(vRules[variable]);
                     foreach (var nil in nullable) {
                         for (int i = 0; i < vRules[variable].Count; i++) {
-                            string[] beta = vRules[variable][i].Split(" ");
+                            string[] beta = vRules[variable][i].Split(' ');
                             
                         }
                     }
