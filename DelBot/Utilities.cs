@@ -1,5 +1,6 @@
 ﻿using Discord.Commands;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -94,6 +95,129 @@ namespace DelBot {
             }
 
             return args;
+        }
+
+        public static int EvaluateExpression(string expr) {
+
+
+            return 0;
+        }
+
+        private int OperatorPrecedence(char sgn) {
+            switch (sgn) {
+                case '+':
+                case '-':
+                    return -1;
+                case '*':
+                case '/':
+                case '%':
+                    return 1;
+                default:
+                    return 0;
+            }
+        }
+
+        private string convertToPostFix(string expr) {
+            Stack<char> operatorStack = new Stack<char>();
+            string postfix = "";
+            char curr;
+            char popped;
+
+            // Iterate through string
+            for (int i = 0; i < expr.Length; i++) {
+                curr = expr[i];
+
+                // Check what character is
+                if (curr - '0' >= 0 && curr - '0' <= 9) {
+                    // Append if digit
+                    // TODO
+                    postfix += "";
+                } else if (curr == '(') {
+                    // push if left parenthesis
+                    operatorStack.Push(curr);
+                } else if (curr == ')') {
+                    // pop and append until open parenthesis or empty
+                    while (operatorStack.Count != 0) {
+                        if (operatorStack.Peek() == '(') {
+                            operatorStack.Pop();
+                            break;
+                        }
+                        popped = operatorStack.Pop();
+                        postfix += popped;
+                    }
+                } else {
+                    // if operator
+                    if (operatorStack.Count != 0) {
+                        // if not empty stack
+                        int op1Prec = OperatorPrecedence(curr);
+                        int op2Prec = OperatorPrecedence(operatorStack.Peek());
+                        while (op2Prec != 0 && op2Prec >= op1Prec) {
+                            // if op2 has precedence greater than or equal to op1
+                            popped = operatorStack.Pop();
+                            postfix += popped;
+
+                            // Update operator, and break if empty
+                            if (operatorStack.Count != 0) {
+                                op2Prec = OperatorPrecedence(operatorStack.Peek());
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    // push op1 into stack
+                    operatorStack.Push(curr);
+                }
+                i++;
+            }
+
+            // pop and append the remaining operators in the stack
+            while (operatorStack.Count != 0) {
+                popped = operatorStack.Pop();
+                if (popped != '(') {
+                    postfix += popped;
+                }
+            }
+
+            return postfix;
+        }
+
+        int calculateExpression(string postfixExpr) {
+            Stack<int> operands = new Stack<int>();
+            int result = 0;
+
+            for (int i = 0; i < postfixExpr.Length; i++) {
+                if (OperatorPrecedence(postfixExpr[i]) != 0) {
+                    int int2 = operands.Pop();
+                    int int1 = operands.Pop();
+
+                    // Run calculations based on operand
+                    switch (postfixExpr[i]) {
+                        case '+':
+                            result = int1 + int2;
+                            break;
+                        case '-':
+                            result = int1 - int2;
+                            break;
+                        case '*':
+                            result = int1 * int2;
+                            break;
+                        case '/':
+                            result = int1 / int2;
+                            break;
+                        case '%':
+                            result = int1 % int2;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    operands.Push(result);
+                } else {
+                    // TODO push number into operand stack
+                }
+            }
+
+            return operands.Pop();
         }
     }
 }
