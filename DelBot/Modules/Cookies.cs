@@ -23,7 +23,7 @@ namespace DelBot.Modules {
             string user = Context.User.Mention;
             string userId = "" + Utilities.GetId(user);
 
-            UserDatabase db = UserDatabase.Open(dbName);
+            JsonDatabase db = JsonDatabase.Open(dbName);
 
             if (!db.IsOpen()) {
                 await ReplyAsync("My apologizes " + user + "-dono. I am currently retrieving a cookie for someone else. Try again in a moment.");

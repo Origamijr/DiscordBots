@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -44,8 +45,64 @@ namespace DelBot.Modules {
         }
 
         [Command("say")]
-        public async Task SayAsync([Remainder]string s) {
-            await ReplyAsync(s);
+        public async Task SayAsync([Remainder]string s = null) {
+            int splitPos = s.IndexOf("||");
+            if (splitPos > 0 && s.Length > splitPos + 2) {
+                do {
+                    Program.EnqueueMessage(Utilities.TrimSpaces(s.Substring(0, splitPos)), Context.Channel);
+                    s = s.Substring(splitPos + 2);
+                    splitPos = s.IndexOf("||");
+                } while (splitPos > 0 && s.Length > splitPos + 2);
+
+                Program.EnqueueMessage(Utilities.TrimSpaces(s), Context.Channel);
+            } else {
+                await ReplyAsync(s);
+            }
+        }
+
+        [Command("repeat")]
+        [Alias("rep")]
+        public async Task RepeatAsync([Remainder]string s = null) {
+            var messages = await Context.Channel.GetMessagesAsync(100).Flatten();
+            int i = 0;
+            int back = 0;
+
+            if (s != null) {
+                var repeatQueries = Utilities.ParamSplit(s);
+                string repeats = "";
+
+                foreach (var repeatQuery in repeatQueries) {
+                    foreach (var message in messages) {
+                        if (i > 0) {
+                            if (!int.TryParse(repeatQuery, out back)) {
+                                if (repeatQuery.Length <= message.Content.Length && repeatQuery == message.Content.Substring(0, repeatQuery.Length)) {
+                                    repeats += message.Content + " ";
+                                    break;
+                                }
+                            } else if (i == back) {
+                                repeats += message.Content + " ";
+                                break;
+                            }
+                        }
+                        i++;
+                    }
+                    i = 0;
+                }
+
+                if (repeats == "") {
+                    await ReplyAsync("My apologies. No message was found.");
+                } else {
+                    Program.EnqueueMessage(repeats, Context.Channel);
+                }
+            } else {
+                foreach (var message in messages) {
+                    if (i != 0) {
+                        Program.EnqueueMessage(message.Content, Context.Channel);
+                        return;
+                    }
+                    i++;
+                }
+            }
         }
 
         // Hidden command
@@ -62,6 +119,15 @@ namespace DelBot.Modules {
         public async Task SourceAsync() {
             await ReplyAsync("Here is a link to my source code:\n" +
                 "https://github.com/Origamijr/DiscordBots");
+        }
+
+        [Command("verbatim")]
+        public async Task VerbatimAsync() {
+            if (StaticStates.verbatim = !StaticStates.verbatim) {
+                await ReplyAsync("Verbatim mode on.");
+            } else {
+                await ReplyAsync(Context.User.Mention + "-dono, verbatim mode has been turned off.");
+            }
         }
 
         [Command("help")]
