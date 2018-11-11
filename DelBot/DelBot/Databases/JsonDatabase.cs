@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text;
 
 namespace DelBot.Databases {
-    class UserDatabase {
+    class JsonDatabase {
         private static SortedSet<string> openFiles = new SortedSet<string>();
 
         private JObject profiles = null;
         private string filename;
         
         // Open database
-        public static UserDatabase Open(string filename) {
-            return new UserDatabase(filename);
+        public static JsonDatabase Open(string filename) {
+            return new JsonDatabase(filename);
         }
 
         // List all the high level members in a file
@@ -96,26 +96,26 @@ namespace DelBot.Databases {
         }
 
         public static bool WriteString(string filename, List<string> keys, string s) {
-            UserDatabase db = Open(filename);
+            JsonDatabase db = Open(filename);
             if (db.IsOpen() && db.WriteString(keys, s) && db.Close()) return true;
             return false;
         }
 
         public static bool WriteArray(string filename, List<string> keys, string[] arr) {
-            UserDatabase db = Open(filename);
+            JsonDatabase db = Open(filename);
             if (db.IsOpen() && db.WriteArray(keys, arr) && db.Close()) return true;
             return false;
         }
 
         public static string ReadString(string filename, List<string> keys) {
-            UserDatabase db = Open(filename);
+            JsonDatabase db = Open(filename);
             string ret = null;
             if (db.IsOpen() && (ret = db.AccessString(keys)) != null && db.Close()) return ret;
             return null;
         }
 
         public static string[] ReadArray(string filename, List<string> keys) {
-            UserDatabase db = Open(filename);
+            JsonDatabase db = Open(filename);
             string[] ret = null;
             if (db.IsOpen() && (ret = db.AccessArray(keys)) != null && db.Close()) return ret;
             return null;
@@ -124,7 +124,7 @@ namespace DelBot.Databases {
         // -----[ Instance constructor and methods ]-------------------------------------
 
         // Basic constructor
-        public UserDatabase(string filename) {
+        public JsonDatabase(string filename) {
             if (!(openFiles.Contains(filename))) {
 
                 openFiles.Add(filename);
@@ -180,9 +180,9 @@ namespace DelBot.Databases {
                 return null;
             }
 
-            JObject step = profiles;
+            JContainer step = profiles;
             for (int i = 0; i < keys.Count - 1; i++) {
-                step = step[keys[i]] as JObject;
+                step = step[keys[i]] as JContainer;
 
                 if (step == null) {
                     return null;

@@ -28,10 +28,10 @@ namespace DelBot.Modules {
                 await ReplyAsync("```" + g.ToString() + "```");
 
                 // Write to short term memory
-                UserDatabase.WriteArray(dbName, new List<string> { lastTag, variableTag }, g.GetVariables());
-                UserDatabase.WriteArray(dbName, new List<string> { lastTag, terminalTag }, g.GetTerminals());
-                UserDatabase.WriteArray(dbName, new List<string> { lastTag, ruleTag }, g.GetRules());
-                UserDatabase.WriteString(dbName, new List<string> { lastTag, startTag }, g.GetStart());
+                JsonDatabase.WriteArray(dbName, new List<string> { lastTag, variableTag }, g.GetVariables());
+                JsonDatabase.WriteArray(dbName, new List<string> { lastTag, terminalTag }, g.GetTerminals());
+                JsonDatabase.WriteArray(dbName, new List<string> { lastTag, ruleTag }, g.GetRules());
+                JsonDatabase.WriteString(dbName, new List<string> { lastTag, startTag }, g.GetStart());
             } else {
                 await ReplyAsync("Not a valid CFG");
             }
@@ -41,10 +41,10 @@ namespace DelBot.Modules {
         public async Task SimulateCFG(int steps, string cfgTag = lastTag) {
 
             // get grammar
-            string[] variables = UserDatabase.ReadArray(dbName, new List<string> { cfgTag, variableTag });
-            string[] terminals = UserDatabase.ReadArray(dbName, new List<string> { cfgTag, terminalTag });
-            string[] rules = UserDatabase.ReadArray(dbName, new List<string> { cfgTag, ruleTag });
-            string start = UserDatabase.ReadString(dbName, new List<string> { cfgTag, startTag });
+            string[] variables = JsonDatabase.ReadArray(dbName, new List<string> { cfgTag, variableTag });
+            string[] terminals = JsonDatabase.ReadArray(dbName, new List<string> { cfgTag, terminalTag });
+            string[] rules = JsonDatabase.ReadArray(dbName, new List<string> { cfgTag, ruleTag });
+            string start = JsonDatabase.ReadString(dbName, new List<string> { cfgTag, startTag });
 
             if (variables != null && terminals != null && rules != null && start != null) {
                 CFG g = CFG.MakeCFG(new List<string>(variables), new List<string>(terminals), rules, start);
@@ -62,16 +62,16 @@ namespace DelBot.Modules {
         public async Task SetCFG(string cfgTag) {
 
             // get grammar
-            string[] variables = UserDatabase.ReadArray(dbName, new List<string> { lastTag, variableTag });
-            string[] terminals = UserDatabase.ReadArray(dbName, new List<string> { lastTag, terminalTag });
-            string[] rules = UserDatabase.ReadArray(dbName, new List<string> { lastTag, ruleTag });
-            string start = UserDatabase.ReadString(dbName, new List<string> { lastTag, startTag });
+            string[] variables = JsonDatabase.ReadArray(dbName, new List<string> { lastTag, variableTag });
+            string[] terminals = JsonDatabase.ReadArray(dbName, new List<string> { lastTag, terminalTag });
+            string[] rules = JsonDatabase.ReadArray(dbName, new List<string> { lastTag, ruleTag });
+            string start = JsonDatabase.ReadString(dbName, new List<string> { lastTag, startTag });
 
             if (variables != null && terminals != null && rules != null && start != null) {
-                UserDatabase.WriteArray(dbName, new List<string> { cfgTag, variableTag }, variables);
-                UserDatabase.WriteArray(dbName, new List<string> { cfgTag, terminalTag }, terminals);
-                UserDatabase.WriteArray(dbName, new List<string> { cfgTag, ruleTag }, rules);
-                UserDatabase.WriteString(dbName, new List<string> { cfgTag, startTag }, start);
+                JsonDatabase.WriteArray(dbName, new List<string> { cfgTag, variableTag }, variables);
+                JsonDatabase.WriteArray(dbName, new List<string> { cfgTag, terminalTag }, terminals);
+                JsonDatabase.WriteArray(dbName, new List<string> { cfgTag, ruleTag }, rules);
+                JsonDatabase.WriteString(dbName, new List<string> { cfgTag, startTag }, start);
                 await ReplyAsync("New grammar stored as \"" + cfgTag + "\"");
             } else {
                 await ReplyAsync("Please enter a cfg to begin with.");

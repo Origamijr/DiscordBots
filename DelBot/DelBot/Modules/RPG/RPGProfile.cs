@@ -25,7 +25,7 @@ namespace DelBot.Modules.RPG {
             
             this.id = user;
 
-            UserDatabase db = UserDatabase.Open(dbName);
+            JsonDatabase db = JsonDatabase.Open(dbName);
 
             if (db.IsOpen()) {
 
@@ -55,7 +55,7 @@ namespace DelBot.Modules.RPG {
         }
 
         public bool Close() {
-            UserDatabase db = UserDatabase.Open(dbName);
+            JsonDatabase db = JsonDatabase.Open(dbName);
 
             if (db.IsOpen()) {
 

@@ -43,7 +43,7 @@ namespace DelBot {
             
             timer = new Timer();
             timer.Start();
-            timer.Interval = 3000;
+            timer.Interval = 3500;
             timer.Elapsed += new ElapsedEventHandler(TimerTick);
 
             pingKevin = new Timer();
@@ -112,11 +112,21 @@ namespace DelBot {
             }
         }
 
-
+        public static void EnqueueMessage(string msg, ISocketMessageChannel msgChannel) {
+            if (MessageQueue.Count == 0) {
+                msgChannel.SendMessageAsync(msg);
+                MessageQueue.Enqueue(Tuple.Create("", msgChannel));
+            } else {
+                MessageQueue.Enqueue(Tuple.Create(msg, msgChannel));
+            }
+        }
+        
         void TimerTick(object sender, ElapsedEventArgs e) {
             if (MessageQueue.Count != 0) {
                 var message = MessageQueue.Dequeue();
-                message.Item2.SendMessageAsync(message.Item1);
+                if (message.Item1 != "") {
+                    message.Item2.SendMessageAsync(message.Item1);
+                }
             }
         }
     }
