@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using DelBot.Databases;
+using Discord;
 using Discord.Commands;
 using System;
 using System.Collections.Generic;
@@ -46,17 +47,34 @@ namespace DelBot.Modules {
 
         [Command("say")]
         public async Task SayAsync([Remainder]string s = null) {
+            string msg;
+            int firstQuotePos = s.IndexOf("\"");
+            int secondQuotePos = s.IndexOf("\"", (firstQuotePos < s.Length - 1) ? firstQuotePos + 1 : firstQuotePos);
             int splitPos = s.IndexOf("||");
+            while (firstQuotePos >= 0 && secondQuotePos >= 0 && splitPos > firstQuotePos && splitPos < secondQuotePos) {
+                splitPos = s.IndexOf("||", (splitPos < s.Length - 1) ? splitPos + 1 : splitPos);
+            }
             if (splitPos > 0 && s.Length > splitPos + 2) {
                 do {
-                    Program.EnqueueMessage(Utilities.TrimSpaces(s.Substring(0, splitPos)), Context.Channel);
+                    msg = Utilities.TrimSpaces(s.Substring(0, splitPos));
+                    if (msg.Length > 2 && msg[0] == '"' && msg[msg.Length - 1] == '"') msg = msg.Substring(1, msg.Length - 2);
+                    Program.EnqueueMessage(msg.Replace('\n', ' '), Context.Channel);
                     s = s.Substring(splitPos + 2);
+                    firstQuotePos = s.IndexOf("\"");
+                    secondQuotePos = s.IndexOf("\"", (firstQuotePos < s.Length - 1) ? firstQuotePos + 1 : firstQuotePos);
                     splitPos = s.IndexOf("||");
+                    while (firstQuotePos >= 0 && secondQuotePos >= 0 && splitPos > firstQuotePos && splitPos < secondQuotePos) {
+                        splitPos = s.IndexOf("||", (splitPos < s.Length - 1) ? splitPos + 1 : splitPos);
+                    }
                 } while (splitPos > 0 && s.Length > splitPos + 2);
 
-                Program.EnqueueMessage(Utilities.TrimSpaces(s), Context.Channel);
+                msg = Utilities.TrimSpaces(s);
+                if (msg.Length > 2 && msg[0] == '"' && msg[msg.Length - 1] == '"') msg = msg.Substring(1, msg.Length - 2);
+                Program.EnqueueMessage(msg.Replace('\n', ' '), Context.Channel);
             } else {
-                await ReplyAsync(s);
+                msg = Utilities.TrimSpaces(s);
+                if (msg.Length > 2 && msg[0] == '"' && msg[msg.Length - 1] == '"') msg = msg.Substring(1, msg.Length - 2);
+                Program.EnqueueMessage(msg.Replace('\n', ' '), Context.Channel);
             }
         }
 
@@ -105,46 +123,6 @@ namespace DelBot.Modules {
                     }
                     i++;
                 }
-            }
-        }
-
-        [Command("evaluate")]
-        [Alias("eval")]
-        public async Task EvaluateAsync([Remainder]string s = null) {
-            if (s == null) {
-                if (!StaticStates.verbatim) {
-                    await ReplyAsync("Nothing to evaluate?");
-                }
-                return;
-            }
-
-            string postfix = Utilities.ConvertToPostFix(s);
-
-            if (postfix != null) {
-                try {
-                    int result = Utilities.CalculatePostfixExpression(postfix);
-                    if (StaticStates.verbatim) {
-                        await ReplyAsync("" + result);
-                    } else {
-                        await ReplyAsync("Here is the result: " + result);
-                    }
-                } catch (FormatException) {
-                    await ReplyAsync(":rage: That is not a valid expression.");
-                }
-            } else {
-                await ReplyAsync(":rage: That is not a valid expression.");
-            }
-        }
-
-        [Command("if")]
-        public async Task IfAsync([Remainder]string s) {
-            List<string> parts = Utilities.ParamSplit(s);
-
-            if (parts.Count >= 4) {
-                string expr1 = parts[0];
-                string op = parts[1];
-                string expr2 = parts[2];
-                string remainder = "";
             }
         }
 

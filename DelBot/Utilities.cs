@@ -1,4 +1,5 @@
 ﻿using Discord.Commands;
+using Discord.WebSocket;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,10 @@ namespace DelBot {
             return new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
+        public static bool IsSelf(string userMention) {
+            return GetId(userMention) == 388256006833963011;
+        }
+
         // Get username given id as a string
         public static string GetUsername(string idString, SocketCommandContext context) {
 
@@ -23,8 +28,10 @@ namespace DelBot {
             if (id != 0) {
 
                 var user = context.Guild.GetUser(id);
-
                 if (user != null) {
+                    if (user.Nickname != null) {
+                        return user.Nickname;
+                    }
                     return user.Username;
                 }
             }
@@ -48,8 +55,8 @@ namespace DelBot {
 
         // Trim spaces from beginning and end of string
         public static string TrimSpaces(string s) {
-            int start = 0;
-            int end = -1;
+            int start = -1;
+            int end = -2;
 
             for (int i = 0; i < s.Length; i++) {
                 start = (start == -1 && s[i] != ' ') ? i : start;
@@ -69,7 +76,7 @@ namespace DelBot {
 
             for (int i = 0; i < arg.Length; i++) {
 
-                if (arg[i] == ' ' && i == 0) {
+                if ((arg[i] == ' ' || arg[i] == '\n') && i == 0) {
                     arg = arg.Substring(1);
                     i--;
                 } else if (i == 0 && arg[i] == '"') {
@@ -97,7 +104,7 @@ namespace DelBot {
             return args;
         }
 
-        private static int OperatorPrecedence(char sgn) {
+        public static int OperatorPrecedence(char sgn) {
             switch (sgn) {
                 case '+':
                 case '-':

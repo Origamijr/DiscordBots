@@ -10,6 +10,7 @@ using System.Text;
 namespace DelBot.Databases {
     class JsonDatabase {
         private static SortedSet<string> openFiles = new SortedSet<string>();
+        private static string defaultKey = null;
 
         private JObject profiles = null;
         private string filename;
@@ -97,28 +98,42 @@ namespace DelBot.Databases {
 
         public static bool WriteString(string filename, List<string> keys, string s) {
             JsonDatabase db = Open(filename);
-            if (db.IsOpen() && db.WriteString(keys, s) && db.Close()) return true;
-            return false;
+            bool success = false;
+            success = db.WriteString(keys, s);
+            db.Close();
+            return success;
         }
 
         public static bool WriteArray(string filename, List<string> keys, string[] arr) {
             JsonDatabase db = Open(filename);
-            if (db.IsOpen() && db.WriteArray(keys, arr) && db.Close()) return true;
-            return false;
+            bool success = false;
+            success = db.WriteArray(keys, arr);
+            db.Close();
+            return success;
         }
 
         public static string ReadString(string filename, List<string> keys) {
             JsonDatabase db = Open(filename);
             string ret = null;
-            if (db.IsOpen() && (ret = db.AccessString(keys)) != null && db.Close()) return ret;
-            return null;
+            ret = db.AccessString(keys);
+            db.Close();
+            return ret;
         }
 
         public static string[] ReadArray(string filename, List<string> keys) {
             JsonDatabase db = Open(filename);
             string[] ret = null;
-            if (db.IsOpen() && (ret = db.AccessArray(keys)) != null && db.Close()) return ret;
-            return null;
+            ret = db.AccessArray(keys);
+            db.Close();
+            return ret;
+        }
+
+        public static void SetDefaultKey(string key) {
+            defaultKey = key;
+        }
+
+        public static string GetDefaultKey() {
+            return defaultKey;
         }
 
         // -----[ Instance constructor and methods ]-------------------------------------
@@ -152,6 +167,7 @@ namespace DelBot.Databases {
             if (profiles != null) {
                 try {
                     System.IO.File.WriteAllText(filename, profiles.ToString());
+                    Console.WriteLine("Successfully wrote to " + filename);
                 } catch (IOException) {
                     Console.WriteLine("Error writing to " + filename);
                 }

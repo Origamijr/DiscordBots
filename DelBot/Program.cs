@@ -43,7 +43,7 @@ namespace DelBot {
             
             timer = new Timer();
             timer.Start();
-            timer.Interval = 3500;
+            timer.Interval = 5000;
             timer.Elapsed += new ElapsedEventHandler(TimerTick);
 
             pingKevin = new Timer();
