@@ -66,20 +66,22 @@ namespace DelBot.Modules {
             var messages = await Context.Channel.GetMessagesAsync(100).Flatten();
             int i = 0;
             int back = 0;
+            bool goingBack = false;
 
             if (s != null) {
                 var repeatQueries = Utilities.ParamSplit(s);
                 string repeats = "";
 
                 foreach (var repeatQuery in repeatQueries) {
+                    if (repeatQuery.Length > 2 && ">>" == repeatQuery.Substring(0, 2) && int.TryParse(repeatQuery.Substring(2), out back)) {
+                        goingBack = true;
+                    }
                     foreach (var message in messages) {
                         if (i > 0) {
-                            if (!int.TryParse(repeatQuery, out back)) {
-                                if (repeatQuery.Length <= message.Content.Length && repeatQuery == message.Content.Substring(0, repeatQuery.Length)) {
-                                    repeats += message.Content + " ";
-                                    break;
-                                }
-                            } else if (i == back) {
+                            if (goingBack && back == i) {
+                                repeats += message.Content + " ";
+                                break;
+                            } else if (message.Content.Contains(repeatQuery)) {
                                 repeats += message.Content + " ";
                                 break;
                             }
@@ -87,6 +89,7 @@ namespace DelBot.Modules {
                         i++;
                     }
                     i = 0;
+                    goingBack = false;
                 }
 
                 if (repeats == "") {
@@ -102,6 +105,46 @@ namespace DelBot.Modules {
                     }
                     i++;
                 }
+            }
+        }
+
+        [Command("evaluate")]
+        [Alias("eval")]
+        public async Task EvaluateAsync([Remainder]string s = null) {
+            if (s == null) {
+                if (!StaticStates.verbatim) {
+                    await ReplyAsync("Nothing to evaluate?");
+                }
+                return;
+            }
+
+            string postfix = Utilities.ConvertToPostFix(s);
+
+            if (postfix != null) {
+                try {
+                    int result = Utilities.CalculatePostfixExpression(postfix);
+                    if (StaticStates.verbatim) {
+                        await ReplyAsync("" + result);
+                    } else {
+                        await ReplyAsync("Here is the result: " + result);
+                    }
+                } catch (FormatException) {
+                    await ReplyAsync(":rage: That is not a valid expression.");
+                }
+            } else {
+                await ReplyAsync(":rage: That is not a valid expression.");
+            }
+        }
+
+        [Command("if")]
+        public async Task IfAsync([Remainder]string s) {
+            List<string> parts = Utilities.ParamSplit(s);
+
+            if (parts.Count >= 4) {
+                string expr1 = parts[0];
+                string op = parts[1];
+                string expr2 = parts[2];
+                string remainder = "";
             }
         }
 

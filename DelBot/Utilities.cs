@@ -97,13 +97,7 @@ namespace DelBot {
             return args;
         }
 
-        public static int EvaluateExpression(string expr) {
-
-
-            return 0;
-        }
-
-        private int OperatorPrecedence(char sgn) {
+        private static int OperatorPrecedence(char sgn) {
             switch (sgn) {
                 case '+':
                 case '-':
@@ -117,35 +111,38 @@ namespace DelBot {
             }
         }
 
-        private string convertToPostFix(string expr) {
+        public static string ConvertToPostFix(string expr) {
             Stack<char> operatorStack = new Stack<char>();
             string postfix = "";
-            char curr;
-            char popped;
 
             // Iterate through string
             for (int i = 0; i < expr.Length; i++) {
-                curr = expr[i];
+                char curr = expr[i];
 
                 // Check what character is
-                if (curr - '0' >= 0 && curr - '0' <= 9) {
-                    // Append if digit
-                    // TODO
-                    postfix += "";
+                if (char.IsDigit(curr)) {
+                    // Append number if digit
+                    int l = 1;
+                    while (i + l < expr.Length && char.IsDigit(expr[i + l])) l++;
+                    postfix += ((postfix == "") ? "" : " ") + expr.Substring(i, l);
+                    i = i + l - 1;
+
                 } else if (curr == '(') {
                     // push if left parenthesis
                     operatorStack.Push(curr);
+
                 } else if (curr == ')') {
                     // pop and append until open parenthesis or empty
-                    while (operatorStack.Count != 0) {
-                        if (operatorStack.Peek() == '(') {
-                            operatorStack.Pop();
-                            break;
-                        }
-                        popped = operatorStack.Pop();
-                        postfix += popped;
+                    while (operatorStack.Count != 0 && operatorStack.Peek() != '(') {
+                        postfix += ((postfix == "") ? "" : " ") + operatorStack.Pop();
                     }
-                } else {
+                    if (operatorStack.Count == 0) {
+                        return null;
+                    } else {
+                        operatorStack.Pop();
+                    }
+
+                } else if (OperatorPrecedence(curr) != 0) {
                     // if operator
                     if (operatorStack.Count != 0) {
                         // if not empty stack
@@ -153,9 +150,8 @@ namespace DelBot {
                         int op2Prec = OperatorPrecedence(operatorStack.Peek());
                         while (op2Prec != 0 && op2Prec >= op1Prec) {
                             // if op2 has precedence greater than or equal to op1
-                            popped = operatorStack.Pop();
-                            postfix += popped;
-
+                            postfix += ((postfix == "") ? "" : " ") + operatorStack.Pop();
+                            
                             // Update operator, and break if empty
                             if (operatorStack.Count != 0) {
                                 op2Prec = OperatorPrecedence(operatorStack.Peek());
@@ -166,27 +162,31 @@ namespace DelBot {
                     }
                     // push op1 into stack
                     operatorStack.Push(curr);
+                } else if (curr != ' ') {
+                    // return null if anything else besides whitespace
+                    return null;
                 }
-                i++;
             }
 
             // pop and append the remaining operators in the stack
             while (operatorStack.Count != 0) {
-                popped = operatorStack.Pop();
-                if (popped != '(') {
-                    postfix += popped;
-                }
+                char popped = operatorStack.Pop();
+                if (popped == '(') return null;
+                postfix += ((postfix == "") ? "" : " ") + popped;
             }
 
             return postfix;
         }
 
-        int calculateExpression(string postfixExpr) {
+        public static int CalculatePostfixExpression(string postfixExpr) {
             Stack<int> operands = new Stack<int>();
             int result = 0;
 
             for (int i = 0; i < postfixExpr.Length; i++) {
                 if (OperatorPrecedence(postfixExpr[i]) != 0) {
+                    if (operands.Count < 2) {
+                        throw new FormatException();
+                    }
                     int int2 = operands.Pop();
                     int int1 = operands.Pop();
 
@@ -212,11 +212,16 @@ namespace DelBot {
                     }
 
                     operands.Push(result);
-                } else {
-                    // TODO push number into operand stack
+                } else if (char.IsDigit(postfixExpr[i])) {
+                    // push number into operand stack
+                    int l = 1;
+                    while (i + l < postfixExpr.Length && char.IsDigit(postfixExpr[i + l])) l++;
+                    operands.Push(int.Parse(postfixExpr.Substring(i, l)));
+                    i = i + l - 1;
                 }
             }
 
+            if (operands.Count > 1) throw new FormatException();
             return operands.Pop();
         }
     }
