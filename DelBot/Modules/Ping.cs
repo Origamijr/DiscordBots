@@ -154,15 +154,23 @@ namespace DelBot.Modules {
         [Command("help")]
         public async Task HelpAsync() {
             await ReplyAsync("```" +
-                ">>ping         - pong\n" +
-                ">>hello        - say hi to Del\n" +
-                ">>say <phrase> - tell Del to say ANYTHING *cough* verbatim\n" +
-                ">>stahp        - clear the message queue\n" +
-                ">>source       - get a link to Del's source code\n" +
+                ">>ping                 - pong\n" +
+                ">>hello                - say hi to Del\n" +
+                ">>say <phrase>         - tell Del to say ANYTHING *cough* verbatim\n" +
+                ">>repeat <p1> <p2> ... - Get Del to repeat a message containg the given keywords *CAUTION*" +
+                ">>stahp                - clear the message queue\n" +
+                ">>source               - get a link to Del's source code\n" +
                 "\n" +
-                ">>remember <phrase>         - get Del to remember a phrase\n" +
-                ">>rememberArr <p1> <p2> ... - get Del to remember multiple phrases\n" +
-                ">>cookie                    - Del gives you a cookie\n" +
+                ">>remember <phrase>              - get Del to remember a phrase\n" +
+                ">>remember <varname> := <phrase> - get Del to remember a phrase with a keyword" +
+                ">>remember <varname>??           - get Del to recall a phrase with a keyword" +
+                ">>rememberArr <p1> <p2> ...      - get Del to remember multiple phrases\n" +
+                ">>invade <@user>                 - Del invades another user's wordbank" +
+                ">>cookie                         - Del gives you a cookie\n" +
+                "\n" +
+                ">>verbatim                                  - Toggle verbatim mode" +
+                ">>if <e1> <op> <e2> then <if> [else <else>] - Del will conditionally say something" +
+                ">>evaluate <integer expression>             - evaluate the given expression" +
                 "\n" +
                 ">>rpg init <str> <vit> <int> <dex> - initialize an rpg profile\n" +
                 ">>rpg stats                        - display your current stats\n" +
