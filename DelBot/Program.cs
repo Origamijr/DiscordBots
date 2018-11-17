@@ -24,6 +24,7 @@ namespace DelBot {
         public static Queue<Tuple<string, ISocketMessageChannel>> MessageQueue = new Queue<Tuple<string, ISocketMessageChannel>>();
         static Timer timer;
         static Timer pingKevin;
+        private static int msgTimerDelay = 3000;
 
         private SocketCommandContext context = null;
 
@@ -43,7 +44,7 @@ namespace DelBot {
             
             timer = new Timer();
             timer.Start();
-            timer.Interval = 5000;
+            timer.Interval = msgTimerDelay;
             timer.Elapsed += new ElapsedEventHandler(TimerTick);
 
             pingKevin = new Timer();
@@ -116,8 +117,13 @@ namespace DelBot {
             if (MessageQueue.Count == 0) {
                 msgChannel.SendMessageAsync(msg);
                 MessageQueue.Enqueue(Tuple.Create("", msgChannel));
+                Console.WriteLine(DateTime.Now.ToString("[h:mm:ss tt]") + " Send message: " + msg);
+                timer.Stop();
+                timer.Interval = msgTimerDelay / 2;
+                timer.Start();
             } else {
                 MessageQueue.Enqueue(Tuple.Create(msg, msgChannel));
+                Console.WriteLine(DateTime.Now.ToString("[h:mm:ss tt]") + " Enqueue message: " + msg);
             }
         }
         
@@ -125,7 +131,9 @@ namespace DelBot {
             if (MessageQueue.Count != 0) {
                 var message = MessageQueue.Dequeue();
                 if (message.Item1 != "") {
+                    timer.Interval = msgTimerDelay;
                     message.Item2.SendMessageAsync(message.Item1);
+                    Console.WriteLine(DateTime.Now.ToString("[h:mm:ss tt]") + " Send message: " + message.Item1);
                 }
             }
         }

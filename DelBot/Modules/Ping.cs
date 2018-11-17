@@ -12,13 +12,13 @@ namespace DelBot.Modules {
 
         [Command("ping")]
         public async Task PingAsync() {
-            await ReplyAsync("pong");
+            Program.EnqueueMessage("pong", Context.Channel);
         }
 
         [Command("stahp")]
         public async Task StahpAsync() {
             Program.MessageQueue.Clear();
-            await ReplyAsync("ok");
+            Program.EnqueueMessage("ok", Context.Channel);
         }
 
         [Command("hello")]
@@ -28,19 +28,19 @@ namespace DelBot.Modules {
 
             if (Context.Message.Author.Username == "Del") {
                 if (hour < 8) {
-                    await ReplyAsync("Good Mornin-\nOh wait.");
+                    Program.EnqueueMessage("Good Mornin-\nOh wait.", Context.Channel);
                 } else if (hour < 14) {
-                    await ReplyAsync("Good Afternoo-\nOh wait.");
+                    Program.EnqueueMessage("Good Afternoo-\nOh wait.", Context.Channel);
                 } else {
-                    await ReplyAsync("Good Evenin-\nOh wait.");
+                    Program.EnqueueMessage("Good Evenin-\nOh wait.", Context.Channel);
                 }
             } else {
                 if (hour < 8) {
-                    await ReplyAsync("Good Morning, " + user + "-dono.");
+                    Program.EnqueueMessage("Good Morning, " + user + "-dono.", Context.Channel);
                 } else if (hour < 14) {
-                    await ReplyAsync("Good Afternoon, " + user + "-dono.");
+                    Program.EnqueueMessage("Good Afternoon, " + user + "-dono.", Context.Channel);
                 } else {
-                    await ReplyAsync("Good Evening, " + user + "-dono.");
+                    Program.EnqueueMessage("Good Evening, " + user + "-dono.", Context.Channel);
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace DelBot.Modules {
                 }
 
                 if (repeats == "") {
-                    await ReplyAsync("My apologies. No message was found.");
+                    Program.EnqueueMessage("My apologies. No message was found.", Context.Channel);
                 } else {
                     Program.EnqueueMessage(repeats, Context.Channel);
                 }
@@ -132,28 +132,28 @@ namespace DelBot.Modules {
             List<string> words = Utilities.ParamSplit(s);
 
             foreach (string w in words) {
-                await ReplyAsync("`" + w + "`");
+                Program.EnqueueMessage("`" + w + "`", Context.Channel);
             }
         }
 
         [Command("source")]
         public async Task SourceAsync() {
-            await ReplyAsync("Here is a link to my source code:\n" +
-                "https://github.com/Origamijr/DiscordBots");
+            Program.EnqueueMessage("Here is a link to my source code:\n" +
+                "https://github.com/Origamijr/DiscordBots", Context.Channel);
         }
 
         [Command("verbatim")]
         public async Task VerbatimAsync() {
             if (StaticStates.verbatim = !StaticStates.verbatim) {
-                await ReplyAsync("Verbatim mode on.");
+                Program.EnqueueMessage("Verbatim mode on.", Context.Channel);
             } else {
-                await ReplyAsync(Context.User.Mention + "-dono, verbatim mode has been turned off.");
+                Program.EnqueueMessage(Context.User.Mention + "-dono, verbatim mode has been turned off.", Context.Channel);
             }
         }
 
         [Command("help")]
         public async Task HelpAsync() {
-            await ReplyAsync("```" +
+            Program.EnqueueMessage("```" +
                 ">>ping                 - pong\n" +
                 ">>hello                - say hi to Del\n" +
                 ">>say <phrase>         - tell Del to say ANYTHING *cough* verbatim\n" +
@@ -178,7 +178,7 @@ namespace DelBot.Modules {
                 "\n" +
                 ">>cfg <V1 V2...> <T1 T2...> <v [P]->vt;...> <S> - create a context-free grammar\n" +
                 ">>cfg.set <name>                                - remember the last created grammar\n" +
-                ">>cfg.sim <steps> {name=last}                   - simulate a grammar for a number of steps\n```");
+                ">>cfg.sim <steps> {name=last}                   - simulate a grammar for a number of steps\n```", Context.Channel);
         }
     }
 }

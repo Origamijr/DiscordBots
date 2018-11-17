@@ -17,16 +17,20 @@ namespace DelBot.Modules {
         string rememberArrTag = "rememberArr";
         string dbName = "./Databases/BasicDB.json";
 
+        private void SendMessage(string msg) {
+            Program.EnqueueMessage(msg, Context.Channel);
+        }
+
         [Command("invade")]
         public async Task InvadeDBAsync(string s = null) {
             string name = null;
             if (s != null && (name = Utilities.GetUsername(s, Context)) != null) {
                 JsonDatabase.SetDefaultKey("" + Utilities.GetId(s));
-                await ReplyAsync("Entering " + name + "'s room ( ͡° ͜ʖ ͡°)");
+                SendMessage("Entering " + name + "'s room ( ͡° ͜ʖ ͡°)");
             } else {
                 Console.WriteLine(name);
                 JsonDatabase.SetDefaultKey(null);
-                await ReplyAsync("Returning to my own room.");
+                SendMessage("Returning to my own room.");
             }
         }
 
@@ -37,23 +41,23 @@ namespace DelBot.Modules {
             if (Context.Message.Author.Username == "Alumina") {
                 if (s == null) {
                     if (!(JsonDatabase.PurgeFile(dbName))) {
-                        await ReplyAsync("Someone is reading the database. Unable to purge data at the moment.");
+                        SendMessage("Someone is reading the database. Unable to purge data at the moment.");
                         return;
                     }
 
-                    await ReplyAsync("All records have been deleted. The perfect crime.");
+                    SendMessage("All records have been deleted. The perfect crime.");
                 } else if (s[1] == '@') {
                     s = s.Substring(0, 2) + "!" + s.Substring(2);
 
                     if (!(JsonDatabase.PurgeUser(dbName, s))) {
-                        await ReplyAsync("I don't know what you were expecting, Kevin. For some random patched together 100 lines of code to work correctly? Get real Kevin.");
+                        SendMessage("I don't know what you were expecting, Kevin. For some random patched together 100 lines of code to work correctly? Get real Kevin.");
                         return;
                     }
 
-                    await ReplyAsync("All records partaining " + s + " has been deleted.");
+                    SendMessage("All records partaining " + s + " has been deleted.");
                 }
             } else {
-                await ReplyAsync("My apologies. Only Kevin can execute this command");
+                SendMessage("My apologies. Only Kevin can execute this command");
             }
         }
 
@@ -65,7 +69,7 @@ namespace DelBot.Modules {
                 List<string> userIds = JsonDatabase.ListHigh(dbName);
 
                 if (userIds.Count == 0) {
-                    await ReplyAsync("No one has told me to remember anything yet. Let's build some pleasant memories together Alumina-dono.");
+                    SendMessage("No one has told me to remember anything yet. Let's build some pleasant memories together Alumina-dono.");
                     return;
                 }
 
@@ -88,10 +92,10 @@ namespace DelBot.Modules {
 
                 msg += users[users.Count - 1];
 
-                await ReplyAsync(msg);
+                SendMessage(msg);
 
             } else {
-                await ReplyAsync("My apologies. Only Alumina-dono can execute this command");
+                SendMessage("My apologies. Only Alumina-dono can execute this command");
             }
         }
 
@@ -108,7 +112,7 @@ namespace DelBot.Modules {
             JsonDatabase db = JsonDatabase.Open(dbName);
 
             if (!(db.IsOpen())) {
-                await ReplyAsync("My apologies " + user + "-dono. Someone else is accessing the database...is what I'd like to say, but judging by the multiple failures thus far I cn safely say Kevin did something wrong.");
+                SendMessage("My apologies " + user + "-dono. Someone else is accessing the database...is what I'd like to say, but judging by the multiple failures thus far I cn safely say Kevin did something wrong.");
                 return;
             }
 
@@ -119,29 +123,29 @@ namespace DelBot.Modules {
 
                 if (StaticStates.verbatim) {
                     if (retrievedStr == null) {
-                        await ReplyAsync(Utilities.RandomString(64));
+                        SendMessage(Utilities.RandomString(64));
                     } else {
-                        await ReplyAsync(retrievedStr.Replace('\n', ' '));
+                        SendMessage(retrievedStr.Replace('\n', ' '));
                     }
                 } else if (Utilities.IsSelf(user)) {
                     if (retrievedStr == null) {
                         if (JsonDatabase.GetDefaultKey() != null) {
-                            await ReplyAsync("Invaded " + Utilities.GetUsername(userId, Context) + "'s room and found nothing meaningful.");
+                            SendMessage("Invaded " + Utilities.GetUsername(userId, Context) + "'s room and found nothing meaningful.");
                         } else {
-                            await ReplyAsync("I do not think that nobody hasn't taken the initiative to tell me to autonomously remember something for myself.");
+                            SendMessage("I do not think that nobody hasn't taken the initiative to tell me to autonomously remember something for myself.");
                         }
                     } else {
                         if (JsonDatabase.GetDefaultKey() != null) {
-                            await ReplyAsync("Invaded " + Utilities.GetUsername(userId, Context) + "'s room and found a note saying \"" + retrievedStr + "\".");
+                            SendMessage("Invaded " + Utilities.GetUsername(userId, Context) + "'s room and found a note saying \"" + retrievedStr + "\".");
                         } else {
-                            await ReplyAsync("I remembered \"" + retrievedStr + "\". Are you proud of me?");
+                            SendMessage("I remembered \"" + retrievedStr + "\". Are you proud of me?");
                         }
                     }
                 } else {
                     if (retrievedStr == null) {
-                        await ReplyAsync("You have not told me to remember anything yet, " + user + "-dono.");
+                        SendMessage("You have not told me to remember anything yet, " + user + "-dono.");
                     } else {
-                        await ReplyAsync("" + user + "-dono, You told me to remember \"" + retrievedStr + "\".");
+                        SendMessage("" + user + "-dono, You told me to remember \"" + retrievedStr + "\".");
                     }
                 }
 
@@ -157,16 +161,16 @@ namespace DelBot.Modules {
                         if (!StaticStates.verbatim) {
                             if (Utilities.IsSelf(user)) {
                                 if (JsonDatabase.GetDefaultKey() != null) {
-                                    await ReplyAsync("Snuck a note titled \"" + varName + "\" into " + Utilities.GetUsername(userId, Context) + "'s room with the phrase \'" + value + "\".");
+                                    SendMessage("Snuck a note titled \"" + varName + "\" into " + Utilities.GetUsername(userId, Context) + "'s room with the phrase \'" + value + "\".");
                                 } else {
-                                    await ReplyAsync("I guess I'll remember \"" + value + "\" with keywork \"" + varName + "\"");
+                                    SendMessage("I guess I'll remember \"" + value + "\" with keywork \"" + varName + "\"");
                                 }
                             } else {
-                                await ReplyAsync("Remembered \"" + value + "\" with keywork \"" + varName + "\" for you " + user + "-dono.");
+                                SendMessage("Remembered \"" + value + "\" with keywork \"" + varName + "\" for you " + user + "-dono.");
                             }
                         }
                     } else {
-                        await ReplyAsync("My apologizes " + user + "-dono. An edge case occured that Kevin expected to only happen in debugging.");
+                        SendMessage("My apologizes " + user + "-dono. An edge case occured that Kevin expected to only happen in debugging.");
                     }
                 } else if (s.Substring(s.Length - 2) == "??") {
                     string varName = s.Substring(0, s.Length - 2);
@@ -176,29 +180,29 @@ namespace DelBot.Modules {
                     
                     if (StaticStates.verbatim) {
                         if (retrievedStr == null) {
-                            await ReplyAsync(Utilities.RandomString(64));
+                            SendMessage(Utilities.RandomString(64));
                         } else {
-                            await ReplyAsync(retrievedStr.Replace('\n', ' '));
+                            SendMessage(retrievedStr.Replace('\n', ' '));
                         }
                     } else if (Utilities.IsSelf(user)) {
                         if (retrievedStr == null) {
                             if (JsonDatabase.GetDefaultKey() != null) {
-                                await ReplyAsync("Didn't find any note titled \"" + varName + "\" in " + Utilities.GetUsername(userId, Context) + "'s room.");
+                                SendMessage("Didn't find any note titled \"" + varName + "\" in " + Utilities.GetUsername(userId, Context) + "'s room.");
                             } else {
-                                await ReplyAsync("I do not think that nobody hasn't taken the initiative to tell me to autonomously remember something for myself using the keyword \"" + varName + "\".");
+                                SendMessage("I do not think that nobody hasn't taken the initiative to tell me to autonomously remember something for myself using the keyword \"" + varName + "\".");
                             }
                         } else {
                             if (JsonDatabase.GetDefaultKey() != null) {
-                                await ReplyAsync("Found a note titled \"" + varName + "\" in " + Utilities.GetUsername(userId, Context) + "'s room with the phrase \'" + retrievedStr + "\".");
+                                SendMessage("Found a note titled \"" + varName + "\" in " + Utilities.GetUsername(userId, Context) + "'s room with the phrase \'" + retrievedStr + "\".");
                             } else {
-                                await ReplyAsync("I remembered \"" + retrievedStr + "\" using the keyword \"" + varName + "\". Are you proud of me?");
+                                SendMessage("I remembered \"" + retrievedStr + "\" using the keyword \"" + varName + "\". Are you proud of me?");
                             }
                         }
                     } else {
                         if (retrievedStr == null) {
-                            await ReplyAsync("You have not told me to remember anything yet using the keyword \"" + varName + "\", " + user + "-dono.");
+                            SendMessage("You have not told me to remember anything yet using the keyword \"" + varName + "\", " + user + "-dono.");
                         } else {
-                            await ReplyAsync("" + user + "-dono, You told me to remember \"" + retrievedStr + "\" using the keyword \"" + varName + "\".");
+                            SendMessage("" + user + "-dono, You told me to remember \"" + retrievedStr + "\" using the keyword \"" + varName + "\".");
                         }
                     }
                 } else {
@@ -207,22 +211,22 @@ namespace DelBot.Modules {
                         if (!StaticStates.verbatim) {
                             if (Utilities.IsSelf(user)) {
                                 if (JsonDatabase.GetDefaultKey() != null) {
-                                    await ReplyAsync("Posted a note with content \"" + s + "\" in " + Utilities.GetUsername(userId, Context) + "'s room.");
+                                    SendMessage("Posted a note with content \"" + s + "\" in " + Utilities.GetUsername(userId, Context) + "'s room.");
                                 } else {
-                                    await ReplyAsync("I guess I'll remember \"" + s + "\"");
+                                    SendMessage("I guess I'll remember \"" + s + "\"");
                                 }
                             } else {
-                                await ReplyAsync("Remembered \"" + s + "\" for you " + user + "-dono.");
+                                SendMessage("Remembered \"" + s + "\" for you " + user + "-dono.");
                             }
                         }
                     } else {
-                        await ReplyAsync("My apologizes " + user + "-dono. An edge case occured that Kevin expected to only happen in debugging.");
+                        SendMessage("My apologizes " + user + "-dono. An edge case occured that Kevin expected to only happen in debugging.");
                     }
                 }
             }
 
             if (!(db.Close())) {
-                await ReplyAsync("My apologizes " + user + "-dono. Kevin messed up the program and tried to modify a database that never existed.");
+                SendMessage("My apologizes " + user + "-dono. Kevin messed up the program and tried to modify a database that never existed.");
             }
         }
 
@@ -233,7 +237,7 @@ namespace DelBot.Modules {
         public async Task EvaluateAsync([Remainder]string s = null) {
             if (s == null) {
                 if (!StaticStates.verbatim) {
-                    await ReplyAsync("Nothing to evaluate?");
+                    SendMessage("Nothing to evaluate?");
                 }
                 return;
             }
@@ -292,15 +296,15 @@ namespace DelBot.Modules {
                 try {
                     int result = Utilities.CalculatePostfixExpression(postfix);
                     if (StaticStates.verbatim) {
-                        await ReplyAsync("" + result);
+                        SendMessage("" + result);
                     } else {
-                        await ReplyAsync("Here is the result: " + result);
+                        SendMessage("Here is the result: " + result);
                     }
                 } catch (FormatException) {
-                    await ReplyAsync(":rage: That is not a valid expression.");
+                    SendMessage(":rage: That is not a valid expression.");
                 }
             } else {
-                await ReplyAsync(":rage: That is not a valid expression.");
+                SendMessage(":rage: That is not a valid expression.");
             }
         }
 
@@ -454,14 +458,14 @@ namespace DelBot.Modules {
                     }
 
                     if (cond) {
-                        await ReplyAsync(Utilities.TrimSpaces(ifBlock));
+                        SendMessage(Utilities.TrimSpaces(ifBlock));
                     } else if (elseInd < parts.Count - 1) {
-                        await ReplyAsync(Utilities.TrimSpaces(elseBlock));
+                        SendMessage(Utilities.TrimSpaces(elseBlock));
                     }
                 }
 
             } else if (!StaticStates.verbatim) {
-                await ReplyAsync("...what?");
+                SendMessage("...what?");
             }
         }
 
@@ -475,7 +479,7 @@ namespace DelBot.Modules {
             JsonDatabase db = JsonDatabase.Open(dbName);
             
             if (!(db.IsOpen())) {
-                await ReplyAsync("My apologies " + user + "-dono. Someone else is accessing the database...is what I'd like to say, but judging by the multiple failures thus far I can safely say Kevin did something wrong.");
+                SendMessage("My apologies " + user + "-dono. Someone else is accessing the database...is what I'd like to say, but judging by the multiple failures thus far I can safely say Kevin did something wrong.");
                 return;
             }
 
@@ -484,7 +488,7 @@ namespace DelBot.Modules {
 
                 if (Context.Message.Author.Username == "Del") {
                     if (retrievedArr == null) {
-                        await ReplyAsync("I do not think that nobody hasn't taken the initiative to tell me to autonomously remember something for myself.");
+                        SendMessage("I do not think that nobody hasn't taken the initiative to tell me to autonomously remember something for myself.");
                     } else {
                         string msg = "I remembered ";
                         for (int i = 0; i < retrievedArr.Length; i++) {
@@ -497,11 +501,11 @@ namespace DelBot.Modules {
                             }
                         }
                         msg += ". Are you extra proud of me?";
-                        await ReplyAsync(msg);
+                        SendMessage(msg);
                     }
                 } else {
                     if (retrievedArr == null) {
-                        await ReplyAsync("You have not told me to remember anything yet, " + user + "-dono.");
+                        SendMessage("You have not told me to remember anything yet, " + user + "-dono.");
                     } else {
                         string msg = "I remembered ";
                         for (int i = 0; i < retrievedArr.Length; i++) {
@@ -514,12 +518,12 @@ namespace DelBot.Modules {
                             }
                         }
                         msg += " for you, " + user + "-dono.";
-                        await ReplyAsync(msg);
+                        SendMessage(msg);
                     }
                 }
 
                 if (!(db.Close())) {
-                    await ReplyAsync("My apologizes " + user + "-dono. Kevin messed up the program and tried to modify a database that never existed.");
+                    SendMessage("My apologizes " + user + "-dono. Kevin messed up the program and tried to modify a database that never existed.");
                 }
             } else {
                 string[] arr = Utilities.ParamSplit(s).ToArray();
@@ -537,7 +541,7 @@ namespace DelBot.Modules {
                             }
                         }
                         msg += ".";
-                        await ReplyAsync(msg);
+                        SendMessage(msg);
                     } else {
                         string msg = "Remembered ";
                         for (int i = 0; i < arr.Length; i++) {
@@ -550,14 +554,14 @@ namespace DelBot.Modules {
                             }
                         }
                         msg += " for you, " + user + "-dono.";
-                        await ReplyAsync(msg);
+                        SendMessage(msg);
                     }
                 } else {
-                    await ReplyAsync("My apologizes " + user + "-dono. Kevin does not understand LINQ.");
+                    SendMessage("My apologizes " + user + "-dono. Kevin does not understand LINQ.");
                 }
 
                 if (!(db.Close())) {
-                    await ReplyAsync("My apologizes " + user + "-dono. Kevin messed up the program and tried to modify a database that never existed.");
+                    SendMessage("My apologizes " + user + "-dono. Kevin messed up the program and tried to modify a database that never existed.");
                 }
             }
         }
