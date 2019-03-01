@@ -151,6 +151,7 @@
     <Compile Include="CFGUtils\CFG.cs" />
     <Compile Include="Databases\BinDatabase.cs" />
     <Compile Include="Databases\JsonDatabase.cs" />
+    <Compile Include="FactorOracles\FactorOracle.cs" />
     <Compile Include="Graphics\Mat4.cs" />
     <Compile Include="Graphics\MGM.cs" />
     <Compile Include="Graphics\Vec3.cs" />
