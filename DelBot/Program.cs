@@ -36,7 +36,7 @@ namespace DelBot {
         }
 
         // Private variables holding discord objects
-        private DiscordSocketClient _client;
+        private static DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _services;
 
@@ -113,27 +113,31 @@ namespace DelBot {
             }
         }
 
-        public static void EnqueueMessage(string msg, ISocketMessageChannel msgChannel) {
+        public static async Task EnqueueMessage(string msg, ISocketMessageChannel msgChannel) {
             if (MessageQueue.Count == 0) {
-                msgChannel.SendMessageAsync(msg);
                 MessageQueue.Enqueue(Tuple.Create("", msgChannel));
                 Console.WriteLine(DateTime.Now.ToString("[h:mm:ss tt]") + " Send message: " + msg);
                 timer.Stop();
                 timer.Interval = msgTimerDelay / 2;
                 timer.Start();
+                await msgChannel.SendMessageAsync(msg);
             } else {
                 MessageQueue.Enqueue(Tuple.Create(msg, msgChannel));
                 Console.WriteLine(DateTime.Now.ToString("[h:mm:ss tt]") + " Enqueue message: " + msg);
+                await _client.SetGameAsync("with messages...");
             }
         }
         
-        void TimerTick(object sender, ElapsedEventArgs e) {
+        private void TimerTick(object sender, ElapsedEventArgs e) {
             if (MessageQueue.Count != 0) {
                 var message = MessageQueue.Dequeue();
                 if (message.Item1 != "") {
                     timer.Interval = msgTimerDelay;
                     message.Item2.SendMessageAsync(message.Item1);
                     Console.WriteLine(DateTime.Now.ToString("[h:mm:ss tt]") + " Send message: " + message.Item1);
+                }
+                if (MessageQueue.Count == 0) {
+                    _client.SetGameAsync(">>help");
                 }
             }
         }
