@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DelBot.CFGUtils;
 using DelBot.Databases;
 using Discord.Commands;
+using DelBot.FactorOracles;
 
 namespace DelBot.Modules {
     public class NLPCommands : ModuleBase<SocketCommandContext> {
@@ -15,6 +16,16 @@ namespace DelBot.Modules {
         const string terminalTag = "T";
         const string ruleTag = "R";
         const string startTag = "S";
+
+        [Command("fo.query")]
+        public async Task QuearyFOAsync(string sequence, string query) {
+            List<char> sList = new List<char>();
+            List<char> qList = new List<char>();
+            sList.AddRange(sequence);
+            qList.AddRange(query);
+            FactorOracle<char> fo = new FactorOracle<char>(sList);
+            Program.EnqueueMessage(fo.Query(qList) ? "Yes, that is a factor" : "Umm... No.", Context.Channel);
+        }
 
         [Command("cfg")]
         public async Task CreateCFGAsync(string varStr, string termStr, string ruleStr, string sttStr) {
