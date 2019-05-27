@@ -12,7 +12,7 @@ class Singleton(type):
             cls.instance = super(Singleton, cls).__call__(*args, **kw)
         return cls.instance
 
-#@Singleton
+
 class MessageList(metaclass=Singleton):
     def __init__(self):
         self.size = 256
@@ -20,10 +20,10 @@ class MessageList(metaclass=Singleton):
         self.head = 0
 
     def __getitem__(self, key):
-        return queue[(head + key - 1) % self.size]
+        return self.queue[(self.head + key - 1) % self.size]
 
     def __iter__(self):
-        self.iter = (head - 1) % self.size
+        self.iter = (self.head - 1) % self.size
         self.firstIter = True
         return self
 
@@ -39,8 +39,19 @@ class MessageList(metaclass=Singleton):
         self.queue[self.head] = message
         self.head = (self.head + 1) % self.size
 
+    def lastMessageByUser(self, user_id):
+        for message in self:
+            if message.author.id == user_id:
+                return message
+        return None
 
-#@Singleton
+    def lastMessageWithContent(self, content):
+        for message in self:
+            if content in message.content:
+                return message
+        return None
+
+
 class SendQueue(Thread, metaclass=Singleton):
     def __init__(self, bot):
         Thread.__init__(self)
@@ -50,7 +61,7 @@ class SendQueue(Thread, metaclass=Singleton):
         self.wait_time = 1.5
 
     def run(self):
-        while not self.stopped.wait(wait_time):
+        while not self.stopped.wait(self.wait_time):
             if not self.queue.empty():
                 message, context = self.queue.get()
                 if message is not None:

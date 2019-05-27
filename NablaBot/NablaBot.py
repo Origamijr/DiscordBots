@@ -26,13 +26,15 @@ if __name__ == '__main__':
 
     @bot.event
     async def on_message(message):
-        await bot.process_commands(message)
+        ctx = await bot.get_context(message)
+        await bot.invoke(ctx)
+        print(str(message.author.id) + ': ' + message.content)
         messages.push(message)
         pass
 
     @bot.event
     async def on_raw_reaction_add(payload):
-        print(str(payload.user_id) + ' ' + str(payload.emoji) + '  ' + ('Unicode 😠' if payload.emoji.is_unicode_emoji() else 'Not Unicode 😠'))
+        #print(str(payload.user_id) + ' ' + str(payload.emoji) + '  ' + ('Unicode 😠' if payload.emoji.is_unicode_emoji() else 'Not Unicode 😠'))
         pass
 
     # Run bot
