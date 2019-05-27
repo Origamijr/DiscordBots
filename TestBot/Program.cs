@@ -106,7 +106,7 @@ namespace DelBot {
                     Random random = new Random();
                     double r = random.NextDouble();
 
-                    if (r < 0.000001) {
+                    if (r < 0.00001) {
                         await message.Channel.SendMessageAsync("You have gotten the rare message. Have a cookie :cookie:");
                     } else if (r < 0.02) {
                         await message.Channel.SendMessageAsync("Hello. I exist to say I exist.");

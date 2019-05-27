@@ -21,14 +21,14 @@ if __name__ == '__main__':
     @bot.event
     async def on_ready():
         print(f'Logged in as: {bot.user.name} - {bot.user.id} - Version: {discord.__version__}')
-        await bot.change_presence(activity=discord.Game(name='Testing Python'))
+        await bot.change_presence(activity=discord.Game(name='Testing Python 🐍'))
         print(f'Successfully logged in and booted...!')
 
     @bot.event
     async def on_message(message):
         ctx = await bot.get_context(message)
         await bot.invoke(ctx)
-        print(str(message.author.id) + ': ' + message.content)
+        #print(str(message.author.id) + ': ' + message.content)
         messages.push(message)
         pass
 

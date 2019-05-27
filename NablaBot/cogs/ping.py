@@ -22,7 +22,7 @@ class PingCog(commands.Cog):
             self.sendQueue.stop()
             await self.bot.logout()
         else:
-            self.sendQueue.put('Only Kevin can use this command...')
+            self.sendQueue.put('Only Kevin can use this command...', context)
 
     @commands.command(name='say')
     async def say_async(self, context, *s):
@@ -47,12 +47,12 @@ class PingCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author.id == self.bot.user.id and message == "Please add a reaction...":
+        if message.author.id == self.bot.user.id and message.content == "Please add a reaction...":
             self.mirrorMessage = message
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         if payload.message_id == self.mirrorMessage.id:
-            self.mirrorMessage.edit(payload.emoji)
+            await self.mirrorMessage.edit(content=str(payload.emoji))
 
 def setup(bot): bot.add_cog(PingCog(bot))
