@@ -91,7 +91,7 @@ namespace DelBot.Modules {
                 string repeats = "";
 
                 foreach (var repeatQuery in repeatQueries) {
-                    if (repeatQuery.Length > 2 && ">>" == repeatQuery.Substring(0, 2) && int.TryParse(repeatQuery.Substring(2), out back)) {
+                    if (repeatQuery.Length > 2 && "->" == repeatQuery.Substring(0, 2) && int.TryParse(repeatQuery.Substring(2), out back)) {
                         goingBack = true;
                     }
                     foreach (var message in messages) {
