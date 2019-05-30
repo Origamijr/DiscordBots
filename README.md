@@ -34,5 +34,16 @@ MarxBot is built to test out the even more experimental modules that I didn't fe
 This bot was really made as a demonstration to a friend on how to create a discord bot, but I decided to use it to experiment with "commandless" functionality. Deployed across several servers I'm in as more of a joke than anything else. Commands cannot be triggered by other bots.
 
 ### Functionality
-* Random Replies
+* Randomness
   * Randomly responds to user messages to remind people that it exists.
+  * Able to roll a custom set of dice
+
+## NablaBot
+
+This bot is built in order to try out the Discord.py API. At first, early in development, it will mimic the functionality of DelBot, but it will eventually diverge to experiment with more NLP and ML type things.
+
+### Functionality
+* Message Queueing
+  * Similar to Del, but in python
+* Anime Analysis
+  * WIP for class project. Most of source code will not be made available for academic integrity purposes.
