@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     # Load extensions from files
     for filename in glob.iglob('NablaBot\\cogs\\**\\*', recursive=True):
-        if filename.split('.')[-1] == 'py':
+        if filename.split('.')[-1] == 'py' and filename.split('\\')[-1][0] is not '_':
             print('Loading extension ' + filename.split('.')[0].split('\\')[-1] + '...')
             bot.load_extension('cogs.' + filename.split('.')[0].split('\\')[-1])
 

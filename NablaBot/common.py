@@ -2,6 +2,23 @@ import queue
 from threading import Thread, Event
 import asyncio
 
+# FUNCTIONS ====================================================================
+
+def discord_format(text, italics=False, bold=False, underline=False, strikethrough=False):
+    if italics:
+        text = '*' + text + '*'
+    if bold:
+        text = '**' + text + '**'
+    if underline:
+        text = '__' + text + '__'
+    if strikethrough:
+        text = '~~' + text + '~~'
+    return text
+
+
+
+# CLASSES ======================================================================
+
 class Singleton(type):
     def __init__(cls, name, bases, dict):
         super(Singleton, cls).__init__(name, bases, dict)

@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import sys
-sys.path.insert(0,'..')
 from common import MessageList, SendQueue
 
 class PingCog(commands.Cog):
