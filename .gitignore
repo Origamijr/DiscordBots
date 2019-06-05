@@ -5,6 +5,7 @@
 
 Tokens.txt
 *.lnk
+nlp/
 
 # User-specific files
 *.suo

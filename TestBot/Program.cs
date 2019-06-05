@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace DelBot {
     class Program {
@@ -96,10 +97,16 @@ namespace DelBot {
                     specialInput = true;
                     string maFace = "<";
                     for (int i = 1; i < content.Length - 2; i++) {
-                        maFace += "_";
+                        maFace += "\\_";
                     }
                     maFace += "<";
                     await message.Channel.SendMessageAsync(maFace);
+                }
+
+                //if (Regex.Match(content, @".* drop .* f .* chat .*").Success) {
+                if (content.ToLower().Contains("drop") && content.ToLower().Contains("f") && content.ToLower().Contains("chat") && content.ToLower().IndexOf("drop") < content.ToLower().IndexOf("f") && content.ToLower().IndexOf("f") < content.ToLower().IndexOf("chat")) {
+                    await message.Channel.SendMessageAsync("F");
+                    specialInput = true;
                 }
 
                 if (!specialInput && message.Channel.Name == "general") {
@@ -108,7 +115,7 @@ namespace DelBot {
 
                     if (r < 0.00001) {
                         await message.Channel.SendMessageAsync("You have gotten the rare message. Have a cookie :cookie:");
-                    } else if (r < 0.02) {
+                    } else if (r < 0.01) {
                         await message.Channel.SendMessageAsync("Hello. I exist to say I exist.");
                     }
                 }

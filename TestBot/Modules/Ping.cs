@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace TestBot.Modules {
     public class Ping : ModuleBase<SocketCommandContext> {
-        [Command("say")]
+        /*[Command("say")]
         public async Task SayAsync([Remainder]string s) {
             await ReplyAsync("I got no strings");
-        }
+        }*/
 
         [Command("source")]
         public async Task SourceAsync() {
             await ReplyAsync("source code desu:\n" +
                 "https://github.com/Origamijr/DiscordBots");
         }
-
+        /*
         [Command("roll")]
         public async Task SourceAsync(int dice, int plus = 0) {
             if (Context.Channel.Name == "dice-rolls") {
@@ -29,7 +29,7 @@ namespace TestBot.Modules {
                 await ReplyAsync("" + num + " + " + plus + " = " + (num + plus));
             }
         }
-
+        
         [Command("r")]
         public async Task SourceAsync(string prompt = "1d20") {
             //if (Context.Channel.Name == "dice-rolls") {
@@ -93,6 +93,6 @@ namespace TestBot.Modules {
                 await ReplyAsync("Learn to type noob.");
             }
             //}
-        }
+        }*/
     }
 }
