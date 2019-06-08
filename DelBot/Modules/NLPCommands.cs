@@ -10,7 +10,7 @@ using DelBot.FactorOracles;
 namespace DelBot.Modules {
     public class NLPCommands : ModuleBase<SocketCommandContext> {
 
-        const string dbName = "Databases/Grammars.json";
+        const string dbName = "runtime_db/DelBot/Grammars.json";
         const string lastTag = "ShortTermCFGMemory";
         const string variableTag = "V";
         const string terminalTag = "T";

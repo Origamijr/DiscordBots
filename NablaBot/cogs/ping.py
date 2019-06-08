@@ -1,7 +1,10 @@
 import discord
 from discord.ext import commands
+
 import sys
-from common import MessageList, SendQueue
+from os import path
+sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+from common import SendQueue, MessageList
 
 class PingCog(commands.Cog):
 
@@ -51,7 +54,7 @@ class PingCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if payload.message_id == self.mirrorMessage.id:
+        if self.mirrorMessage is not None and payload.message_id == self.mirrorMessage.id:
             await self.mirrorMessage.edit(content=str(payload.emoji))
 
 def setup(bot): bot.add_cog(PingCog(bot))

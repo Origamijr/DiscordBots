@@ -13,7 +13,7 @@ if __name__ == '__main__':
     sendQueue.start()
 
     # Load extensions from files
-    for filename in glob.iglob('NablaBot\\cogs\\**\\*', recursive=True):
+    for filename in glob.iglob('NablaBot\\cogs\\*'):
         if filename.split('.')[-1] == 'py' and filename.split('\\')[-1][0] is not '_':
             print('Loading extension ' + filename.split('.')[0].split('\\')[-1] + '...')
             bot.load_extension('cogs.' + filename.split('.')[0].split('\\')[-1])
@@ -28,13 +28,18 @@ if __name__ == '__main__':
     async def on_message(message):
         ctx = await bot.get_context(message)
         await bot.invoke(ctx)
-        #print(str(message.author.id) + ': ' + message.content)
+        print(str(message.author.id) + ': ' + message.content)
         messages.push(message)
         pass
 
     @bot.event
     async def on_raw_reaction_add(payload):
         #print(str(payload.user_id) + ' ' + str(payload.emoji) + '  ' + ('Unicode 😠' if payload.emoji.is_unicode_emoji() else 'Not Unicode 😠'))
+        pass
+
+    @bot.event
+    async def on_raw_message_edit(payload):
+        print(str(payload.cached_message.author.id) + ': ' + payload.cached_message.content)
         pass
 
     # Run bot

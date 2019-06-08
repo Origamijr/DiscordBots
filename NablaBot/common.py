@@ -84,7 +84,7 @@ class SendQueue(Thread, metaclass=Singleton):
                 if message is not None:
                     asyncio.run_coroutine_threadsafe(context.send(message), self._loop)
                 else:
-                    self.wait_time = 1.5
+                    self.wait_time = 1.0
                 
 
     def put(self, message, context):
@@ -93,7 +93,7 @@ class SendQueue(Thread, metaclass=Singleton):
         else:
             asyncio.run_coroutine_threadsafe(context.send(message), self._loop)
             self.queue.put((None, None))
-            self.wait_time = 0.5
+            self.wait_time = 0.2
 
     def stop(self):
         self.stopped.set()

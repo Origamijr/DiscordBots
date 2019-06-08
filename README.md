@@ -46,4 +46,5 @@ This bot is built in order to try out the Discord.py API. At first, early in dev
 * Message Queueing
   * Similar to Del, but in python
 * Anime Analysis
-  * WIP for class project. Most of source code will not be made available for academic integrity purposes.
+  * Takes a summary and predicts its genre and success
+  * Anime pitch evaluation

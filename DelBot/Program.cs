@@ -49,7 +49,7 @@ namespace DelBot {
 
             pingKevin = new Timer();
             pingKevin.Start();
-            pingKevin.Interval = 1000 * 60 * 60 * 24;
+            pingKevin.Interval = 1000 * 60 * 60;
             pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
@@ -60,7 +60,7 @@ namespace DelBot {
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string botToken = File.ReadAllLines("../../../Tokens.txt")[0];
+            string botToken = File.ReadAllLines("Tokens.txt")[0];
 
             // event subscriptions
             _client.Log += Log;

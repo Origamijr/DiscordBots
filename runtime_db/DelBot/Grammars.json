@@ -1,0 +1,76 @@
+{
+  "ShortTermCFGMemory": {
+    "V": [
+      "THERE",
+      "SHALL",
+      "BE",
+      "AN",
+      "ARMY",
+      "OF"
+    ],
+    "T": [
+      "buffalo"
+    ],
+    "R": [
+      "THERE 1-> SHALL BE",
+      "SHALL 1-> AN ARMY",
+      "BE 1-> OF buffalo",
+      "AN 1-> buffalo",
+      "ARMY 1-> buffalo buffalo",
+      "OF 1-> buffalo"
+    ],
+    "S": "THERE"
+  },
+  "eggSurvival": {
+    "V": [
+      "LIVING",
+      "EGG"
+    ],
+    "T": [
+      "dead",
+      "."
+    ],
+    "R": [
+      "LIVING 0.95-> LIVING EGG",
+      "LIVING 0.05-> dead",
+      "EGG 0.1-> LIVING",
+      "EGG 0.9-> ."
+    ],
+    "S": "LIVING"
+  },
+  "wikiCYK": {
+    "V": [
+      "S",
+      "VP",
+      "PP",
+      "NP",
+      "V",
+      "P",
+      "N",
+      "Det"
+    ],
+    "T": [
+      "eats",
+      "she",
+      "with",
+      "fish",
+      "fork",
+      "a"
+    ],
+    "R": [
+      "S 1-> NP VP",
+      "VP 0.3333333-> VP PP",
+      "VP 0.3333333-> V NP",
+      "VP 0.3333333-> eats",
+      "PP 1-> P NP",
+      "NP 0.5-> Det N",
+      "NP 0.5-> she",
+      "V 1-> eats",
+      "P 1-> with",
+      "N 0.5-> fish",
+      "N 0.5-> fork",
+      "Det 1-> a"
+    ],
+    "S": "S"
+  }
+}

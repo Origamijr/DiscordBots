@@ -1,0 +1,1 @@
+DelBot\bin\Debug\DelBot

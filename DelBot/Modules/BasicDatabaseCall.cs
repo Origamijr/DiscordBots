@@ -15,7 +15,7 @@ namespace DelBot.Modules {
         string rememberTag = "remember";
         string rememberVarTag = "rememberVar";
         string rememberArrTag = "rememberArr";
-        string dbName = "./Databases/BasicDB.json";
+        string dbName = "runtime_db/DelBot/BasicDB.json";
 
         private void SendMessage(string msg) {
             Program.EnqueueMessage(msg, Context.Channel);
