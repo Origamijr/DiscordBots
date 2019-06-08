@@ -90,7 +90,7 @@ namespace DelBot {
         public async Task RegisterCommandsAsync() {
             _client.MessageReceived += HandleCommandAsync;
 
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), null);
         }
 
         private async Task HandleCommandAsync(SocketMessage arg) {

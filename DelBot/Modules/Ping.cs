@@ -81,7 +81,7 @@ namespace DelBot.Modules {
         [Command("repeat")]
         [Alias("rep")]
         public async Task RepeatAsync([Remainder]string s = null) {
-            var messages = await Context.Channel.GetMessagesAsync(100).Flatten();
+            var messages = await Context.Channel.GetMessagesAsync(100).FlattenAsync();
             int i = 0;
             int back = 0;
             bool goingBack = false;

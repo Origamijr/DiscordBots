@@ -242,7 +242,7 @@ namespace DelBot.Modules {
                 return;
             }
             
-            var messages = await Context.Channel.GetMessagesAsync(100).Flatten();
+            var messages = await Context.Channel.GetMessagesAsync(100).FlattenAsync();
             string substituted = "";
             int back;
             int backPos = s.IndexOf(">>");
@@ -347,7 +347,7 @@ namespace DelBot.Modules {
                 }
                 if (elseInd >= parts.Count) ifBlock += remainder;
 
-                var messages = await Context.Channel.GetMessagesAsync(100).Flatten();
+                var messages = await Context.Channel.GetMessagesAsync(100).FlattenAsync();
                 int back;
                 if (expr1.Length > 2 && ">>" == expr1.Substring(0, 2) && int.TryParse(expr1.Substring(2), out back)) {
                     i = 0;

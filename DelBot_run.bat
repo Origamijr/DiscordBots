@@ -1,3 +1,5 @@
+msbuild DelBot.sln /t:Rebuild /p:Configuration=Release /p:Platform="any cpu" /v:m
+
 @echo off
 (
 echo.
@@ -15,4 +17,4 @@ echo.
 echo.                                                   
 )
 
-DelBot\bin\Debug\DelBot
+DelBot\bin\Release\DelBot
