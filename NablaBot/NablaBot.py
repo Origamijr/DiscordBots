@@ -28,7 +28,7 @@ if __name__ == '__main__':
     async def on_message(message):
         ctx = await bot.get_context(message)
         await bot.invoke(ctx)
-        print(str(message.author.id) + ': ' + message.content)
+        #print(str(message.author.id) + ': ' + message.content)
         messages.push(message)
         pass
 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     @bot.event
     async def on_raw_message_edit(payload):
-        print(str(payload.cached_message.author.id) + ': ' + payload.cached_message.content)
+        #print(str(payload.cached_message.author.id) + ': ' + payload.cached_message.content)
         pass
 
     # Run bot

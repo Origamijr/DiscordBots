@@ -81,7 +81,7 @@ namespace DelBot.Databases {
                     tempJ = new JObject();
                 }
 
-                Console.WriteLine("Successfully opened " + filename);
+                //Console.WriteLine("Successfully opened " + filename);
 
                 JObject step = tempJ;
 
@@ -153,7 +153,7 @@ namespace DelBot.Databases {
                     profiles = new JObject();
                 }
 
-                Console.WriteLine("Successfully opened " + filename);
+                //Console.WriteLine("Successfully opened " + filename);
             }
         }
 
@@ -167,7 +167,7 @@ namespace DelBot.Databases {
             if (profiles != null) {
                 try {
                     System.IO.File.WriteAllText(filename, profiles.ToString());
-                    Console.WriteLine("Successfully wrote to " + filename);
+                    //Console.WriteLine("Successfully wrote to " + filename);
                 } catch (IOException) {
                     Console.WriteLine("Error writing to " + filename);
                 }
