@@ -70,7 +70,7 @@ class MessageList(metaclass=Singleton):
 
 
 class SendQueue(Thread, metaclass=Singleton):
-    def __init__(self, bot):
+    def __init__(self):
         Thread.__init__(self)
         self.stopped = Event()
         self.queue = queue.Queue(256)

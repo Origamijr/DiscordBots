@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
     # Initialize the singleton utility classes
     messages = MessageList()
-    sendQueue = SendQueue(bot)
+    sendQueue = SendQueue()
     sendQueue.start()
 
     # Load extensions from files
