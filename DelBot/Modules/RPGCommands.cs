@@ -88,7 +88,7 @@ namespace DelBot.Modules {
                                 List<string> battleLog = SimulateBattle(profile, oProfile);
 
                                 foreach (string line in battleLog) {
-                                    Program.MessageQueue.Enqueue(Tuple.Create(line, Context.Channel));
+                                    await Program.EnqueueMessage(line, Context.Channel);
                                 }
                                 
                             }
@@ -114,7 +114,7 @@ namespace DelBot.Modules {
 
             // Turn#, AttackerTurn, Damage, WeaponDamage, Hit, Evade, Crit
             List<Tuple<int, bool, int, int, bool, bool, bool>> battleCode = new List<Tuple<int, bool, int, int, bool, bool, bool>>();
-           List<string> battleLog = new List<string>();
+            List<string> battleLog = new List<string>();
 
             Random r = new Random();
 

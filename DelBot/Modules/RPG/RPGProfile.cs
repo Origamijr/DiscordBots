@@ -8,7 +8,7 @@ namespace DelBot.Modules.RPG {
 
         string rpgTag = "rpg";
         string nameTag = "name";
-        string weaponTag = "weapon";
+        //string weaponTag = "weapon";
         string strengthTag = "str";
         string vitalityTag = "vit";
         string intelligenceTag = "int";

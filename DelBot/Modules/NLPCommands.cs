@@ -24,7 +24,7 @@ namespace DelBot.Modules {
             sList.AddRange(sequence);
             qList.AddRange(query);
             FactorOracle<char> fo = new FactorOracle<char>(sList);
-            Program.EnqueueMessage(fo.Query(qList) ? "Yes, that is a factor" : "Umm... No.", Context.Channel);
+            await Program.EnqueueMessage(fo.Query(qList) ? "Yes, that is a factor" : "Umm... No.", Context.Channel);
         }
 
         [Command("cfg")]
