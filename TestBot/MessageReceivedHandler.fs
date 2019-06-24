@@ -1,10 +1,13 @@
 ﻿module MessageReceivedHandler
 
+open Discord
 open Discord.WebSocket
 open Utils
 open System.Threading.Tasks
 
 let rnd = System.Random ()
+
+// User Messages ===============================================================
 
 let ThrowRandomMessage channelName =
     let r = rnd.NextDouble ()
@@ -23,24 +26,60 @@ let ThrowRandomMessage channelName =
     | (false, true) -> Some "Hello. I exist to say I exist."
     | (_, _) -> None
 
-let HandleUserMessage(message : SocketMessage) =
-    match message.Content.ToLower() with
-    | "//ping" -> Some "pong"
+let HandleUserMessage (message : SocketUserMessage) =
+    match message.Content.ToLower () with
+    | "//ping" -> 
+        match message.Author.Username with
+        | "Alumina" -> 
+            AddReactions message [|"🇵";"🇴";"🇳";"🇬";"🤖"|]
+            None
+        | _ -> None
     | Regex @"^.*drop.*f.*chat.*$" _ -> Some "F"
     | _ -> ThrowRandomMessage message.Channel.Name
 
-let HandleBotMessage(message : SocketMessage) =
-    None
+// Bot Messages ================================================================
 
-let GetResponse(message : SocketMessage) =
+let HandleSChanMessage (message : SocketUserMessage) =
+    let lastMessage = 
+        match GetLastMessages message.Channel 2 with
+        | [_; lm] -> Some lm
+        | _ -> None
+    match message.Content.ToLower () with
+    | "f" -> 
+        match lastMessage with
+        | Some lm ->
+            match (lm.Author.Username, lm.Content) with
+            | ("TestBot", "F") ->
+                AddReactions message [|"🐌"|]
+                None
+            | (_,_) -> None
+        | None -> None
+    | Regex @"^.*testbot.*cuck.*$" _ -> 
+        AddReactions message [|"🇼";"🇭";"🇾";"😢"|]
+        None
+    | Regex @"^.*blaze.*it.*$" _ ->
+           AddReactions message [|"🔥"|]
+           None
+    | _ -> None
+let HandleBotMessage (message : SocketUserMessage) =
+    match message.Author.Username with
+    | "TestBot" -> None
+    | "Shit-chan" -> HandleSChanMessage message
+    | _ -> None
+
+
+// Handle Response =============================================================
+
+let GetResponse (message : SocketMessage) =
     match message.Author.IsBot with
-    | true -> HandleBotMessage message
-    | false -> HandleUserMessage message
+    | true -> HandleBotMessage (message :?> SocketUserMessage)
+    | false -> HandleUserMessage (message :?> SocketUserMessage)
 
-let SendResponse(response : string, channel : ISocketMessageChannel) =
+let SendResponse response (channel : ISocketMessageChannel) =
     channel.SendMessageAsync response :> Task
 
-let HandleMessageReceived(message: SocketMessage) =
+let HandleMessageReceived (message: SocketMessage) =
+    printf "%d: %s\n" message.Author.Id message.Content
     match (GetResponse message) with
-    | Some response -> SendResponse (response, message.Channel)
+    | Some response -> SendResponse response message.Channel
     | None -> Task.CompletedTask
