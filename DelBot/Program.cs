@@ -49,7 +49,7 @@ namespace DelBot {
 
             pingKevin = new Timer();
             pingKevin.Start();
-            pingKevin.Interval = 1000 * 60 * 60;
+            pingKevin.Interval = 1000 * 60 * 60 * 6;
             pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
@@ -95,6 +95,7 @@ namespace DelBot {
 
         private async Task HandleCommandAsync(SocketMessage arg) {
             var message = arg as SocketUserMessage;
+                context = new SocketCommandContext(_client, message);
 
             if (message is null) //|| message.Author.IsBot)
                 return;
@@ -102,8 +103,6 @@ namespace DelBot {
             int argPos = 0;
 
             if (message.HasStringPrefix(">>", ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
-
-                context = new SocketCommandContext(_client, message);
 
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 
