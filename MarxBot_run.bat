@@ -1,4 +1,4 @@
-msbuild MarxBot.sln /t:Rebuild /p:Configuration=Release /p:Platform="any cpu" /v:m
+dotnet publish -c Release -r win10-x64 MarxBot
 
 @echo off
 (                                   
@@ -17,4 +17,4 @@ echo.
 echo. 
 )
 
-MarxBot\bin\Debug\MarxBot
+MarxBot\bin\Release\netcoreapp2.2\win10-x64\MarxBot

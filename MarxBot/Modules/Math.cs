@@ -16,7 +16,7 @@ namespace MarxBot.Modules {
         [Command("triangle")]
         public async Task TriangleAsync(int n) {
             if (n <= 1) {
-                
+
                 if (looping) {
                     tempInt += n;
                     looping = false;
