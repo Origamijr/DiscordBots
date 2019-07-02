@@ -1,0 +1,3 @@
+[submodule "DiscordBots_raspi"]
+	path = DiscordBots_raspi
+	url = https://github.com/Origamijr/DiscordBots_raspi.git
