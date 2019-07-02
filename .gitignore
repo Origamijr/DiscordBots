@@ -6,7 +6,7 @@
 Tokens.txt
 *.lnk
 nlp/
-DiscordBots_raspi/*
+linux-arm/
 
 # User-specific files
 *.suo
