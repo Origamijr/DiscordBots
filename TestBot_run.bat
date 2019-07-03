@@ -1,4 +1,4 @@
-msbuild TestBot.sln /t:Rebuild /p:Configuration=Release /p:Platform="any cpu" /v:m
+dotnet publish -c Release -r win10-x64 TestBot
 
 @echo off
 (
@@ -17,4 +17,4 @@ echo.
 echo. 
 )
 
-TestBot\bin\Release\TestBot
+TestBot\\bin\Release\netcoreapp2.2\win10-x64\TestBot
