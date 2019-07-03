@@ -14,7 +14,7 @@ namespace DelBot.Databases {
 
         private JObject profiles = null;
         private string filename;
-        
+
         // Open database
         public static JsonDatabase Open(string filename) {
             return new JsonDatabase(filename);

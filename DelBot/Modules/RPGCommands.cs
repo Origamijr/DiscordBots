@@ -18,17 +18,17 @@ namespace DelBot.Modules {
 
         [Command("rpg")]
         public async Task RPGAsync([Remainder]string args = "") {
-            
+
             string user = Context.User.Mention;
             string userId = "" + Utilities.GetId(user);
-            
+
             List<string> arglist = Utilities.ParamSplit(args);
 
             if (arglist.Count == 0) {
                 await ReplyAsync("Please enter one of the following arguments:\n" + cmds);
                 return;
             }
-            
+
             RPGProfile profile = RPGProfile.Open(userId);
 
             if (profile == null) {
@@ -77,7 +77,7 @@ namespace DelBot.Modules {
 
                 case "attack":
                     if (arglist.Count == 1) {
-                        
+
                         if (Utilities.GetUsername(arglist[0], Context) != null) {
                             RPGProfile oProfile = new RPGProfile("" + Utilities.GetId(arglist[0]));
 
@@ -90,7 +90,7 @@ namespace DelBot.Modules {
                                 foreach (string line in battleLog) {
                                     await Program.EnqueueMessage(line, Context.Channel);
                                 }
-                                
+
                             }
 
                         }
@@ -200,7 +200,7 @@ namespace DelBot.Modules {
 
             return battleLog;
         }
-        
+
         private void Timer_Elapsed(object sender, ElapsedEventArgs e) {
             throw new NotImplementedException();
         }

@@ -19,7 +19,7 @@ namespace DelBot.FactorOracles {
             forwardLinks = new List<Dictionary<T, int>>();
             suffixLinks = new List<int>();
             reverseSuffixLinks = new List<List<int>>();
-            for (int i = 0; i <  n; i++) {
+            for (int i = 0; i < n; i++) {
                 suffixLinks.Add(-1);
                 reverseSuffixLinks.Add(new List<int>());
                 forwardLinks.Add(new Dictionary<T, int>());

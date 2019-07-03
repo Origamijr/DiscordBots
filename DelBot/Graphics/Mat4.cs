@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DelBot.Graphics
-{
-    class Mat4
-    {
+namespace DelBot.Graphics {
+    class Mat4 {
         public Vec4 r1, r2, r3, r4;
         public Vec4 c1, c2, c3, c4;
 
         public Mat4() {
-            c1 = new Vec4(1.0f, 0.0f, 0.0f ,0.0f);
+            c1 = new Vec4(1.0f, 0.0f, 0.0f, 0.0f);
             c2 = new Vec4(0.0f, 1.0f, 0.0f, 0.0f);
             c3 = new Vec4(0.0f, 0.0f, 1.0f, 0.0f);
             c4 = new Vec4(0.0f, 0.0f, 0.0f, 1.0f);

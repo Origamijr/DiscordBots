@@ -72,10 +72,10 @@ namespace DelBot.CFGUtils {
                     validRules = false;
                     break;
                 }
-                
+
                 string[] alpha = rule.Substring(0, split).Split(' ');
                 string[] beta = rule.Substring(split + 2).Split(' ');
-                
+
                 bool validAlpha = true;
                 string alphaRule = "";
                 float probability = -1;
@@ -185,7 +185,7 @@ namespace DelBot.CFGUtils {
         public List<string> Simulate(int steps) {
             string lastStep = start;
             string currStep = "";
-            List<string> stepList = new List<string>{ start };
+            List<string> stepList = new List<string> { start };
 
             Random rand = new Random();
             for (int i = 0; i < steps; i++) {
@@ -262,14 +262,14 @@ namespace DelBot.CFGUtils {
                     }
                 }
                 if (nullable.Count == 0 || (nullable.Count == 1 && nullable.Contains(start))) break;
-                
+
                 // remove nullable variables from right sides of rules
                 foreach (var variable in variables) {
                     List<string> newBeta = new List<string>(vRules[variable]);
                     foreach (var nil in nullable) {
                         for (int i = 0; i < vRules[variable].Count; i++) {
                             string[] beta = vRules[variable][i].Split(' ');
-                            
+
                         }
                     }
                 }
@@ -335,7 +335,7 @@ namespace DelBot.CFGUtils {
 
         public override string ToString() {
             string s = "";
-            
+
             s += "V = { ";
             for (int i = 0; i < variables.Count; i++) {
                 if (i > 0) s += ", ";
@@ -350,7 +350,7 @@ namespace DelBot.CFGUtils {
 
             s += " }\nR = { ";
             foreach (var ruleSet in vRules) {
-                
+
                 for (int i = 0; i < ruleSet.Value.Count; i++) {
                     s += "\n\t" + ruleSet.Key + " -> ";
                     if (ruleSet.Value[i] == "") {

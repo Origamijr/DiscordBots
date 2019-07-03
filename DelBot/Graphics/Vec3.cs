@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DelBot.Graphics
-{
-    class Vec3
-    {
+namespace DelBot.Graphics {
+    class Vec3 {
         public float x, y, z;
 
         public Vec3() {
@@ -53,7 +51,7 @@ namespace DelBot.Graphics
         }
 
         public static Vec3 operator /(Vec3 v, float s) {
-            return new Vec3(v.x / s, v.y / s , v.z /s);
+            return new Vec3(v.x / s, v.y / s, v.z / s);
         }
 
         public Vec3 Normalize() {

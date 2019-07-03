@@ -69,7 +69,7 @@ namespace DelBot {
         // Splits a param string into arguments. Arguments enclosed in quotes are considered a single argument.
         public static List<string> ParamSplit(string arg) {
             List<string> args = new List<string>();
-            
+
             if (arg == null) {
                 return args;
             }
@@ -158,7 +158,7 @@ namespace DelBot {
                         while (op2Prec != 0 && op2Prec >= op1Prec) {
                             // if op2 has precedence greater than or equal to op1
                             postfix += ((postfix == "") ? "" : " ") + operatorStack.Pop();
-                            
+
                             // Update operator, and break if empty
                             if (operatorStack.Count != 0) {
                                 op2Prec = OperatorPrecedence(operatorStack.Peek());

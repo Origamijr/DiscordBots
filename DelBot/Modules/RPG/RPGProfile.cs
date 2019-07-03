@@ -14,15 +14,15 @@ namespace DelBot.Modules.RPG {
         string intelligenceTag = "int";
         string dexterityTag = "dex";
         string dbName = "runtime_db/DelBot/RPGProfiles.json";
-        
+
         public string id, name = null;
         public int strength, vitality, intelligence, dexterity;
 
         public int hp, atk, def, agi, basehp = 20, basedmg = 1, basespd = 10;
         public double acc, eva, crt, cdm, evaCap = 0.75f;
-        
+
         public RPGProfile(string user) {
-            
+
             this.id = user;
 
             JsonDatabase db = JsonDatabase.Open(dbName);
@@ -105,11 +105,11 @@ namespace DelBot.Modules.RPG {
             stats.Add(Tuple.Create(dexterity, "dex"));
             stats.Sort();
             stats.Reverse();
-            
+
             if (stats[0].Item1 - stats[3].Item1 > 3) {
-                
+
                 if (stats[0].Item1 - stats[1].Item1 >= 3) {
-                    
+
                     if (stats[0].Item2 == "str") return "Brawler";
                     if (stats[0].Item2 == "vit") return "Tank";
                     if (stats[0].Item2 == "int") return "Tactitian";

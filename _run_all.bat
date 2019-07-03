@@ -1,5 +1,5 @@
 REM Copy token file to location allowing for debug testing
-copy Tokens.txt DelBot\bin\Debug\Tokens.txt
+copy Tokens.txt DelBot\bin\Debug\netcoreapp2.2\Tokens.txt
 copy Tokens.txt MarxBot\bin\Debug\netcoreapp2.2\Tokens.txt
 copy Tokens.txt TestBot\bin\Debug\netcoreapp2.2\Tokens.txt
 

@@ -20,7 +20,7 @@ using System.IO;
 
 namespace DelBot {
     class Program {
-        
+
         public static Queue<Tuple<string, ISocketMessageChannel>> MessageQueue = new Queue<Tuple<string, ISocketMessageChannel>>();
         static Timer timer;
         static Timer pingKevin;
@@ -41,7 +41,7 @@ namespace DelBot {
         private IServiceProvider _services;
 
         public async Task RunBotAsync() {
-            
+
             timer = new Timer();
             timer.Start();
             timer.Interval = msgTimerDelay;
@@ -49,7 +49,7 @@ namespace DelBot {
 
             pingKevin = new Timer();
             pingKevin.Start();
-            pingKevin.Interval = 1000 * 60 * 60 * 6;
+            pingKevin.Interval = 1000 * 60 * 60 * 20;
             pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
@@ -95,7 +95,7 @@ namespace DelBot {
 
         private async Task HandleCommandAsync(SocketMessage arg) {
             var message = arg as SocketUserMessage;
-                context = new SocketCommandContext(_client, message);
+            context = new SocketCommandContext(_client, message);
 
             if (message is null) //|| message.Author.IsBot)
                 return;
@@ -126,7 +126,7 @@ namespace DelBot {
                 await _client.SetGameAsync("with messages...");
             }
         }
-        
+
         private void TimerTick(object sender, ElapsedEventArgs e) {
             if (MessageQueue.Count != 0) {
                 var message = MessageQueue.Dequeue();

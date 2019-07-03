@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DelBot.Graphics
-{
-    class Vec4
-    {
+namespace DelBot.Graphics {
+    class Vec4 {
         public float x, y, z, w;
 
         public Vec4() {

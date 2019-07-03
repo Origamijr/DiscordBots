@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DelBot.Graphics
-{
-    class MGM
-    {
+namespace DelBot.Graphics {
+    class MGM {
         public static float InvSqrt(float x) {
             float xhalf = 0.5f * x;
             int i = BitConverter.ToInt32(BitConverter.GetBytes(x), 0);

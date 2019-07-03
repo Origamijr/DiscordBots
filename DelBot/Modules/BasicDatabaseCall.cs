@@ -177,7 +177,7 @@ namespace DelBot.Modules {
 
                     // recall given keyword
                     string retrievedStr = db.AccessString(new List<string> { userId, rememberVarTag, varName });
-                    
+
                     if (StaticStates.verbatim) {
                         if (retrievedStr == null) {
                             await SendMessage(Utilities.RandomString(64));
@@ -241,7 +241,7 @@ namespace DelBot.Modules {
                 }
                 return;
             }
-            
+
             var messages = await Context.Channel.GetMessagesAsync(100).FlattenAsync();
             string substituted = "";
             int back;
@@ -477,7 +477,7 @@ namespace DelBot.Modules {
             string userId = "" + Utilities.GetId(user);
 
             JsonDatabase db = JsonDatabase.Open(dbName);
-            
+
             if (!(db.IsOpen())) {
                 await SendMessage("My apologies " + user + "-dono. Someone else is accessing the database...is what I'd like to say, but judging by the multiple failures thus far I can safely say Kevin did something wrong.");
                 return;
