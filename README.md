@@ -22,9 +22,12 @@ This is the main bot that will contain most of the experimental modules. It is b
   
 ## MarxBot (C#)
 
-MarxBot is built to test out the even more experimental modules that I didn't feel fit into DelBot's functionality. It mainly acts as a companion bot to DelBot to test out bot-bot interraction. Plans to allow MarxBot to login/logout/update the other bots. Commands can be triggered by bots.
+MarxBot was originally built to test out the even more experimental modules that I didn't feel fit into DelBot's functionality. As of now, MarxBot acts as the infrequently updated bot that can manage the upkeep of the other bots.
 
 ### Functionality
+* Raspberry Pi Controls
+  * Can run arbitrary bash commands
+  * Updates, Starts, and Kills other bots
 * Math
   * Recursive factorial by calling command on itself
   * Quick square root just cuz I really like that hack.
