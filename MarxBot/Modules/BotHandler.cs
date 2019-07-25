@@ -54,7 +54,7 @@ namespace MarxBot.Modules {
         [Command("update")]
         public async Task UpdateAsync([Remainder]string s) {
             if (permissions.ContainsKey(s.ToLower()) && permissions[s.ToLower()].Contains(Context.User.Id)) {
-                await ReplyAsync(($"git -c {repositoryPath[s.ToLower()]} pull").Bash());
+                await ReplyAsync(($"git -C {repositoryPath[s.ToLower()]} pull").Bash());
             } else {
                 await ReplyAsync($"{s} is not a valid target.");
             }
