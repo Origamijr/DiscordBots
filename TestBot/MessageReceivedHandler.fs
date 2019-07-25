@@ -61,6 +61,7 @@ let HandleSChanMessage (message : SocketUserMessage) =
            AddReactions message [|"🔥"|]
            None
     | _ -> None
+    
 let HandleBotMessage (message : SocketUserMessage) =
     match message.Author.Username with
     | "TestBot" -> None
