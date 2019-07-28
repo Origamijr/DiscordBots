@@ -3,6 +3,7 @@
 open Discord
 open Discord.WebSocket
 open Utils
+open Math
 open System.Threading.Tasks
 
 let rnd = System.Random ()
@@ -35,6 +36,19 @@ let HandleUserMessage (message : SocketUserMessage) =
             None
         | _ -> None
     | Regex @"^.*drop.*f.*chat.*$" _ -> Some "F"
+    | "help" ->
+        match message.Author.Username with
+        | "Alumina" -> 
+            match GetLastMessages message.Channel 2 with
+            | [_; lm] ->
+                match ExtractNums lm.Content with
+                | [] -> None
+                | nums -> 
+                    match ExprFinder nums 24 with
+                    | Some expr -> Some (AddEscapes expr.[1..(expr.Length - 2)])
+                    | None -> Some "Not possible"
+            | _ -> None
+        | _ -> None
     | _ -> ThrowRandomMessage message.Channel.Name
 
 // Bot Messages ================================================================
@@ -61,11 +75,30 @@ let HandleSChanMessage (message : SocketUserMessage) =
            AddReactions message [|"🔥"|]
            None
     | _ -> None
+
+let HandleOwoMessage (message : SocketUserMessage) =
+    let lastMessage = 
+        match GetLastMessages message.Channel 2 with
+        | [_; lm] -> Some lm
+        | _ -> None
+    match lastMessage with
+    | Some lm ->
+        match lm.Author.Username with
+        | "Alumina" when (lm.Content.Contains "24") ->
+            match ExtractNums message.Content with
+            | [] -> None
+            | nums -> 
+                match ExprFinder nums 24 with
+                | Some expr -> Some (AddEscapes expr.[1..(expr.Length - 2)])
+                | None -> Some "Not possible"
+        | _ -> None
+    | None -> None
     
 let HandleBotMessage (message : SocketUserMessage) =
     match message.Author.Username with
     | "TestBot" -> None
     | "Shit-chan" -> HandleSChanMessage message
+    | "owo" -> HandleOwoMessage message
     | _ -> None
 
 
