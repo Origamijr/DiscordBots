@@ -72,8 +72,13 @@ let HandleSChanMessage (message : SocketUserMessage) =
         AddReactions message [|"🇼";"🇭";"🇾";"😢"|]
         None
     | Regex @"^.*blaze.*it.*$" _ ->
-           AddReactions message [|"🔥"|]
-           None
+        match message.Timestamp.Minute with
+        | 20 ->
+            AddReactions message [|"🔥"|]
+            None
+        | _ ->
+            AddReactions message [|"🤔"|]
+            None
     | _ -> None
 
 let HandleOwoMessage (message : SocketUserMessage) =
