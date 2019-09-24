@@ -3,11 +3,12 @@ using Discord.WebSocket;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace DelBot {
-    class Utilities {
+    static class Utilities {
         private static Random random = new Random();
 
         // Generate random string
@@ -104,6 +105,63 @@ namespace DelBot {
             return args;
         }
 
+
+        public static IEnumerable<Dictionary<string,string>> ReadTSVLine(this StreamReader sr) {
+            string currEntry = "";
+            List<string> header = new List<string>();
+            bool readingHeader = true;
+            Dictionary<string, string> row = new Dictionary<string, string>();
+            bool inQuote = false;
+            char prevChar = 'a';
+            int currCol = 0;
+            while (sr.Peek() >= 0) {
+                char c = (char)sr.Read();
+                switch (c) {
+                    case '\t':
+                        if (!inQuote) {
+                            if (readingHeader) {
+                                header.Add(currEntry.Trim());
+                            } else {
+                                row.Add(header[currCol++], currEntry.Trim());
+                            }
+                            currEntry = "";
+                        } else {
+                            currEntry += c;
+                        }
+                        break;
+                    case '\n':
+                        if (!inQuote) {
+                            if (readingHeader) {
+                                header.Add(currEntry.Trim());
+                                readingHeader = false;
+                            } else {
+                                row.Add(header[currCol], currEntry.Trim());
+                                yield return new Dictionary<string, string>(row);
+                            }
+                            currEntry = "";
+                            currCol = 0;
+                            row.Clear();
+                        } else {
+                            currEntry += c;
+                        }
+                        break;
+                    case '"':
+                        if (prevChar == '"') {
+                            currEntry += c;
+                            inQuote = !inQuote;
+                        } else {
+                            inQuote = !inQuote;
+                        }
+                        break;
+                    default:
+                        currEntry += c;
+                        break;
+                }
+                prevChar = c;
+            }
+        }
+
+        // === MATH ============================================================
         public static int OperatorPrecedence(char sgn) {
             switch (sgn) {
                 case '+':

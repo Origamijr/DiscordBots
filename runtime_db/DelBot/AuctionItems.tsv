@@ -1,0 +1,104 @@
+ID	Name	Class	Rarity	Effect Text	Flavor Text
+0	Ordinary Jewelry	Neutral	C	"Fanfare: Gain 0-10 cookies.
+Sell: Gain 5 cookies."	"A random piece of jewelry [Player] stole from their mother's cabinet. [Player] didn't know what it was, and they don't care."
+1	Blackmail	Neutral	C	"Activate: Select a player and an item they revealed.
+Fanfare: The selected item is sent to the discard pile.
+Action: The selected player loses 0-10 cookies."	Crime never pays.
+2	Scandal Tabloid	Neutral	C	"Activate: Select a player and a bot.
+Fanfare: If the selected bot is backing the selected player, cancel that backing.
+Action: The selected player loses 0-1 favor with each bot."	It doesn't matter if it's a lie as long as you get what you want.
+3	[Player]'s poop	Neutral	C	Sell: Lose 10 cookies.	"Hey, [Player] needed to fill their deck somehow."
+4	Diamond	Neutral	R	"Activate: Select a bot.
+Fanfare: Gain 2 favor with the selected bot.
+Sell: Gain 50 cookies."	
+5	Slave	Live	C	"Acquire: Gain 1 favor with Del. Lose 1 favor with all other bots.
+Action: Gain 15 cookies.
+Sell: Gain 10 cookies."	
+6	Caged Bird	Live	C	"Activate: Select a Bot.
+Fanfare: Gain 2 favor with the selected bot.
+Sell: Gain 20 cookies."	
+7	Mercenary	Live	R	"Acquire: Gain 1 favor with Del. Lose 1 favor with Nabla.
+Action: Gain 30 cookies.
+Sell: Gain 20 cookies."	
+8	Venomous Serpent	Live	R	"Activate: Select a bot.
+Fanfare: Gain 4 favor with the selected bot and lose 1 favor with a random bot.
+Sell: Gain 40 cookies."	
+9	Spy	Live	SR	"Activate: Select a player.
+Fanfare: Silent. Steal 50 cookies from the selected player.
+Action: Silent. Discard this item.
+Sell: Gain 40 cookies."	
+10	Tiger	Live	SR	"Activate: Select a player.
+Fanfare: Gain 5 favor with the selected bot.
+Sell: Gain 60 cookies."	
+11	Phantom Thief	Live	SSR	"Fanfare: Silent. Steal 50 cookies from each player. Mill 1.
+Presence: If selected as a target for ""Select a player"" and X is 0, Discard this item. X is selected from 0-2."	
+12	Phoenix	Live	SSR	"Action: Put a ""Phoenix Feather"" in your discard pile.
+Sell: Gain 200 cookies."	
+13	Phoenix Feather	Live	T	"Sell: Gain 50 cookies. If you didn't have ""Pheonix"" revealed, put a ""Pheonix"" in your discard pile. Remove this item from play."	
+14	Farming Sickle	Tool	C	"Action: Gain X cookies. X is equal to your total number of items divided by 2.
+Sell: Gain 5 cookies."	
+15	Worker's Hammer	Tool	C	"Acquire: Gain 1 favor with Marx.
+Activate: Select an item you had revealed with rarity C or R.
+Fanfare: Add a copy of the selected item to your discard pile.
+Sell: Gain 10 cookies."	
+16	Crippling Debt	Tool	R	"Action: All other players lose 0-50 cookies.
+Presence: Treat this card as ""Blackmail"".
+Sell: Gain 30 cookies."	
+17	The Blog of a Very Angry Housewife	Tool	R	"Action: All other players lose 0-2 favor with each bot.
+Presence: Treat this card as a ""Scandal Tabloid"".
+Sell: Gain 30 cookies."	
+18	Luxury Taxes	Tool	SR	"Activate: Select a player.
+Fanfare: The selected player loses X cookies. Add X tax counters to this card. X is equal to 20% of the selected player's cookies rounded up.
+Sell: Gain Y cookies. Y is equal to the number of tax counters on this card."	
+19	The Communist Manifesto	Tool	SR	"Action: Gain 2 favor with Marx.
+Presence: Halve all ""Gain X Cookies"" effects.
+Sell: Gain 3 favor with each bot"	
+20	Mass Media	Tool	SSR	"Fanfare: Put X ""Scandal Tabloid"" and X ""Blackmail"" into the house. X equals 20% of the number of items in the house rounded up.
+Action: Gain 10*Y cookies. If Y is greater than 4, win the game. Y equals the number of revealed ""Scandal Tabloid"" and ""Blackmail"".
+Sell: Gain 6 favor with each bot."	
+21	Battle of Wits	Tool	SSR	"Fanfare: If the total number of items you own is greater than 50, win the game.
+Sell: Gain 100 cookies."	
+22	Cookie Machine	Arcane	C	"Action: Gain X cookies. If X equals 15, gain 25 cookies. X is selected from 5-15."	
+23	Sketchy Spellbook	Arcane	C	"Acquire: Gain 1 favor with TestBot.
+Fanfare: If X is 0, Gain 10 cookies. If X is 1, Steal 5 cookies from each player. If X is 2, Gain 1 favor with each bot. If X is 3, Each other player loses 1 favor with each bot. If X is 4, Put a ""Sketchy Spellbook"" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.
+Action: Discard this item.
+Sell: Gain 10 cookies."	
+24	Crystal Ball	Arcane	R	"Activate: Lose 5 cookies. Select a card in your deck. Discard this card and add the selected card to your hand.
+Sell: Gain 30 cookies."	
+25	Dowsing Machine	Arcane	R	"Activate: Lose 5 cookies. Select a card in your discard pile except ""Dowsing Machine"". Discard this card and add the selected card to your hand.
+Sell: Gain 30 cookies."	
+26	Unstable Element	Arcane	SR	"Fanfare: Place a random item from the house into your discard pile.
+Action: Discard this card.
+Sell: Gain 50 cookies."	
+27	Grim Grimoire	Arcane	SR	"Acquire: Gain 2 favor with TestBot.
+Fanfare: If X is 0, Gain 40 cookies. If X is 1, Steal 10 cookies from each player. If X is 2, Gain 2 favor with each bot. If X is 3, Each other player loses 2 favor with each bot. If X is 4, Put a ""Grim Grimoire"" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.
+Action: Discard this item.
+Sell: Gain 50 cookies."	
+28	Teleporter	Arcane	SSR	"Activate: Select a player and an item they revealed.
+Fanfare: Swap this card with the selected card. Discard this card and the selected card.
+Sell: Gain 50 cookies.
+Fanfare: The selected item is sent to the discard pile.
+Action: The selected player loses 0-10 cookies."	
+29	Time Machine	Arcane	SSR	"Activate: Place a ""Paradox"" in your discard pile. Remove this card from play. End the Main Phase immediately.
+Sell: Gain 100 cookies."	
+30	Paradox	Arcane	T	"Fanfare: Gain 0-3 favor with TestBot. All other players lose 1-3 favor for each bot, and 10-100 cookies. If you have at least 42 faor with TestBot, win the game.
+Sell: Gain 50 cokies and 3-6 favor with TestBot. Put a ""Time Machine"" in your discard pile. Remove this card from play."	
+31	Good Ethics	Antique	C	"Acquire: Gain 2 favor with Nabla. Lose 2 favor with Del.
+Action: Bank 10 cookies."	
+32	Ornate Vase	Antique	C	"Acquire: Lose 10 cookies. Gain 1 favor with each bot.
+Sell: Gain 20 cookies."	
+33	Due Diligence	Antique	R	"Acquire: Gain 2 favor with Nabla.
+Activate: Select a card in your deck. Discard this card and add that card to your hand."	
+34	Formal Ball	Antique	R	"Acquire: Lose 20 cookies. Gain 1 favor with each bot.
+Action: Gain 1 favor with each bot.
+Sell: Gain 30 cookies."	
+35	Manners	Antique	SR	"Acquire: Gain 2 favor with Nabla.
+Fanfare: Gain 3 favor with all bots.
+Action: Discard this card."	
+36	Pollock	Antique	SR	"Acquire: Lose 40 cookies. Gain 1 favor with each bot.
+Sell: Gain 90 cookies."	
+37	Discipline	Antique	SSR	"Acquire: Gain 3 favor with Nabla.
+Action: If you have less than 100 cookies, bank 50 cookies and gain 1 favor with all bots. Otherwise, lose 50 cookies."	
+38	Mansion	Antique	SSR	"Acquire: Lose 100 cookies. Gain 2 favor with each bot.
+Action: Gain 4 favor with all bots.
+Sell: Gain 100 cookies."	

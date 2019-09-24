@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Collections.Generic;
 using System.IO;
+using DelBot.HauteAuction;
 
 namespace DelBot {
     class Program {
@@ -32,7 +33,8 @@ namespace DelBot {
          * Main method
          */
         static void Main(string[] args) {
-            new Program().RunBotAsync().GetAwaiter().GetResult();
+            AuctionUtils.ConstructJson("AuctionItems.tsv", "AuctionItems.json");
+            //new Program().RunBotAsync().GetAwaiter().GetResult();
         }
 
         // Private variables holding discord objects
