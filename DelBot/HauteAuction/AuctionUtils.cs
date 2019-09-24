@@ -15,6 +15,7 @@ namespace DelBot.HauteAuction {
 
             using (StreamReader sr = new StreamReader(tsvFilename, Encoding.Default)) {
                 var jsonDB = JsonDatabase.Open(jsonFilename);
+                jsonDB.Clear();
                 var name2ID = new Dictionary<string, string>();
                 var id2Effect = new Dictionary<string, string>();
                 foreach (var row in sr.ReadTSVLine()) {
@@ -25,6 +26,7 @@ namespace DelBot.HauteAuction {
                     string effectText = row["Effect Text"];
                     string flavorText = row["Flavor Text"];
                     name2ID.Add(name, id);
+                    id2Effect.Add(id, effectText);
 
                     jsonDB.WriteString(new List<string> { id, "Name" }, name);
                     jsonDB.WriteString(new List<string> { id, "Class" }, klass);
@@ -33,8 +35,15 @@ namespace DelBot.HauteAuction {
                     jsonDB.WriteString(new List<string> { id, "Flavor Text" }, flavorText);
                 }
 
-                foreach (var id in name2ID.Values) {
-
+                foreach (var item in id2Effect) {
+                    string id = item.Key;
+                    string effectText = item.Value;
+                    string[] effects = effectText.Split('\n');
+                    foreach (string effect in effects) {
+                        string[] words = effect.Split();
+                        string timing = words[0].Substring(0, words[0].Length - 1);
+                        jsonDB.WriteString(new List<string> {id, "Effect", timing}, String.Join(' ', words.ToList().GetRange(1, words.Length - 1)).Trim());
+                    }
                 }
 
                 jsonDB.Close();

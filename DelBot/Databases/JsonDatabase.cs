@@ -162,6 +162,10 @@ namespace DelBot.Databases {
             return profiles != null;
         }
 
+        public void Clear() {
+            profiles = new JObject();
+        }
+
         // Close database. Required to open database again
         public bool Close() {
             if (profiles != null) {
