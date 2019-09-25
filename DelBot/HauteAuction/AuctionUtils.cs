@@ -18,6 +18,8 @@ namespace DelBot.HauteAuction {
                 jsonDB.Clear();
                 var name2ID = new Dictionary<string, string>();
                 var id2Effect = new Dictionary<string, string>();
+
+                // Translate the basic information into the json file
                 foreach (var row in sr.ReadTSVLine()) {
                     string id = row["ID"];
                     string name = row["Name"];
@@ -35,14 +37,26 @@ namespace DelBot.HauteAuction {
                     jsonDB.WriteString(new List<string> { id, "Flavor Text" }, flavorText);
                 }
 
+                // Parse the effects for keywords
+                List<string> keywords = new List<string> { "if", "gain", "lose", "select", "is" };
                 foreach (var item in id2Effect) {
                     string id = item.Key;
                     string effectText = item.Value;
                     string[] effects = effectText.Split('\n');
+
+                    // Iterate over the various effect timings
                     foreach (string effect in effects) {
                         string[] words = effect.Split();
                         string timing = words[0].Substring(0, words[0].Length - 1);
-                        jsonDB.WriteString(new List<string> {id, "Effect", timing}, String.Join(' ', words.ToList().GetRange(1, words.Length - 1)).Trim());
+                        string effectBody = effect.Substring(timing.Length + 2).Trim();
+                        List<string> effectParts = effectBody.Split('.').Select(eff => eff.Trim()).Where(s => s != "").ToList();
+                        for (int i = 0; i < effectParts.Length; i++) {
+                            string[] words = effectParts[i].Split();
+                            for (int j = 0; j < words.Length; j++) {
+                                
+                            }
+                        }
+                        jsonDB.WriteArray(new List<string> {id, "Effect", timing}, effectParts.ToArray());
                     }
                 }
 

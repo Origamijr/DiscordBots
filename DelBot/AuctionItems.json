@@ -6,8 +6,12 @@
     "Effect Text": "Fanfare: Gain 0-10 cookies.\r\nSell: Gain 5 cookies.",
     "Flavor Text": "A random piece of jewelry [Player] stole from their mother's cabinet. [Player] didn't know what it was, and they don't care.",
     "Effect": {
-      "Fanfare": "Gain 0-10 cookies.",
-      "Sell": "Gain 5 cookies."
+      "Fanfare": [
+        "Gain 0-10 cookies"
+      ],
+      "Sell": [
+        "Gain 5 cookies"
+      ]
     }
   },
   "1": {
@@ -17,9 +21,15 @@
     "Effect Text": "Activate: Select a player and an item they revealed.\r\nFanfare: The selected item is sent to the discard pile.\r\nAction: The selected player loses 0-10 cookies.",
     "Flavor Text": "Crime never pays.",
     "Effect": {
-      "Activate": "Select a player and an item they revealed.",
-      "Fanfare": "The selected item is sent to the discard pile.",
-      "Action": "The selected player loses 0-10 cookies."
+      "Activate": [
+        "Select a player and an item they revealed"
+      ],
+      "Fanfare": [
+        "The selected item is sent to the discard pile"
+      ],
+      "Action": [
+        "The selected player loses 0-10 cookies"
+      ]
     }
   },
   "2": {
@@ -29,9 +39,15 @@
     "Effect Text": "Activate: Select a player and a bot.\r\nFanfare: If the selected bot is backing the selected player, cancel that backing.\r\nAction: The selected player loses 0-1 favor with each bot.",
     "Flavor Text": "It doesn't matter if it's a lie as long as you get what you want.",
     "Effect": {
-      "Activate": "Select a player and a bot.",
-      "Fanfare": "If the selected bot is backing the selected player, cancel that backing.",
-      "Action": "The selected player loses 0-1 favor with each bot."
+      "Activate": [
+        "Select a player and a bot"
+      ],
+      "Fanfare": [
+        "If the selected bot is backing the selected player, cancel that backing"
+      ],
+      "Action": [
+        "The selected player loses 0-1 favor with each bot"
+      ]
     }
   },
   "3": {
@@ -41,7 +57,9 @@
     "Effect Text": "Sell: Lose 10 cookies.",
     "Flavor Text": "Hey, [Player] needed to fill their deck somehow.",
     "Effect": {
-      "Sell": "Lose 10 cookies."
+      "Sell": [
+        "Lose 10 cookies"
+      ]
     }
   },
   "4": {
@@ -51,9 +69,15 @@
     "Effect Text": "Activate: Select a bot.\r\nFanfare: Gain 2 favor with the selected bot.\r\nSell: Gain 50 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a bot.",
-      "Fanfare": "Gain 2 favor with the selected bot.",
-      "Sell": "Gain 50 cookies."
+      "Activate": [
+        "Select a bot"
+      ],
+      "Fanfare": [
+        "Gain 2 favor with the selected bot"
+      ],
+      "Sell": [
+        "Gain 50 cookies"
+      ]
     }
   },
   "5": {
@@ -63,9 +87,16 @@
     "Effect Text": "Acquire: Gain 1 favor with Del. Lose 1 favor with all other bots.\r\nAction: Gain 15 cookies.\r\nSell: Gain 10 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 1 favor with Del. Lose 1 favor with all other bots.",
-      "Action": "Gain 15 cookies.",
-      "Sell": "Gain 10 cookies."
+      "Acquire": [
+        "Gain 1 favor with Del",
+        "Lose 1 favor with all other bots"
+      ],
+      "Action": [
+        "Gain 15 cookies"
+      ],
+      "Sell": [
+        "Gain 10 cookies"
+      ]
     }
   },
   "6": {
@@ -75,9 +106,15 @@
     "Effect Text": "Activate: Select a Bot.\r\nFanfare: Gain 2 favor with the selected bot.\r\nSell: Gain 20 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a Bot.",
-      "Fanfare": "Gain 2 favor with the selected bot.",
-      "Sell": "Gain 20 cookies."
+      "Activate": [
+        "Select a Bot"
+      ],
+      "Fanfare": [
+        "Gain 2 favor with the selected bot"
+      ],
+      "Sell": [
+        "Gain 20 cookies"
+      ]
     }
   },
   "7": {
@@ -87,9 +124,16 @@
     "Effect Text": "Acquire: Gain 1 favor with Del. Lose 1 favor with Nabla.\r\nAction: Gain 30 cookies.\r\nSell: Gain 20 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 1 favor with Del. Lose 1 favor with Nabla.",
-      "Action": "Gain 30 cookies.",
-      "Sell": "Gain 20 cookies."
+      "Acquire": [
+        "Gain 1 favor with Del",
+        "Lose 1 favor with Nabla"
+      ],
+      "Action": [
+        "Gain 30 cookies"
+      ],
+      "Sell": [
+        "Gain 20 cookies"
+      ]
     }
   },
   "8": {
@@ -99,9 +143,15 @@
     "Effect Text": "Activate: Select a bot.\r\nFanfare: Gain 4 favor with the selected bot and lose 1 favor with a random bot.\r\nSell: Gain 40 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a bot.",
-      "Fanfare": "Gain 4 favor with the selected bot and lose 1 favor with a random bot.",
-      "Sell": "Gain 40 cookies."
+      "Activate": [
+        "Select a bot"
+      ],
+      "Fanfare": [
+        "Gain 4 favor with the selected bot and lose 1 favor with a random bot"
+      ],
+      "Sell": [
+        "Gain 40 cookies"
+      ]
     }
   },
   "9": {
@@ -111,10 +161,20 @@
     "Effect Text": "Activate: Select a player.\r\nFanfare: Silent. Steal 50 cookies from the selected player.\r\nAction: Silent. Discard this item.\r\nSell: Gain 40 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a player.",
-      "Fanfare": "Silent. Steal 50 cookies from the selected player.",
-      "Action": "Silent. Discard this item.",
-      "Sell": "Gain 40 cookies."
+      "Activate": [
+        "Select a player"
+      ],
+      "Fanfare": [
+        "Silent",
+        "Steal 50 cookies from the selected player"
+      ],
+      "Action": [
+        "Silent",
+        "Discard this item"
+      ],
+      "Sell": [
+        "Gain 40 cookies"
+      ]
     }
   },
   "10": {
@@ -124,9 +184,15 @@
     "Effect Text": "Activate: Select a player.\r\nFanfare: Gain 5 favor with the selected bot.\r\nSell: Gain 60 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a player.",
-      "Fanfare": "Gain 5 favor with the selected bot.",
-      "Sell": "Gain 60 cookies."
+      "Activate": [
+        "Select a player"
+      ],
+      "Fanfare": [
+        "Gain 5 favor with the selected bot"
+      ],
+      "Sell": [
+        "Gain 60 cookies"
+      ]
     }
   },
   "11": {
@@ -136,8 +202,15 @@
     "Effect Text": "Fanfare: Silent. Steal 50 cookies from each player. Mill 1.\r\nPresence: If selected as a target for \"Select a player\" and X is 0, Discard this item. X is selected from 0-2.",
     "Flavor Text": "",
     "Effect": {
-      "Fanfare": "Silent. Steal 50 cookies from each player. Mill 1.",
-      "Presence": "If selected as a target for \"Select a player\" and X is 0, Discard this item. X is selected from 0-2."
+      "Fanfare": [
+        "Silent",
+        "Steal 50 cookies from each player",
+        "Mill 1"
+      ],
+      "Presence": [
+        "If selected as a target for \"Select a player\" and X is 0, Discard this item",
+        "X is selected from 0-2"
+      ]
     }
   },
   "12": {
@@ -147,8 +220,12 @@
     "Effect Text": "Action: Put a \"Phoenix Feather\" in your discard pile.\r\nSell: Gain 200 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Action": "Put a \"Phoenix Feather\" in your discard pile.",
-      "Sell": "Gain 200 cookies."
+      "Action": [
+        "Put a \"Phoenix Feather\" in your discard pile"
+      ],
+      "Sell": [
+        "Gain 200 cookies"
+      ]
     }
   },
   "13": {
@@ -158,7 +235,11 @@
     "Effect Text": "Sell: Gain 50 cookies. If you didn't have \"Pheonix\" revealed, put a \"Pheonix\" in your discard pile. Remove this item from play.",
     "Flavor Text": "",
     "Effect": {
-      "Sell": "Gain 50 cookies. If you didn't have \"Pheonix\" revealed, put a \"Pheonix\" in your discard pile. Remove this item from play."
+      "Sell": [
+        "Gain 50 cookies",
+        "If you didn't have \"Pheonix\" revealed, put a \"Pheonix\" in your discard pile",
+        "Remove this item from play"
+      ]
     }
   },
   "14": {
@@ -168,8 +249,13 @@
     "Effect Text": "Action: Gain X cookies. X is equal to your total number of items divided by 2.\r\nSell: Gain 5 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Action": "Gain X cookies. X is equal to your total number of items divided by 2.",
-      "Sell": "Gain 5 cookies."
+      "Action": [
+        "Gain X cookies",
+        "X is equal to your total number of items divided by 2"
+      ],
+      "Sell": [
+        "Gain 5 cookies"
+      ]
     }
   },
   "15": {
@@ -179,10 +265,18 @@
     "Effect Text": "Acquire: Gain 1 favor with Marx.\r\nActivate: Select an item you had revealed with rarity C or R.\r\nFanfare: Add a copy of the selected item to your discard pile.\r\nSell: Gain 10 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 1 favor with Marx.",
-      "Activate": "Select an item you had revealed with rarity C or R.",
-      "Fanfare": "Add a copy of the selected item to your discard pile.",
-      "Sell": "Gain 10 cookies."
+      "Acquire": [
+        "Gain 1 favor with Marx"
+      ],
+      "Activate": [
+        "Select an item you had revealed with rarity C or R"
+      ],
+      "Fanfare": [
+        "Add a copy of the selected item to your discard pile"
+      ],
+      "Sell": [
+        "Gain 10 cookies"
+      ]
     }
   },
   "16": {
@@ -192,9 +286,15 @@
     "Effect Text": "Action: All other players lose 0-50 cookies.\r\nPresence: Treat this card as \"Blackmail\".\r\nSell: Gain 30 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Action": "All other players lose 0-50 cookies.",
-      "Presence": "Treat this card as \"Blackmail\".",
-      "Sell": "Gain 30 cookies."
+      "Action": [
+        "All other players lose 0-50 cookies"
+      ],
+      "Presence": [
+        "Treat this card as \"Blackmail\""
+      ],
+      "Sell": [
+        "Gain 30 cookies"
+      ]
     }
   },
   "17": {
@@ -204,9 +304,15 @@
     "Effect Text": "Action: All other players lose 0-2 favor with each bot.\r\nPresence: Treat this card as a \"Scandal Tabloid\".\r\nSell: Gain 30 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Action": "All other players lose 0-2 favor with each bot.",
-      "Presence": "Treat this card as a \"Scandal Tabloid\".",
-      "Sell": "Gain 30 cookies."
+      "Action": [
+        "All other players lose 0-2 favor with each bot"
+      ],
+      "Presence": [
+        "Treat this card as a \"Scandal Tabloid\""
+      ],
+      "Sell": [
+        "Gain 30 cookies"
+      ]
     }
   },
   "18": {
@@ -216,9 +322,18 @@
     "Effect Text": "Activate: Select a player.\r\nFanfare: The selected player loses X cookies. Add X tax counters to this card. X is equal to 20% of the selected player's cookies rounded up.\r\nSell: Gain Y cookies. Y is equal to the number of tax counters on this card.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a player.",
-      "Fanfare": "The selected player loses X cookies. Add X tax counters to this card. X is equal to 20% of the selected player's cookies rounded up.",
-      "Sell": "Gain Y cookies. Y is equal to the number of tax counters on this card."
+      "Activate": [
+        "Select a player"
+      ],
+      "Fanfare": [
+        "The selected player loses X cookies",
+        "Add X tax counters to this card",
+        "X is equal to 20% of the selected player's cookies rounded up"
+      ],
+      "Sell": [
+        "Gain Y cookies",
+        "Y is equal to the number of tax counters on this card"
+      ]
     }
   },
   "19": {
@@ -228,9 +343,15 @@
     "Effect Text": "Action: Gain 2 favor with Marx.\r\nPresence: Halve all \"Gain X Cookies\" effects.\r\nSell: Gain 3 favor with each bot",
     "Flavor Text": "",
     "Effect": {
-      "Action": "Gain 2 favor with Marx.",
-      "Presence": "Halve all \"Gain X Cookies\" effects.",
-      "Sell": "Gain 3 favor with each bot"
+      "Action": [
+        "Gain 2 favor with Marx"
+      ],
+      "Presence": [
+        "Halve all \"Gain X Cookies\" effects"
+      ],
+      "Sell": [
+        "Gain 3 favor with each bot"
+      ]
     }
   },
   "20": {
@@ -240,9 +361,18 @@
     "Effect Text": "Fanfare: Put X \"Scandal Tabloid\" and X \"Blackmail\" into the house. X equals 20% of the number of items in the house rounded up.\r\nAction: Gain 10*Y cookies. If Y is greater than 4, win the game. Y equals the number of revealed \"Scandal Tabloid\" and \"Blackmail\".\r\nSell: Gain 6 favor with each bot.",
     "Flavor Text": "",
     "Effect": {
-      "Fanfare": "Put X \"Scandal Tabloid\" and X \"Blackmail\" into the house. X equals 20% of the number of items in the house rounded up.",
-      "Action": "Gain 10*Y cookies. If Y is greater than 4, win the game. Y equals the number of revealed \"Scandal Tabloid\" and \"Blackmail\".",
-      "Sell": "Gain 6 favor with each bot."
+      "Fanfare": [
+        "Put X \"Scandal Tabloid\" and X \"Blackmail\" into the house",
+        "X equals 20% of the number of items in the house rounded up"
+      ],
+      "Action": [
+        "Gain 10*Y cookies",
+        "If Y is greater than 4, win the game",
+        "Y equals the number of revealed \"Scandal Tabloid\" and \"Blackmail\""
+      ],
+      "Sell": [
+        "Gain 6 favor with each bot"
+      ]
     }
   },
   "21": {
@@ -252,8 +382,12 @@
     "Effect Text": "Fanfare: If the total number of items you own is greater than 50, win the game.\r\nSell: Gain 100 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Fanfare": "If the total number of items you own is greater than 50, win the game.",
-      "Sell": "Gain 100 cookies."
+      "Fanfare": [
+        "If the total number of items you own is greater than 50, win the game"
+      ],
+      "Sell": [
+        "Gain 100 cookies"
+      ]
     }
   },
   "22": {
@@ -263,7 +397,11 @@
     "Effect Text": "Action: Gain X cookies. If X equals 15, gain 25 cookies. X is selected from 5-15.",
     "Flavor Text": "",
     "Effect": {
-      "Action": "Gain X cookies. If X equals 15, gain 25 cookies. X is selected from 5-15."
+      "Action": [
+        "Gain X cookies",
+        "If X equals 15, gain 25 cookies",
+        "X is selected from 5-15"
+      ]
     }
   },
   "23": {
@@ -273,10 +411,24 @@
     "Effect Text": "Acquire: Gain 1 favor with TestBot.\r\nFanfare: If X is 0, Gain 10 cookies. If X is 1, Steal 5 cookies from each player. If X is 2, Gain 1 favor with each bot. If X is 3, Each other player loses 1 favor with each bot. If X is 4, Put a \"Sketchy Spellbook\" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.\r\nAction: Discard this item.\r\nSell: Gain 10 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 1 favor with TestBot.",
-      "Fanfare": "If X is 0, Gain 10 cookies. If X is 1, Steal 5 cookies from each player. If X is 2, Gain 1 favor with each bot. If X is 3, Each other player loses 1 favor with each bot. If X is 4, Put a \"Sketchy Spellbook\" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.",
-      "Action": "Discard this item.",
-      "Sell": "Gain 10 cookies."
+      "Acquire": [
+        "Gain 1 favor with TestBot"
+      ],
+      "Fanfare": [
+        "If X is 0, Gain 10 cookies",
+        "If X is 1, Steal 5 cookies from each player",
+        "If X is 2, Gain 1 favor with each bot",
+        "If X is 3, Each other player loses 1 favor with each bot",
+        "If X is 4, Put a \"Sketchy Spellbook\" in your discard pile",
+        "If X is 5, remove this item from play",
+        "X is selected from 0-5"
+      ],
+      "Action": [
+        "Discard this item"
+      ],
+      "Sell": [
+        "Gain 10 cookies"
+      ]
     }
   },
   "24": {
@@ -286,8 +438,14 @@
     "Effect Text": "Activate: Lose 5 cookies. Select a card in your deck. Discard this card and add the selected card to your hand.\r\nSell: Gain 30 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Lose 5 cookies. Select a card in your deck. Discard this card and add the selected card to your hand.",
-      "Sell": "Gain 30 cookies."
+      "Activate": [
+        "Lose 5 cookies",
+        "Select a card in your deck",
+        "Discard this card and add the selected card to your hand"
+      ],
+      "Sell": [
+        "Gain 30 cookies"
+      ]
     }
   },
   "25": {
@@ -297,8 +455,14 @@
     "Effect Text": "Activate: Lose 5 cookies. Select a card in your discard pile except \"Dowsing Machine\". Discard this card and add the selected card to your hand.\r\nSell: Gain 30 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Lose 5 cookies. Select a card in your discard pile except \"Dowsing Machine\". Discard this card and add the selected card to your hand.",
-      "Sell": "Gain 30 cookies."
+      "Activate": [
+        "Lose 5 cookies",
+        "Select a card in your discard pile except \"Dowsing Machine\"",
+        "Discard this card and add the selected card to your hand"
+      ],
+      "Sell": [
+        "Gain 30 cookies"
+      ]
     }
   },
   "26": {
@@ -308,9 +472,15 @@
     "Effect Text": "Fanfare: Place a random item from the house into your discard pile.\r\nAction: Discard this card.\r\nSell: Gain 50 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Fanfare": "Place a random item from the house into your discard pile.",
-      "Action": "Discard this card.",
-      "Sell": "Gain 50 cookies."
+      "Fanfare": [
+        "Place a random item from the house into your discard pile"
+      ],
+      "Action": [
+        "Discard this card"
+      ],
+      "Sell": [
+        "Gain 50 cookies"
+      ]
     }
   },
   "27": {
@@ -320,10 +490,24 @@
     "Effect Text": "Acquire: Gain 2 favor with TestBot.\r\nFanfare: If X is 0, Gain 40 cookies. If X is 1, Steal 10 cookies from each player. If X is 2, Gain 2 favor with each bot. If X is 3, Each other player loses 2 favor with each bot. If X is 4, Put a \"Grim Grimoire\" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.\r\nAction: Discard this item.\r\nSell: Gain 50 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 2 favor with TestBot.",
-      "Fanfare": "If X is 0, Gain 40 cookies. If X is 1, Steal 10 cookies from each player. If X is 2, Gain 2 favor with each bot. If X is 3, Each other player loses 2 favor with each bot. If X is 4, Put a \"Grim Grimoire\" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.",
-      "Action": "Discard this item.",
-      "Sell": "Gain 50 cookies."
+      "Acquire": [
+        "Gain 2 favor with TestBot"
+      ],
+      "Fanfare": [
+        "If X is 0, Gain 40 cookies",
+        "If X is 1, Steal 10 cookies from each player",
+        "If X is 2, Gain 2 favor with each bot",
+        "If X is 3, Each other player loses 2 favor with each bot",
+        "If X is 4, Put a \"Grim Grimoire\" in your discard pile",
+        "If X is 5, remove this item from play",
+        "X is selected from 0-5"
+      ],
+      "Action": [
+        "Discard this item"
+      ],
+      "Sell": [
+        "Gain 50 cookies"
+      ]
     }
   },
   "28": {
@@ -333,10 +517,18 @@
     "Effect Text": "Activate: Select a player and an item they revealed.\r\nFanfare: Swap this card with the selected card. Discard this card and the selected card.\r\nSell: Gain 50 cookies.\r\nFanfare: The selected item is sent to the discard pile.\r\nAction: The selected player loses 0-10 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Select a player and an item they revealed.",
-      "Fanfare": "The selected item is sent to the discard pile.",
-      "Sell": "Gain 50 cookies.",
-      "Action": "The selected player loses 0-10 cookies."
+      "Activate": [
+        "Select a player and an item they revealed"
+      ],
+      "Fanfare": [
+        "The selected item is sent to the discard pile"
+      ],
+      "Sell": [
+        "Gain 50 cookies"
+      ],
+      "Action": [
+        "The selected player loses 0-10 cookies"
+      ]
     }
   },
   "29": {
@@ -346,8 +538,14 @@
     "Effect Text": "Activate: Place a \"Paradox\" in your discard pile. Remove this card from play. End the Main Phase immediately.\r\nSell: Gain 100 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Activate": "Place a \"Paradox\" in your discard pile. Remove this card from play. End the Main Phase immediately.",
-      "Sell": "Gain 100 cookies."
+      "Activate": [
+        "Place a \"Paradox\" in your discard pile",
+        "Remove this card from play",
+        "End the Main Phase immediately"
+      ],
+      "Sell": [
+        "Gain 100 cookies"
+      ]
     }
   },
   "30": {
@@ -357,8 +555,16 @@
     "Effect Text": "Fanfare: Gain 0-3 favor with TestBot. All other players lose 1-3 favor for each bot, and 10-100 cookies. If you have at least 42 faor with TestBot, win the game.\r\nSell: Gain 50 cokies and 3-6 favor with TestBot. Put a \"Time Machine\" in your discard pile. Remove this card from play.",
     "Flavor Text": "",
     "Effect": {
-      "Fanfare": "Gain 0-3 favor with TestBot. All other players lose 1-3 favor for each bot, and 10-100 cookies. If you have at least 42 faor with TestBot, win the game.",
-      "Sell": "Gain 50 cokies and 3-6 favor with TestBot. Put a \"Time Machine\" in your discard pile. Remove this card from play."
+      "Fanfare": [
+        "Gain 0-3 favor with TestBot",
+        "All other players lose 1-3 favor for each bot, and 10-100 cookies",
+        "If you have at least 42 faor with TestBot, win the game"
+      ],
+      "Sell": [
+        "Gain 50 cokies and 3-6 favor with TestBot",
+        "Put a \"Time Machine\" in your discard pile",
+        "Remove this card from play"
+      ]
     }
   },
   "31": {
@@ -368,8 +574,13 @@
     "Effect Text": "Acquire: Gain 2 favor with Nabla. Lose 2 favor with Del.\r\nAction: Bank 10 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 2 favor with Nabla. Lose 2 favor with Del.",
-      "Action": "Bank 10 cookies."
+      "Acquire": [
+        "Gain 2 favor with Nabla",
+        "Lose 2 favor with Del"
+      ],
+      "Action": [
+        "Bank 10 cookies"
+      ]
     }
   },
   "32": {
@@ -379,8 +590,13 @@
     "Effect Text": "Acquire: Lose 10 cookies. Gain 1 favor with each bot.\r\nSell: Gain 20 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Lose 10 cookies. Gain 1 favor with each bot.",
-      "Sell": "Gain 20 cookies."
+      "Acquire": [
+        "Lose 10 cookies",
+        "Gain 1 favor with each bot"
+      ],
+      "Sell": [
+        "Gain 20 cookies"
+      ]
     }
   },
   "33": {
@@ -390,8 +606,13 @@
     "Effect Text": "Acquire: Gain 2 favor with Nabla.\r\nActivate: Select a card in your deck. Discard this card and add that card to your hand.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 2 favor with Nabla.",
-      "Activate": "Select a card in your deck. Discard this card and add that card to your hand."
+      "Acquire": [
+        "Gain 2 favor with Nabla"
+      ],
+      "Activate": [
+        "Select a card in your deck",
+        "Discard this card and add that card to your hand"
+      ]
     }
   },
   "34": {
@@ -401,9 +622,16 @@
     "Effect Text": "Acquire: Lose 20 cookies. Gain 1 favor with each bot.\r\nAction: Gain 1 favor with each bot.\r\nSell: Gain 30 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Lose 20 cookies. Gain 1 favor with each bot.",
-      "Action": "Gain 1 favor with each bot.",
-      "Sell": "Gain 30 cookies."
+      "Acquire": [
+        "Lose 20 cookies",
+        "Gain 1 favor with each bot"
+      ],
+      "Action": [
+        "Gain 1 favor with each bot"
+      ],
+      "Sell": [
+        "Gain 30 cookies"
+      ]
     }
   },
   "35": {
@@ -413,9 +641,15 @@
     "Effect Text": "Acquire: Gain 2 favor with Nabla.\r\nFanfare: Gain 3 favor with all bots.\r\nAction: Discard this card.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 2 favor with Nabla.",
-      "Fanfare": "Gain 3 favor with all bots.",
-      "Action": "Discard this card."
+      "Acquire": [
+        "Gain 2 favor with Nabla"
+      ],
+      "Fanfare": [
+        "Gain 3 favor with all bots"
+      ],
+      "Action": [
+        "Discard this card"
+      ]
     }
   },
   "36": {
@@ -425,8 +659,13 @@
     "Effect Text": "Acquire: Lose 40 cookies. Gain 1 favor with each bot.\r\nSell: Gain 90 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Lose 40 cookies. Gain 1 favor with each bot.",
-      "Sell": "Gain 90 cookies."
+      "Acquire": [
+        "Lose 40 cookies",
+        "Gain 1 favor with each bot"
+      ],
+      "Sell": [
+        "Gain 90 cookies"
+      ]
     }
   },
   "37": {
@@ -436,8 +675,13 @@
     "Effect Text": "Acquire: Gain 3 favor with Nabla.\r\nAction: If you have less than 100 cookies, bank 50 cookies and gain 1 favor with all bots. Otherwise, lose 50 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Gain 3 favor with Nabla.",
-      "Action": "If you have less than 100 cookies, bank 50 cookies and gain 1 favor with all bots. Otherwise, lose 50 cookies."
+      "Acquire": [
+        "Gain 3 favor with Nabla"
+      ],
+      "Action": [
+        "If you have less than 100 cookies, bank 50 cookies and gain 1 favor with all bots",
+        "Otherwise, lose 50 cookies"
+      ]
     }
   },
   "38": {
@@ -447,9 +691,16 @@
     "Effect Text": "Acquire: Lose 100 cookies. Gain 2 favor with each bot.\r\nAction: Gain 4 favor with all bots.\r\nSell: Gain 100 cookies.",
     "Flavor Text": "",
     "Effect": {
-      "Acquire": "Lose 100 cookies. Gain 2 favor with each bot.",
-      "Action": "Gain 4 favor with all bots.",
-      "Sell": "Gain 100 cookies."
+      "Acquire": [
+        "Lose 100 cookies",
+        "Gain 2 favor with each bot"
+      ],
+      "Action": [
+        "Gain 4 favor with all bots"
+      ],
+      "Sell": [
+        "Gain 100 cookies"
+      ]
     }
   }
 }
