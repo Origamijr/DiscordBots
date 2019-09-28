@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using DelBot.Databases;
 
 namespace DelBot.HauteAuction {
@@ -38,7 +39,6 @@ namespace DelBot.HauteAuction {
                 }
 
                 // Parse the effects for keywords
-                List<string> keywords = new List<string> { "if", "gain", "lose", "select", "is" };
                 foreach (var item in id2Effect) {
                     string id = item.Key;
                     string effectText = item.Value;
@@ -50,10 +50,11 @@ namespace DelBot.HauteAuction {
                         string timing = words[0].Substring(0, words[0].Length - 1);
                         string effectBody = effect.Substring(timing.Length + 2).Trim();
                         List<string> effectParts = effectBody.Split('.').Select(eff => eff.Trim()).Where(s => s != "").ToList();
-                        for (int i = 0; i < effectParts.Length; i++) {
-                            string[] words = effectParts[i].Split();
-                            for (int j = 0; j < words.Length; j++) {
-                                
+                        for (int i = 0; i < effectParts.Count; i++) {
+                            var dependencyMatch = Regex.Match(effectParts[i], "^if (*), (*)$", RegexOptions.IgnoreCase);
+                            if (dependencyMatch.Success) {
+                                effectParts.Insert(i + 1, dependencyMatch.Groups[1].Value);
+                                effectParts[i] = dependencyMatch.Groups[0].Value + " ? " + (i + 1);
                             }
                         }
                         jsonDB.WriteArray(new List<string> {id, "Effect", timing}, effectParts.ToArray());
