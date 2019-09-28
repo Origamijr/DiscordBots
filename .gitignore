@@ -7,6 +7,7 @@ Tokens.txt
 *.lnk
 nlp/
 linux-arm/
+.ionide/
 
 # User-specific files
 *.suo
