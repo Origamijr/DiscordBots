@@ -12,7 +12,7 @@ namespace DelBot.Databases {
         private static SortedSet<string> openFiles = new SortedSet<string>();
         private static string defaultKey = null;
 
-        private JObject profiles = null;
+        private JObject root = null;
         private string filename;
 
         // Open database
@@ -50,9 +50,9 @@ namespace DelBot.Databases {
                 return false;
             }
 
-            JObject profiles = new JObject();
+            JObject root = new JObject();
 
-            System.IO.File.WriteAllText(filename, profiles.ToString());
+            System.IO.File.WriteAllText(filename, root.ToString());
 
             return true;
         }
@@ -147,10 +147,10 @@ namespace DelBot.Databases {
 
                 try {
                     using (StreamReader sr = File.OpenText(filename)) {
-                        profiles = (JObject)JToken.ReadFrom(new JsonTextReader(sr));
+                        root = (JObject)JToken.ReadFrom(new JsonTextReader(sr));
                     }
                 } catch (IOException) {
-                    profiles = new JObject();
+                    root = new JObject();
                 }
 
                 //Console.WriteLine("Successfully opened " + filename);
@@ -159,23 +159,23 @@ namespace DelBot.Databases {
 
         // Check if a database is open
         public bool IsOpen() {
-            return profiles != null;
+            return root != null;
         }
 
         public void Clear() {
-            profiles = new JObject();
+            root = new JObject();
         }
 
         // Close database. Required to open database again
         public bool Close() {
-            if (profiles != null) {
+            if (root != null) {
                 try {
-                    System.IO.File.WriteAllText(filename, profiles.ToString());
+                    System.IO.File.WriteAllText(filename, root.ToString());
                     //Console.WriteLine("Successfully wrote to " + filename);
                 } catch (IOException) {
                     Console.WriteLine("Error writing to " + filename);
                 }
-                profiles = null;
+                root = null;
                 openFiles.Remove(filename);
                 return true;
             }
@@ -193,14 +193,36 @@ namespace DelBot.Databases {
          * Thanks Brian Rogers from stack overflow
          */
 
+        public List<string> ListKeys(List<string> keys=null) {
+            if (keys == null || keys.Count == 0) {
+                return root.Properties().Select(p => p.Name).ToList();
+            }
+            if (root == null) return null;
 
-        // Access a string in the JObject
-        public string AccessString(List<string> keys) {
-            if (keys == null || profiles == null) {
+            JContainer step = root;
+            for (int i = 0; i < keys.Count - 1; i++) {
+                step = step[keys[i]] as JContainer;
+
+                if (step == null) {
+                    return null;
+                }
+            }
+
+            if (step[keys[keys.Count - 1]] as JObject == null) {
+                return (step[keys[keys.Count - 1]] as JObject).Properties().Select(p => p.Name).ToList();
+            } else {
                 return null;
             }
 
-            JContainer step = profiles;
+        }
+
+        // Access a string in the JObject
+        public string AccessString(List<string> keys) {
+            if (keys == null || root == null) {
+                return null;
+            }
+
+            JContainer step = root;
             for (int i = 0; i < keys.Count - 1; i++) {
                 step = step[keys[i]] as JContainer;
 
@@ -217,11 +239,11 @@ namespace DelBot.Databases {
 
         // Access an array in the JObject
         public string[] AccessArray(List<string> keys) {
-            if (keys == null || profiles == null) {
+            if (keys == null || root == null) {
                 return null;
             }
 
-            JObject step = profiles;
+            JObject step = root;
             for (int i = 0; i < keys.Count - 1; i++) {
                 step = step[keys[i]] as JObject;
 
@@ -239,11 +261,11 @@ namespace DelBot.Databases {
 
         // Write a string to the JObject
         public bool WriteString(List<string> keys, string s) {
-            if (keys == null || profiles == null) {
+            if (keys == null || root == null) {
                 return false;
             }
 
-            JObject step = profiles;
+            JObject step = root;
             for (int i = 0; i < keys.Count - 1; i++) {
 
                 if (step[keys[i]] == null) {
@@ -259,11 +281,11 @@ namespace DelBot.Databases {
 
         // Write a string to the JObject
         public bool WriteArray(List<string> keys, string[] arr) {
-            if (keys == null || profiles == null) {
+            if (keys == null || root == null) {
                 return false;
             }
 
-            JObject step = profiles;
+            JObject step = root;
             for (int i = 0; i < keys.Count - 1; i++) {
 
                 if (step[keys[i]] == null) {

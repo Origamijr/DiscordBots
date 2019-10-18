@@ -9,8 +9,8 @@ using DelBot.Databases;
 namespace DelBot.HauteAuction {
     public class AuctionUtils {
 
-        public const string tsvFilename = "AuctionItems.tsv";
-        public const string jsonFilename = "AuctionItems.json";
+        public const string tsvFilename = "runtime_db/DelBot/AuctionItems.tsv";
+        public const string jsonFilename = "runtime_db/DelBot/AuctionItems.json";
 
         public static void ConstructJson(string tsvFilename, string jsonFilename) {
 
@@ -28,37 +28,28 @@ namespace DelBot.HauteAuction {
                     string rarity = row["Rarity"];
                     string effectText = row["Effect Text"];
                     string flavorText = row["Flavor Text"];
-                    name2ID.Add(name, id);
-                    id2Effect.Add(id, effectText);
-
+                    List<string> codeText = row["Effect Code"].Split('\n').Select(s => s.Trim()).Where(s => s != "").ToList();
+                    
                     jsonDB.WriteString(new List<string> { id, "Name" }, name);
+                    jsonDB.WriteString(new List<string> { id, "Id" }, id);
                     jsonDB.WriteString(new List<string> { id, "Class" }, klass);
                     jsonDB.WriteString(new List<string> { id, "Rarity" }, rarity);
                     jsonDB.WriteString(new List<string> { id, "Effect Text" }, effectText);
                     jsonDB.WriteString(new List<string> { id, "Flavor Text" }, flavorText);
-                }
-
-                // Parse the effects for keywords
-                foreach (var item in id2Effect) {
-                    string id = item.Key;
-                    string effectText = item.Value;
-                    string[] effects = effectText.Split('\n');
-
-                    // Iterate over the various effect timings
-                    foreach (string effect in effects) {
-                        string[] words = effect.Split();
-                        string timing = words[0].Substring(0, words[0].Length - 1);
-                        string effectBody = effect.Substring(timing.Length + 2).Trim();
-                        List<string> effectParts = effectBody.Split('.').Select(eff => eff.Trim()).Where(s => s != "").ToList();
-                        for (int i = 0; i < effectParts.Count; i++) {
-                            var dependencyMatch = Regex.Match(effectParts[i], "^if (*), (*)$", RegexOptions.IgnoreCase);
-                            if (dependencyMatch.Success) {
-                                effectParts.Insert(i + 1, dependencyMatch.Groups[1].Value);
-                                effectParts[i] = dependencyMatch.Groups[0].Value + " ? " + (i + 1);
-                            }
+                    
+                    string prevTiming = "";
+                    List<string> lines = new List<string>();
+                    foreach (var line in codeText) {
+                        string timing = line.Split()[0];
+                        string rest = line.Substring(timing.Length + 1).Trim();
+                        if (timing != prevTiming && prevTiming != "") {
+                            jsonDB.WriteArray(new List<string> { id, "Effect", prevTiming }, lines.ToArray());
+                            lines.Clear();
                         }
-                        jsonDB.WriteArray(new List<string> {id, "Effect", timing}, effectParts.ToArray());
+                        lines.Add(rest);
+                        prevTiming = timing;
                     }
+                    jsonDB.WriteArray(new List<string> { id, "Effect", prevTiming }, lines.ToArray());
                 }
 
                 jsonDB.Close();

@@ -33,8 +33,11 @@ namespace DelBot {
          * Main method
          */
         static void Main(string[] args) {
-            AuctionUtils.ConstructJson("AuctionItems.tsv", "AuctionItems.json");
             //new Program().RunBotAsync().GetAwaiter().GetResult();
+            //AuctionUtils.ConstructJson(AuctionUtils.tsvFilename, AuctionUtils.jsonFilename);
+            foreach (var param in Utilities.ParamSplit("asdf-th(is-i)s-asd", strictGrouper: false, delim: "-", grouping: "()")) {
+                Console.WriteLine(param);
+            }
         }
 
         // Private variables holding discord objects

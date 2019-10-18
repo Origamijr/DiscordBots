@@ -68,8 +68,9 @@ namespace DelBot {
         }
 
         // Splits a param string into arguments. Arguments enclosed in quotes are considered a single argument.
-        public static List<string> ParamSplit(string arg) {
+        public static List<string> ParamSplit(string arg, string delim=" \n", string grouping="\"\"", bool strictGrouper=true) {
             List<string> args = new List<string>();
+            int groupInd = 0;
 
             if (arg == null) {
                 return args;
@@ -77,19 +78,24 @@ namespace DelBot {
 
             for (int i = 0; i < arg.Length; i++) {
 
-                if ((arg[i] == ' ' || arg[i] == '\n') && i == 0) {
+                if (delim.IndexOf(arg[i]) != -1 && i == 0) {
+                    // Ignore delimeters at start or after other delimeters
                     arg = arg.Substring(1);
                     i--;
-                } else if (i == 0 && arg[i] == '"') {
+                } else if ((groupInd = grouping.IndexOf(arg[i])) != -1 && groupInd % 2 == 0) {
                     int j;
-                    for (j = i + 1; j < arg.Length - 1 && arg[j] != '"'; j++) ;
-                    if (j - i > 1) {
-                        args.Add(arg.Substring(i + 1, j - i - 1));
+                    for (j = i + 1; j < arg.Length - 1 && arg[j] != grouping[groupInd + 1]; j++);
+                    if (strictGrouper) {
+                        if (j - i > 1) {
+                            args.Add(arg.Substring(i + 1, j - i - 1));
+                        }
+                        if (j == arg.Length - 1) break;
+                        arg = arg.Substring(j + 1);
+                        i = -1;
+                    } else {
+                        i = j;
                     }
-                    if (j == arg.Length - 1) break;
-                    arg = arg.Substring(j + 1);
-                    i = -1;
-                } else if (arg[i] == ' ') {
+                } else if (delim.IndexOf(arg[i]) != -1) {
                     args.Add(arg.Substring(0, i));
                     if (i < arg.Length - 1) {
                         arg = arg.Substring(i + 1);
