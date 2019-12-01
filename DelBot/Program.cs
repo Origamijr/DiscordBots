@@ -25,6 +25,7 @@ namespace DelBot {
         public static Queue<Tuple<string, ISocketMessageChannel>> MessageQueue = new Queue<Tuple<string, ISocketMessageChannel>>();
         static Timer timer;
         static Timer pingKevin;
+        static int kevinIsTrash = 0;
         private static int msgTimerDelay = 3000;
 
         private SocketCommandContext context = null;
@@ -33,11 +34,11 @@ namespace DelBot {
          * Main method
          */
         static void Main(string[] args) {
-            //new Program().RunBotAsync().GetAwaiter().GetResult();
+            new Program().RunBotAsync().GetAwaiter().GetResult();
             //AuctionUtils.ConstructJson(AuctionUtils.tsvFilename, AuctionUtils.jsonFilename);
-            foreach (var param in Utilities.ParamSplit("asdf-th(is-i)s-asd", strictGrouper: false, delim: "-", grouping: "()")) {
-                Console.WriteLine(param);
-            }
+            //foreach (var param in Utilities.ParamSplit("asdf-th(is-i)s-asd", strictGrouper: false, delim: "-", grouping: "()")) {
+            //    Console.WriteLine(param);
+            //}
         }
 
         // Private variables holding discord objects
@@ -54,7 +55,7 @@ namespace DelBot {
 
             pingKevin = new Timer();
             pingKevin.Start();
-            pingKevin.Interval = 1000 * 60 * 60 * 20;
+            pingKevin.Interval = 1000 * 6;//0 * 60 * 20;
             pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
@@ -82,7 +83,13 @@ namespace DelBot {
 
         private void PingKevin(object sender, ElapsedEventArgs e) {
             if (context != null) {
-                context.Channel.SendMessageAsync("<@!236746009688932354> don't be a trash human");
+                if (kevinIsTrash == 1) {
+                    context.Channel.SendMessageAsync("@everyone Kevin is a trash human (or dead)");
+                    kevinIsTrash = 2;
+                } else if (kevinIsTrash == 0) {
+                    context.Channel.SendMessageAsync("<@!236746009688932354> don't be a trash human");
+                    kevinIsTrash = 1;
+                }
             }
         }
 
@@ -104,6 +111,9 @@ namespace DelBot {
 
             if (message is null) //|| message.Author.IsBot)
                 return;
+
+            if (!message.Author.IsBot)
+                kevinIsTrash = 0;
 
             int argPos = 0;
 
