@@ -55,7 +55,7 @@ namespace DelBot {
 
             pingKevin = new Timer();
             pingKevin.Start();
-            pingKevin.Interval = 1000 * 6;//0 * 60 * 20;
+            pingKevin.Interval = 1000 * 60 * 60 * 20;
             pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
