@@ -152,33 +152,64 @@ namespace DelBot.Modules {
         }
 
         [Command("help")]
-        public async Task HelpAsync() {
-            await Program.EnqueueMessage("```" +
-                ">>ping                 - pong\n" +
-                ">>hello                - say hi to Del\n" +
-                ">>say <phrase>         - tell Del to say ANYTHING *cough* verbatim\n" +
-                ">>repeat <p1> <p2> ... - Get Del to repeat a message containg the given keywords *CAUTION*" +
-                ">>stahp                - clear the message queue\n" +
-                ">>source               - get a link to Del's source code\n" +
-                "\n" +
-                ">>remember <phrase>              - get Del to remember a phrase\n" +
-                ">>remember <varname> := <phrase> - get Del to remember a phrase with a keyword" +
-                ">>remember <varname>??           - get Del to recall a phrase with a keyword" +
-                ">>rememberArr <p1> <p2> ...      - get Del to remember multiple phrases\n" +
-                ">>invade <@user>                 - Del invades another user's wordbank" +
-                ">>cookie                         - Del gives you a cookie\n" +
-                "\n" +
-                ">>verbatim                                  - Toggle verbatim mode" +
-                ">>if <e1> <op> <e2> then <if> [else <else>] - Del will conditionally say something" +
-                ">>evaluate <integer expression>             - evaluate the given expression" +
-                "\n" +
-                ">>rpg init <str> <vit> <int> <dex> - initialize an rpg profile\n" +
-                ">>rpg stats                        - display your current stats\n" +
-                ">>rpg attack <player>              - attacks the specified player\n" +
-                "\n" +
-                ">>cfg <V1 V2...> <T1 T2...> <v [P]->vt;...> <S> - create a context-free grammar\n" +
-                ">>cfg.set <name>                                - remember the last created grammar\n" +
-                ">>cfg.sim <steps> {name=last}                   - simulate a grammar for a number of steps\n```", Context.Channel);
+        public async Task HelpAsync([Remainder]string s = null) {
+            if (s == null) {
+                await Program.EnqueueMessage("```" +
+                    ">>ping                 - pong\n" +
+                    ">>hello                - say hi to Del\n" +
+                    ">>say <phrase>         - tell Del to say ANYTHING *cough* verbatim\n" +
+                    ">>repeat <p1> <p2> ... - Get Del to repeat a message containg the given keywords *CAUTION*\n" +
+                    ">>stahp                - clear the message queue\n" +
+                    ">>source               - get a link to Del's source code\n" +
+                    "\n" +
+                    ">>remember <phrase>              - get Del to remember a phrase\n" +
+                    ">>remember <varname> := <phrase> - get Del to remember a phrase with a keyword\n" +
+                    ">>remember <varname>??           - get Del to recall a phrase with a keyword\n" +
+                    ">>rememberArr <p1> <p2> ...      - get Del to remember multiple phrases\n" +
+                    ">>invade <@user>                 - Del invades another user's wordbank" +
+                    ">>cookie                         - Del gives you a cookie\n" +
+                    "\n" +
+                    ">>verbatim                                  - Toggle verbatim mode\n" +
+                    ">>if <e1> <op> <e2> then <if> [else <else>] - Del will conditionally say something\n" +
+                    ">>evaluate <integer expression>             - evaluate the given expression\n" +
+                    "\n" +
+                    "Modules: (use >>help \"[module name]\"\n" +
+                    "\trpg    - WIP rpg mechanics\n" +
+                    "\tcfg    - PCFG generator\n" +
+                    "\tpoker5 - 5-draw poker\n```", Context.Channel);
+            } else {
+                var args = Utilities.ParamSplit(s);
+                if (args.Count == 1) {
+                    switch (args[0]) {
+                        case "rpg":
+                            await Program.EnqueueMessage("```" +
+                                ">>rpg init <str> <vit> <int> <dex> - initialize an rpg profile\n" +
+                                ">>rpg stats                        - display your current stats\n" +
+                                ">>rpg attack <player>              - attacks the specified player\n```", Context.Channel);
+                            break;
+
+                        case "cfg":
+                            await Program.EnqueueMessage("```" +
+                                 ">>cfg <V1 V2...> <T1 T2...> <v [P]->vt;...> <S> - create a context-free grammar\n" +
+                                 ">>cfg.set <name>                                - remember the last created grammar\n" +
+                                 ">>cfg.sim <steps> {name=last}                   - simulate a grammar for a number of steps\n```", Context.Channel);
+                            break;
+
+                        case "poker5":
+                            await Program.EnqueueMessage("```" +
+                                 ">>poker5.create                 - Create a game.\n" +
+                                 ">>poker5.join <game ID>         - Join a game via ID (Init Phase)\n" +
+                                 ">>poker5.start                  - Start the game\n" +
+                                 ">>poker5.check                  - Pass bet without action [Abbr. >>p.ch]\n" +
+                                 ">>poker5.raise <amount>         - Raise the current bet [Abbr. >>p.r]\n" +
+                                 ">>poker5.call                   - Match the current bet [Abbr. >>p.ca]\n" +
+                                 ">>poker5.fold                   - Cowardice [Abbr. >>p.f]\n" +
+                                 ">>poker5.exchange [i1] [i2] ... - Exchange cards at indices i1, i2, ... [Abbr. >>p.e]\n" +
+                                 ">>poker5.terminate              - Terminate current game\n```", Context.Channel);
+                            break;
+                    }
+                }
+            }
         }
     }
 }
