@@ -28,9 +28,9 @@ namespace DelBot {
         static Timer timer;
         static Timer pingKevin;
         static int kevinIsTrash = 0;
-        private static int msgTimerDelay = 1000;
+        private static int msgTimerDelay = 3000;
 
-        private SocketCommandContext context = null;
+        private SocketCommandContext mainContext = null;
 
         /**
          * Main method
@@ -87,12 +87,12 @@ namespace DelBot {
         }
 
         private void PingKevin(object sender, ElapsedEventArgs e) {
-            if (context != null) {
+            if (mainContext != null) {
                 if (kevinIsTrash == 1) {
-                    context.Channel.SendMessageAsync("@everyone Kevin is a trash human (or dead)");
+                    mainContext.Channel.SendMessageAsync("@everyone Kevin is a trash human (or dead)");
                     kevinIsTrash = 2;
                 } else if (kevinIsTrash == 0) {
-                    context.Channel.SendMessageAsync("<@!236746009688932354> don't be a trash human");
+                    mainContext.Channel.SendMessageAsync("<@!236746009688932354> don't be a trash human");
                     kevinIsTrash = 1;
                 }
             }
@@ -112,7 +112,9 @@ namespace DelBot {
 
         private async Task HandleCommandAsync(SocketMessage arg) {
             var message = arg as SocketUserMessage;
-            context = new SocketCommandContext(_client, message);
+            var context = new SocketCommandContext(_client, message);
+            if (mainContext is null)
+                mainContext = context;
 
             if (message is null) //|| message.Author.IsBot)
                 return;
