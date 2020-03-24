@@ -28,6 +28,10 @@ namespace DelBot.HauteAuction {
             return GetEnumerator();
         }
 
+        public override string ToString() {
+            return "[" + string.Join(",", this) + "]";
+        }
+
         public void Add(AuctionIdentifiable thing) {
             this.collection.Add(thing);
         }

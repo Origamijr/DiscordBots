@@ -1,4 +1,4 @@
-dotnet publish -c Release -r win10-x64 DelBot
+dotnet publish -c Release -r win10-x64 -v m DelBot
 
 @echo off
 (

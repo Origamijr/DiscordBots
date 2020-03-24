@@ -1,147 +1,148 @@
 ID	Name	Class	Rarity	Effect Text	Flavor Text	Effect Code
 0	Ordinary Jewelry	Neutral	C	"Fanfare: Gain 0-10 cookies.
-Sell: Gain 5 cookies."	"A random piece of jewelry [Player] stole from their mother's cabinet. [Player] didn't know what it was, and they don't care."	"fanfare self.cookies ga [0,10]
-sell self.cookies ga 5"
+Sell: Gain 5 cookies."	"A random piece of jewelry [Player] stole from their mother's cabinet. [Player] didn't know what it was, and they don't care."	"fanfare self cookies add (rand 0 10)
+sell self cookies add 5"
 1	Blackmail	Neutral	C	"Activate: Select a player and an item they revealed.
 Fanfare: The selected item is sent to the discard pile.
-Action: The selected player loses 0-10 cookies."	Crime never pays.	"activate this.set player arg[1]
-activate this.set item arg[2]
-fanfare this.item.discard
-action this.player.cookies la [0,10]"
+Action: The selected player loses 0-10 cookies."	Crime never pays.	"activate this set player #1
+activate this set item #2
+fanfare this get item discard
+action this get player cookies add (rand 0 10)"
 2	Scandal Tabloid	Neutral	C	"Activate: Select a player and a bot.
 Fanfare: If the selected bot is backing the selected player, cancel that backing.
-Action: The selected player loses 0-1 favor with each bot."	It doesn't matter if it's a lie as long as you get what you want.	"activate this.set player arg[1]
-activate this.set bot arg[2]
-fanfare (= this.player this.bot.back) ? 1 : 2
-fanfare this.bot.back.unback
-action this.player.favor all l [0,1]"
-3	[Player]'s poop	Neutral	C	Sell: Lose 10 cookies.	"Hey, [Player] needed to fill their deck somehow."	sell self.cookies la 10
+Action: The selected player loses 0-1 favor with each bot."	It doesn't matter if it's a lie as long as you get what you want.	"activate this set player #1
+activate this set bot #2
+fanfare (= (this get player) (this get bot back)) ? 1 : 2
+fanfare (this get bot) back unback
+action (this get player) favor all add (rand -1 0)"
+3	[Player]'s poop	Neutral	C	Sell: Lose 10 cookies.	"Hey, [Player] needed to fill their deck somehow."	sell self cookies add -10
 4	Diamond	Neutral	R	"Activate: Select a bot.
 Fanfare: Gain 2 favor with the selected bot.
-Sell: Gain 50 cookies."		"activate this.set bot arg[1]
-fanfare self.favor this.bot g 2
-sell self.cookies ga 50"
+Sell: Gain 50 cookies."		"activate this set bot #1
+fanfare self favor (this get bot) add 2
+sell self cookies add 50"
 5	Slave	Live	C	"Acquire: Gain 1 favor with Del. Lose 1 favor with all other bots.
 Action: Gain 15 cookies.
-Sell: Gain 10 cookies."		"acquire self.favor del g 1
-acquire self.favor all-del l 1
-action self.cookies ga 15
-sell self.cookies ga 10"
+Sell: Gain 10 cookies."		"acquire self favor del add 1
+acquire {bots,bot,!= bot del,self favor del add -1}
+action self cookies add 15
+sell self cookies add 10"
 6	Caged Bird	Live	C	"Activate: Select a Bot.
 Fanfare: Gain 2 favor with the selected bot.
-Sell: Gain 20 cookies."		"activate this.set bot arg[1]
-fanfare self.favor this.bot g 2
-sell self.cookies ga 20"
+Sell: Gain 20 cookies."		"activate this set bot #1
+fanfare self favor (this get bot) add 2
+sell self cookies add 20"
 7	Mercenary	Live	R	"Acquire: Gain 1 favor with Del. Lose 1 favor with Nabla.
 Action: Gain 30 cookies.
-Sell: Gain 20 cookies."		"acquire self.favor del g 1
-acquire self.favor nabla l 1
-action self.cookies ga 30
-sell self.cookies ga 20"
+Sell: Gain 20 cookies."		"acquire self favor del add 1
+acquire self favor nabla add -1
+action self cookies add 30
+sell self cookies add 20"
 8	Venomous Serpent	Live	R	"Activate: Select a bot.
 Fanfare: Gain 4 favor with the selected bot and lose 1 favor with a random bot.
-Sell: Gain 40 cookies."		"activate this.set bot arg[1]
-fanfare self.favor this.bot g 4
-fanfare self.favor r l 1
-sell self.cookies ga 40"
+Sell: Gain 40 cookies."		"activate this set bot #1
+fanfare self favor (this get bot) add 4
+fanfare self favor (rand (bots)) add -1
+sell self cookies add 40"
 9	Spy	Live	SR	"Activate: Select a player.
 Fanfare: Silent. Steal 50 cookies from the selected player.
 Action: Silent. Discard this item.
-Sell: Gain 40 cookies."		"activate this.set player arg[1]
-fanfare* self.cookies sa this.player 50
-action* this.discard
-sell self.cookies ga 40"
+Sell: Gain 40 cookies."		"activate this set player #1
+fanfare self cookies steal (this get player) 50
+action this discard
+sell self cookies add 40"
 10	Tiger	Live	SR	"Activate: Select a player.
 Fanfare: Gain 5 favor with the selected bot.
-Sell: Gain 60 cookies."		"activate this.set bot arg[1]
-fanfare self.favor this.bot g 5
-sell self.cookies ga 60"
+Sell: Gain 60 cookies."		"activate this set bot #1
+fanfare self favor (this get bot) add 5
+sell self cookies add 60"
 11	Phantom Thief	Live	SSR	"Fanfare: Silent. Steal 50 cookies from each player. Mill 1.
 Presence: If selected as a target for ""Select a player"", 25% chance to discard this item.
-Sell: Gain 80 cookies."		"activate this.set player arg[1]
-action self.cookies sa all 50
-presence @ *.set player *
-presence (= [0,3] 0) ? 1 : 2
-presence this.discard
-presence arg[1].set player arg[2]
-sell self.cookies ga 80"
+Sell: Gain 80 cookies."		"activate this set player #1
+action {players,player,_,self cookies steal player 50}
+presence @ * set player *
+presence (= (rand 0 3) 0) ? 1 : 2
+presence this discard
+presence #1 set player #2
+sell self cookies add 80"
 12	Phoenix	Live	SSR	"Action: Put a ""Phoenix Feather"" in your discard pile.
 Sell: Gain 200 cookies."		"action self.discard.add i13
-sell self.cookies ga 200"
-13	Phoenix Feather	Live	T	"Sell: Gain 50 cookies. If you didn't have ""Pheonix"" revealed, put a ""Pheonix"" in your discard pile. Remove this item from play."		"sell self.cookies ga 50
+sell self cookies add 200"
+13	Phoenix Feather	Live	T	"Sell: Gain 50 cookies. If you didn't have ""Pheonix"" revealed, put a ""Pheonix"" in your discard pile. Remove this item from play."		"sell self cookies add 50
 sell (> (self.reveal i12) 0) ? 1 : 2
 sell self.discard.add i12
 sell this.delete"
-14	Farming Sickle	Tool	C	Action: Gain X cookies. X is equal to your total number of items divided by 2.		"action this.set X (/(+ (self.items.count) 1) 2)
-action self.cookies ga (this.X)"
+14	Farming Sickle	Tool	C	Action: Gain X cookies. X is equal to your total number of items divided by 2.		"action this set X (/(+ (self.items.count) 1) 2)
+action self cookies add (this.X)"
 15	Worker's Hammer	Tool	C	"Acquire: Gain 1 favor with Marx.
 Activate: Select an item you had revealed with rarity C or R.
 Fanfare: Add a copy of the selected item to your discard pile.
-Sell: Gain 10 cookies."		"acquire self.favor marx g 1
+Sell: Gain 10 cookies."		"acquire self favor marx g 1
 activate (| (= arg[1].rarity C) (= arg[1].rarity R)) ? 1 : 2
-activate this.set item arg[1].id
+activate this set item arg[1].id
 fanfare self.discard.add this.item
-sell self.cookies ga 10"
+sell self cookies add 10"
 16	Crippling Debt	Tool	R	"Action: All other players lose 0-50 cookies.
 Presence: Treat this card as ""Blackmail"".
 Sell: Gain 30 cookies."		"action other.cookies la [0,50]
 presence @ this.id
 presence i1
-sell self.cookies ga 30"
+sell self cookies add 30"
 17	The Blog of a Very Angry Housewife	Tool	R	"Action: All other players lose 0-2 favor with each bot.
 Presence: Treat this card as a ""Scandal Tabloid"".
 Sell: Gain 30 cookies."		"action other.favor l [0,2]
 presence @ this.id
 presence i2
-sell self.cookies ga 30"
+sell self cookies add 30"
 18	Luxury Taxes	Tool	SR	"Activate: Select a player.
 Fanfare: The selected player loses X cookies. Add X tax counters to this card. X is equal to 20% of the selected player's cookies rounded up.
-Sell: Gain Y cookies. Y is equal to the number of tax counters on this card."		"acquire this.set _tax 0
-acquire this.set player arg[1]
-fanfare this.set _tax (+ (/ (+ (this.player.cookies q) 2) 5) (this._tax))
-sell self.cookies ga (this._tax)
-sell this.set _tax 0"
+Sell: Gain Y cookies. Y is equal to the number of tax counters on this card."		"acquire this set _tax 0
+acquire this set player arg[1]
+fanfare this set _tax (+ (/ (+ (this.player.cookies q) 2) 5) (this._tax))
+sell self cookies add (this._tax)
+sell this set _tax 0"
 19	The Communist Manifesto	Tool	SR	"Action: Gain 2 favor with Marx.
 Presence: Halve all ""Gain X Cookies"" effects.
-Sell: Gain 3 favor with each bot"		"action self.favor marx g 2
+Sell: Gain 3 favor with each bot"		"action self favor marx g 2
 presence @ *.cookies ga *
 presence arg[1].cookies ga (/ (+ arg[2] 1) 2)
-sell self.favor all g 3"
+sell self favor all g 3"
 20	Mass Media	Tool	SSR	"Fanfare: Put X ""Scandal Tabloid"" and X ""Blackmail"" into the house. X equals 20% of the number of items in the house rounded up.
 Action: Gain 10*Y cookies. If Y is greater than 4, win the game. Y equals the number of revealed ""Scandal Tabloid"" and ""Blackmail"".
-Sell: Gain 6 favor with each bot."		"fanfare this.set i (/ (+ house.count 2) 5)
+Sell: Gain 6 favor with each bot."		"fanfare this set i (/ (+ house.count 2) 5)
 fanfare this.i ? 5 : 1
 fanfare house.add i1
 fanfare house.add i2
-fanfare this.set i (- this.i 1)
+fanfare this set i (- this.i 1)
 fanfare 1 ? -4 : -4
-action this.set y 0
-action this.set y (+ y {player,{player.revealed,= revealed.id i1,+},+})
-action this.set y (+ y {player,{player.revealed,= revealed.id i2,+},+})
-action self.cookies ga (* this.y 10)
+action this set y 0
+action this set y (+ y {player,{player.revealed,= revealed.id i1,+},+})
+action this set y (+ y {player,{player.revealed,= revealed.id i2,+},+})
+action self cookies add (* this.y 10)
 action (= (this.y) 4) ? 1 : 2
 action self.win
-sell {bot,self.favor bot g 6,_}"
+sell {bot,self favor bot g 6,_}"
 21	Battle of Wits	Tool	SSR	"Fanfare: If the total number of items you own is at least 50, win the game.
 Sell: Gain 100 cookies."		"fanfare (>= (+ (+ (self.discard.count) (self.hand.count)) (self.deck.count) 50) ? 1 : 2
 fanfare self.win
-sell self.cookies ga 100"
-22	Cookie Machine	Arcane	C	"Action: Gain X cookies. If X equals 15, gain 25 cookies. X is selected from 5-15."		"action this.set x [5,15]
-action self.cookies ga (this.x)
+sell self cookies add 100"
+22	Cookie Machine	Arcane	C	"Action: Gain X cookies. If X equals 15, gain 25 cookies. X is selected from 5-15."		"action this set x [5,15]
+action self cookies add (this.x)
 action (= (this.x) 15) ? 1 : 2
-action self.cookies ga 25"
+action self cookies add 25"
 23	Sketchy Spellbook	Arcane	C	"Acquire: Gain 1 favor with TestBot.
 Fanfare: If X is 0, Gain 10 cookies. If X is 1, Steal 5 cookies from each player. If X is 2, Gain 1 favor with each bot. If X is 3, Each other player loses 1 favor with each bot. If X is 4, Put a ""Sketchy Spellbook"" in your discard pile. If X is 5, remove this item from play. X is selected from 0-5.
 Action: Discard this item.
-Sell: Gain 10 cookies."		"acquire self.favor test g 1
-fanfare this.set x [0,5]
+Sell: Gain 10 cookies."		"acquire self favor test g 1
+fanfare this set x [0,5]
 fanfare (= (this.x) 0) ? 1 : 4
-fanfare self.cookies ga 10
+fanfare self cookies add 10
 fanfare 1 ? 1 : 1
 fanfare (= (this.x) 1) ? 1 : 4
 fanfare {player,self.cookies sa player 10,_}"
 24	Crystal Ball	Arcane	R	"Activate: Lose 5 cookies. Select a card in your deck. Discard this card and add the selected card to your hand.
-Sell: Gain 30 cookies."		
+Sell: Gain 30 cookies."		"acitvate self cookies add -5
+"
 25	Dowsing Machine	Arcane	R	"Activate: Lose 5 cookies. Select a card in your discard pile except ""Dowsing Machine"". Discard this card and add the selected card to your hand.
 Sell: Gain 30 cookies."		
 26	Unstable Element	Arcane	SR	"Fanfare: Place a random item from the house into your discard pile.
