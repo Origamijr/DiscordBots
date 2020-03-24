@@ -1,1 +1,1 @@
-dotnet publish -c Release -r linux-arm -o ../DiscordBots_raspi/TestBot TestBot
+dotnet publish -c Release -r linux-arm -o ./DiscordBots_raspi/TestBot TestBot
