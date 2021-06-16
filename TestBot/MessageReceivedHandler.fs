@@ -68,7 +68,7 @@ let HandleSChanMessage (message : SocketUserMessage) =
                 None
             | (_,_) -> None
         | None -> None
-    | Regex @"^.*testbot.*cuck.*$" _ -> 
+    | Regex @"^.*testbot.*is.*$" _ -> 
         AddReactions message [|"🇼";"🇭";"🇾";"😢"|]
         None
     | Regex @"^.*blaze.*it.*$" _ ->
