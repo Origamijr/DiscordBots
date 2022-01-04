@@ -14,11 +14,11 @@ let ThrowRandomMessage channelName =
     let r = rnd.NextDouble ()
     let cookieRate = 
         match channelName with
-        | "general" -> 0.0001
+        | "general" -> 0.00001
         | _ -> 0.0
     let existRate =
         match channelName with
-        | "general" -> 0.01
+        | "general" -> 0.001
         | "nsfw" -> 0.2
         | _ -> 0.0
 
