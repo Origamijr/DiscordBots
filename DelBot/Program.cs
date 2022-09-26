@@ -28,6 +28,7 @@ namespace DelBot {
         static Timer timer;
         static Timer pingKevin;
         static int kevinIsTrash = 0;
+        static Random r = new Random();
         private static int msgTimerDelay = 3000;
 
         private SocketCommandContext mainContext = null;
@@ -37,13 +38,6 @@ namespace DelBot {
          */
         static void Main(string[] args) {
             new Program().RunBotAsync().GetAwaiter().GetResult();
-
-            //PokerGame.Test();
-
-            //AuctionUtils.ConstructJson(AuctionUtils.tsvFilename, AuctionUtils.jsonFilename);
-            //foreach (var param in Utilities.ParamSplit("asdf-th(is-i)s-asd", strictGrouper: false, delim: "-", grouping: "()")) {
-            //    Console.WriteLine(param);
-            //}
         }
 
         // Private variables holding discord objects
@@ -60,7 +54,7 @@ namespace DelBot {
 
             pingKevin = new Timer();
             pingKevin.Start();
-            pingKevin.Interval = 1000 * 60 * 60 * 20;
+            pingKevin.Interval = r.Next(1000 * 60 * 60 * 20, 1000 * 60 * 60 * 28);
             pingKevin.Elapsed += new ElapsedEventHandler(PingKevin);
 
             _client = new DiscordSocketClient();
@@ -87,13 +81,18 @@ namespace DelBot {
         }
 
         private void PingKevin(object sender, ElapsedEventArgs e) {
+            pingKevin.Interval = r.Next(1000 * 60 * 60 * 20, 1000 * 60 * 60 * 28);
             if (mainContext != null) {
-                if (kevinIsTrash == 1) {
+                if (kevinIsTrash == 2) {
                     mainContext.Channel.SendMessageAsync("@everyone Kevin is a trash human (or dead)");
-                    kevinIsTrash = 2;
+                    kevinIsTrash = 3; 
+                    _client.SetGameAsync("Kevin?");
                 } else if (kevinIsTrash == 0) {
                     mainContext.Channel.SendMessageAsync("<@!236746009688932354> don't be a trash human");
                     kevinIsTrash = 1;
+                    _client.SetGameAsync("Awaiting Kevin...");
+                } else {
+                    kevinIsTrash++;
                 }
             }
         }
@@ -119,8 +118,10 @@ namespace DelBot {
             if (message is null) //|| message.Author.IsBot)
                 return;
 
-            if (!message.Author.IsBot)
+            if (!message.Author.IsBot) {
                 kevinIsTrash = 0;
+                await _client.SetGameAsync(">>help");
+            }
 
             //Console.WriteLine(message);
 

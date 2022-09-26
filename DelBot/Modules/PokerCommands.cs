@@ -210,7 +210,7 @@ namespace DelBot.Modules {
         }
 
         public async Task SendDM(Discord.WebSocket.SocketUser user, string message) {
-            Discord.WebSocket.ISocketMessageChannel dm = (Discord.WebSocket.ISocketMessageChannel)(await user.GetOrCreateDMChannelAsync());
+            Discord.WebSocket.ISocketMessageChannel dm = (Discord.WebSocket.ISocketMessageChannel)(await user.CreateDMChannelAsync());
             await Program.EnqueueMessage(message, dm);
         }
 

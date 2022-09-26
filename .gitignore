@@ -8,6 +8,7 @@ Tokens.txt
 nlp/
 linux-arm/
 .ionide/
+venv*/
 
 # User-specific files
 *.suo
